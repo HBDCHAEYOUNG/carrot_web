@@ -5,11 +5,41 @@
     { "path": "./tsconfig.node.json" }
   ],
   "compilerOptions": {
-    /*svg*/
     "types": ["vite-plugin-svgr/client"],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      // app
+      "@app/*": ["src/app/*"],
+      "@routes/*": ["src/app/routes/*"],
+      "@layouts/*": ["src/app/layouts/*"],
+
+      // entities
+      "@entities/*": ["src/entities/*"],
+
+      // features
+      "@features/*": ["src/features/*"],
+
+      // pages
+      "@pages/*": ["src/pages/*"],
+
+      // processes
+      "@processes/*": ["src/processes/*"],
+
+      // widgets
+      "@widgets/*": ["src/widgets/*"],
+
+      // shared
+      "@hooks/*": ["src/shared/hooks/*"],
+      "@lib/*": ["src/shared/lib/*"],
+      "@providers/*": ["src/shared/providers/*"],
+      "@store/*": ["src/shared/store/*"],
+      "@styles/*": ["src/shared/styles/*"],
+      "@types/*": ["src/shared/types/*"],
+      "@ui/*": ["src/shared/ui/*"],
+      "@utils/*": ["src/shared/utils/*"],
+
+      // public
+      "@images/*": ["public/images/*"]
     }
   },
   "include": ["./svg.d.ts"]
