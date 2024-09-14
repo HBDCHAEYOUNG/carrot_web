@@ -1,46 +1,61 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ],
-  "compilerOptions": {
-    "types": ["vite-plugin-svgr/client"],
-    "baseUrl": ".",
-    "paths": {
-      // app
-      "@app/*": ["src/app/*"],
-      "@routes/*": ["src/app/routes/*"],
-      "@layouts/*": ["src/app/layouts/*"],
+	"compilerOptions": {
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"skipLibCheck": true,
+		"composite": true,
 
-      // entities
-      "@entities/*": ["src/entities/*"],
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+		"jsx": "react-jsx",
 
-      // features
-      "@features/*": ["src/features/*"],
+		/* Linting */
+		"strict": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true,
 
-      // pages
-      "@pages/*": ["src/pages/*"],
+		"baseUrl": ".",
+		"paths": {
+			// app
+			"@app/*": ["src/app/*"],
+			"@routes/*": ["src/app/routes/*"],
+			"@layouts/*": ["src/app/layouts/*"],
 
-      // processes
-      "@processes/*": ["src/processes/*"],
+			// entities
+			"@entities/*": ["src/entities/*"],
 
-      // widgets
-      "@widgets/*": ["src/widgets/*"],
+			// features
+			"@features/*": ["src/features/*"],
 
-      // shared
-      "@hooks/*": ["src/shared/hooks/*"],
-      "@lib/*": ["src/shared/lib/*"],
-      "@providers/*": ["src/shared/providers/*"],
-      "@store/*": ["src/shared/store/*"],
-      "@styles/*": ["src/shared/styles/*"],
-      "@types/*": ["src/shared/types/*"],
-      "@ui/*": ["src/shared/ui/*"],
-      "@utils/*": ["src/shared/utils/*"],
+			// pages
+			"@pages/*": ["src/pages/*"],
 
-      // public
-      "@images/*": ["public/images/*"]
-    }
-  },
-  "include": ["./svg.d.ts"]
+			// processes
+			"@processes/*": ["src/processes/*"],
+
+			// widgets
+			"@widgets/*": ["src/widgets/*"],
+
+			// shared
+			"@hooks/*": ["src/shared/hooks/*"],
+			"@lib/*": ["src/shared/lib/*"],
+			"@providers/*": ["src/shared/providers/*"],
+			"@store/*": ["src/shared/store/*"],
+			"@styles/*": ["src/shared/styles/*"],
+			"@types/*": ["src/shared/types/*"],
+			"@ui/*": ["src/shared/ui/*"],
+			"@utils/*": ["src/shared/utils/*"],
+
+			// public
+			"@images/*": ["public/images/*"]
+		}
+	},
+	"include": ["src", "svg.d.ts", "vite-env.d.ts", "layouts/routes", "layouts"]
 }
