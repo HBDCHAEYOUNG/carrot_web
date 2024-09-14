@@ -1,10 +1,11 @@
-// import Logo from "@images/carrot.svg?react";
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarSeparator, MenubarTrigger } from '@radix-ui/react-menubar'
 import useSearchStore from '@store/searchStore'
 import { CiBellOn, CiSearch } from 'react-icons/ci'
 import { MdOutlineKeyboardArrowUp } from 'react-icons/md'
 
 import { Menubar } from '@ui/_shardcn/menubar'
+
+import { Logo } from '@icons/logo'
 
 function Header() {
 	const region = ['읍내동', '동천동', '구암동']
@@ -27,7 +28,7 @@ function Header() {
 				</MenubarMenu>
 			</Menubar>
 
-			{/* <Logo /> */}
+			<Logo />
 
 			<div>
 				<CiSearch className="h-6 w-6" onClick={toggleSearchMode} />

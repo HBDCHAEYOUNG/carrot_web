@@ -1,4 +1,5 @@
-import { Detail, Home } from '@pages/index'
+import { Detail } from '@pages/detail'
+import { Home } from '@pages/home'
 
 import CommonLayout from '../layouts/common-layout'
 import { ErrorLayout } from './error-routes'
