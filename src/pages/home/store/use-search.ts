@@ -1,30 +1,30 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface Search {
-  // 변수값만
-  searchMode: boolean;
+	// 변수값만
+	searchMode: boolean
 }
 
 interface SearchProps extends Search {
-  // 함수들만
-  setSearchMode: () => void;
+	// 함수들만
+	setSearchMode: () => void
 }
 
 const INIT = {
-  // 변수값만
-  searchMode: false,
-};
+	// 변수값만
+	searchMode: false,
+}
 
 export const useSearchStore = create(
-  persist<SearchProps>(
-    (set) => ({
-      ...INIT,
+	persist<SearchProps>(
+		(set) => ({
+			...INIT,
 
-      setSearchMode: () => set((state) => ({ searchMode: !state.searchMode })),
-    }),
-    {
-      name: "search",
-    }
-  )
-);
+			setSearchMode: () => set((state) => ({ searchMode: !state.searchMode })),
+		}),
+		{
+			name: 'search',
+		},
+	),
+)

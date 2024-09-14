@@ -1,3 +1,3 @@
 export function ErrorLayout() {
-  return <div>error page</div>;
+	return <div>error page</div>
 }

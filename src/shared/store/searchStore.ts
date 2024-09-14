@@ -1,14 +1,14 @@
-import { create } from "zustand";
+import { create } from 'zustand'
 
 interface StoreProps {
-  searchMode: boolean;
-  toggleSearchMode: () => void;
+	searchMode: boolean
+	toggleSearchMode: () => void
 }
 
 const useSearchStore = create<StoreProps>((set) => ({
-  searchMode: false,
+	searchMode: false,
 
-  toggleSearchMode: () => set((state) => ({ searchMode: !state.searchMode })),
-}));
+	toggleSearchMode: () => set((state) => ({ searchMode: !state.searchMode })),
+}))
 
-export default useSearchStore;
+export default useSearchStore

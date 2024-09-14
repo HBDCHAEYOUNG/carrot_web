@@ -1,3 +1,3 @@
 export function useHome() {
-  return { tes: 123 };
+	return { tes: 123 }
 }

@@ -1,4 +1,5 @@
-import { createBrowserRouter } from "react-router-dom";
-import { HomeRoutes } from "./home-routes";
+import { createBrowserRouter } from 'react-router-dom'
 
-export default createBrowserRouter([HomeRoutes]);
+import { HomeRoutes } from './home-routes'
+
+export default createBrowserRouter([HomeRoutes])
