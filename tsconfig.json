@@ -46,6 +46,7 @@
 			// shared
 			"@hooks/*": ["src/shared/hooks/*"],
 			"@lib/*": ["src/shared/lib/*"],
+			"@icons/*": ["src/shared/icons/*"],
 			"@providers/*": ["src/shared/providers/*"],
 			"@store/*": ["src/shared/store/*"],
 			"@styles/*": ["src/shared/styles/*"],
