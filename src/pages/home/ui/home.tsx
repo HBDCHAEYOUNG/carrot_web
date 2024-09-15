@@ -16,7 +16,7 @@ export function Home() {
 			Home입니다
 			<Link to="detail">detail로 이동</Link>
 			<InputText />
-			<ul className="flex flex-col items-center justify-center gap-5">
+			<ul className="flex flex-col gap-5">
 				{items.map(({ title, locate, createAt }) => (
 					<li className="">
 						<p>{title}</p>
