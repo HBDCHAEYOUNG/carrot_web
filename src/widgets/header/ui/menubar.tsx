@@ -5,6 +5,7 @@ import { MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icon
 import { cn } from '@lib/utils'
 
 import { Menubar as MenubarWrapper } from '@ui/_shardcn/menubar'
+import { Overlay } from '@ui/index'
 
 export function Menubar() {
 	const [isOpen, setIsOpen] = useState(false)
@@ -15,7 +16,7 @@ export function Menubar() {
 		e.stopPropagation()
 		setIsOpen(false)
 	}
-	console.log(isOpen)
+
 	return (
 		<MenubarWrapper>
 			<MenubarMenu>
@@ -27,7 +28,7 @@ export function Menubar() {
 					{isOpen ? <MdOutlineKeyboardArrowUp /> : <MdOutlineKeyboardArrowDown />}
 				</MenubarTrigger>
 
-				{isOpen && <div className="fixed inset-0 !bg-[#00000050]" onClick={onClickContent} />}
+				{isOpen && <Overlay onClick={onClickContent} />}
 
 				<MenubarContent className="relative flex flex-col rounded-xl border bg-white" onClick={onClickContent}>
 					{region.map((items, index) => (

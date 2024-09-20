@@ -32,7 +32,7 @@ export function Home() {
 		<div onClick={() => {}} className="w-full">
 			<ul className="flex flex-col gap-5 px-4">
 				{items.map(({ title, locate, createAt, imageURL, price }) => (
-					<li className="flex gap-5">
+					<li className="flex gap-5 border-b border-gray-01 pb-4">
 						<div className="aspect-square basis-1/3 overflow-hidden rounded-md">
 							<img src={imageURL} alt={title} className="h-full w-full object-cover" />
 						</div>
