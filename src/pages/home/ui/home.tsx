@@ -1,3 +1,8 @@
+import { Link } from 'react-router-dom'
+
+import { locale } from '@lib/locale'
+import compactNumber from '@lib/numberFormat'
+
 import '@styles/font.css'
 
 const items = [
@@ -29,23 +34,25 @@ const items = [
 
 export function Home() {
 	return (
-		<div onClick={() => {}} className="w-full">
-			<ul className="flex flex-col gap-5 px-4">
-				{items.map(({ title, locate, createAt, imageURL, price }) => (
-					<li className="flex gap-5 border-b border-gray-01 pb-4">
-						<div className="aspect-square basis-1/3 overflow-hidden rounded-md">
-							<img src={imageURL} alt={title} className="h-full w-full object-cover" />
-						</div>
-						<div className="flex-1 basis-2/3 whitespace-nowrap">
-							<p>{title}</p>
-							<p className="text-sm text-gray-02">
-								{locate} {createAt}
-							</p>
-							<p className="font-extrabold">{price}원</p>
-						</div>
+		<section>
+			<ul className="flex flex-col px-2">
+				{[...items, ...items, ...items, ...items].map(({ title, locate, createAt, imageURL, price }) => (
+					<li>
+						<Link to="#" className="flex cursor-pointer border-b border-gray-01 py-4">
+							<picture className="basis-1/3 overflow-hidden rounded-md">
+								<img src={imageURL} alt={title} className="aspect-square size-full object-cover" />
+							</picture>
+							<div className="flex flex-1 basis-2/3 flex-col whitespace-nowrap pl-2">
+								<h3>{title}</h3>
+								<small className="text-gray-02">
+									{locate} {locale(createAt)}
+								</small>
+								<b className="font-extrabold">{compactNumber(price)}원</b>
+							</div>
+						</Link>
 					</li>
 				))}
 			</ul>
-		</div>
+		</section>
 	)
 }
