@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { CiBellOn, CiSearch } from 'react-icons/ci'
+import { Link } from 'react-router-dom'
 
 import { Menubar, SearchForm } from '@widgets/header'
 
 import { Logo } from '@icons/logo'
 
-function Header() {
+export function Header() {
 	const [search, setSearch] = useState(false)
 
 	const onClickSearch = () => {
@@ -13,9 +14,11 @@ function Header() {
 	}
 
 	return (
-		<header className="my-4 flex w-full items-center justify-between px-2">
+		<header className="fixed z-10 flex w-full items-center justify-between bg-white p-2">
 			<Menubar />
-			<Logo />
+			<Link to="/">
+				<Logo />
+			</Link>
 			<div className="flex items-center gap-2">
 				<CiSearch className="h-6 w-6 cursor-pointer" onClick={onClickSearch} />
 				<CiBellOn className="h-6 w-6 cursor-pointer" />
@@ -25,5 +28,3 @@ function Header() {
 		</header>
 	)
 }
-
-export default Header

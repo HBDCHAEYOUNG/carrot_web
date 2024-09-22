@@ -12,6 +12,7 @@ export default {
 			colors: {
 				'gray-01': 'var(--gray-01)',
 				'gray-02': 'var(--gray-02)',
+				'brand-01': 'var(--brand-01)',
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				card: {

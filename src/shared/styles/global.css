@@ -5,6 +5,7 @@
 :root {
 	--gray-01: #edefef;
 	--gray-02: rgb(150, 150, 150);
+	--brand-01: rgb(255, 111, 15);
 }
 
 /* :root.dark {
@@ -12,7 +13,6 @@
 
 body {
 	margin: 0;
-	display: flex;
 	min-width: 320px;
 	min-height: 100vh;
 }

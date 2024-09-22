@@ -35,7 +35,7 @@ const items = [
 export function Home() {
 	return (
 		<section>
-			<ul className="flex flex-col px-2">
+			<ul className="flex flex-col px-2 pt-10">
 				{[...items, ...items, ...items, ...items].map(({ title, locate, createAt, imageURL, price }) => (
 					<li>
 						<Link to="#" className="flex cursor-pointer border-b border-gray-01 py-4">

@@ -1,5 +1,7 @@
 import { Detail } from '@pages/detail'
 import { Home } from '@pages/home'
+import { Login } from '@pages/login'
+import { SignUp } from '@pages/login/ui/sign-up'
 
 import CommonLayout from '../layouts/common-layout'
 import { ErrorLayout } from './error-routes'
@@ -9,7 +11,9 @@ export const HomeRoutes = {
 	element: <CommonLayout />,
 	children: [
 		{ index: true, element: <Home /> },
-		{ path: 'detail', element: <Detail title="detail" /> },
+		{ path: 'detail/:id', element: <Detail /> },
+		{ path: 'auth/login', element: <Login /> },
+		{ path: 'auth/signup', element: <SignUp /> },
 	],
 	errorElement: <ErrorLayout />,
 }
