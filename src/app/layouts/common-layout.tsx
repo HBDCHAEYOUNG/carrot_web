@@ -2,12 +2,17 @@ import { Outlet } from 'react-router-dom'
 
 import { Footer, Header } from './index'
 
-function CommonLayout() {
+interface CommonLayoutProps {
+	isHeader?: boolean
+	isFooter?: boolean
+}
+
+function CommonLayout({ isHeader = true, isFooter = true }: CommonLayoutProps) {
 	return (
 		<div>
-			<Header />
+			{isHeader && <Header />}
 			<Outlet />
-			<Footer />
+			{isFooter && <Footer />}
 		</div>
 	)
 }

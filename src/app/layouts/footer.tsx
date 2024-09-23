@@ -8,7 +8,7 @@ export function Footer() {
 			{[
 				{ icon: homeIcon, path: '/' },
 				{ icon: chatIcon, path: '/' },
-				{ icon: userIcon, path: '/auth/login' },
+				{ icon: userIcon, path: '/auth' },
 			].map(({ icon: Icon, path }) => (
 				<Link key={Icon.name} to={path}>
 					<Icon className="size-9 p-1" />
