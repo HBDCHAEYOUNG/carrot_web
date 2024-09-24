@@ -17,11 +17,11 @@ export function Header() {
 		<header className="fixed z-10 flex w-full items-center justify-between bg-white p-2">
 			<Menubar />
 			<Link to="/">
-				<Logo />
+				<Logo className="h-6 w-auto" />
 			</Link>
 			<div className="flex items-center gap-2">
-				<CiSearch className="h-6 w-6 cursor-pointer" onClick={onClickSearch} />
-				<CiBellOn className="h-6 w-6 cursor-pointer" />
+				<CiSearch className="size-5 cursor-pointer" onClick={onClickSearch} />
+				<CiBellOn className="size-5 cursor-pointer" />
 			</div>
 
 			{search && <SearchForm onClickSearch={onClickSearch} />}

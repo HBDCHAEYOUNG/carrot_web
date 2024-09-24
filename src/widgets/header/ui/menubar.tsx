@@ -21,10 +21,10 @@ export function Menubar() {
 		<MenubarWrapper>
 			<MenubarMenu>
 				<MenubarTrigger
-					className="flex items-center gap-2 bg-white hover:border-none focus-visible:outline-none"
+					className="flex items-center gap-1 bg-white font-bold hover:border-none focus-visible:outline-none"
 					onClick={() => setIsOpen(!isOpen)}
 				>
-					<p>{myLocation}</p>
+					<small>{myLocation}</small>
 					{isOpen ? <MdOutlineKeyboardArrowUp /> : <MdOutlineKeyboardArrowDown />}
 				</MenubarTrigger>
 
@@ -35,7 +35,7 @@ export function Menubar() {
 						<MenubarItem
 							key={index}
 							onClick={() => setMyLocation(items)}
-							className={cn('cursor-pointer py-2 pl-3 pr-20', myLocation === items && 'font-extrabold')}
+							className={cn('cursor-pointer py-2 pl-3 pr-20 text-sm', myLocation === items && 'font-extrabold')}
 						>
 							{items}
 						</MenubarItem>

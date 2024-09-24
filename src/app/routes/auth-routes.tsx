@@ -1,4 +1,4 @@
-import { Auth, Login, SignUp } from '@pages/auth'
+import { Auth, Login, SignUp, StepOne } from '@pages/auth'
 
 import CommonLayout from '../layouts/common-layout'
 import { ErrorLayout } from './error-routes'
@@ -10,6 +10,7 @@ export const AuthRoutes = {
 		{ index: true, element: <Auth /> },
 		{ path: 'login', element: <Login /> },
 		{ path: 'signup', element: <SignUp /> },
+		{ path: 'signup/step1', element: <StepOne /> },
 	],
 	errorElement: <ErrorLayout />,
 }

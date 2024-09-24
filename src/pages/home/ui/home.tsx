@@ -1,3 +1,4 @@
+import { IoLocationSharp } from 'react-icons/io5'
 import { Link } from 'react-router-dom'
 
 import { locale } from '@lib/locale'
@@ -42,12 +43,13 @@ export function Home() {
 							<picture className="basis-1/3 overflow-hidden rounded-md">
 								<img src={imageURL} alt={title} className="aspect-square size-full object-cover" />
 							</picture>
-							<div className="flex flex-1 basis-2/3 flex-col whitespace-nowrap pl-2">
+							<div className="flex flex-1 basis-2/3 flex-col whitespace-nowrap pl-2 text-sm">
 								<h3>{title}</h3>
-								<small className="text-gray-02">
-									{locate} {locale(createAt)}
+								<small className="flex items-center text-gray-02">
+									<IoLocationSharp />
+									{locate} • {locale(createAt)}
 								</small>
-								<b className="font-extrabold">{compactNumber(price)}원</b>
+								<b className="font-bold">{compactNumber(price)}원</b>
 							</div>
 						</Link>
 					</li>

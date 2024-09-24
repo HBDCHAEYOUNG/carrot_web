@@ -1,32 +1,51 @@
+import { useForm } from 'react-hook-form'
+import { RiKakaoTalkFill } from 'react-icons/ri'
+import { SiNaver } from 'react-icons/si'
 import { Link } from 'react-router-dom'
 
-import { Button } from '@ui/index'
+import Form from '@ui/form/form'
+import { ButtonBasic, ButtonCircle, InputText } from '@ui/index'
+
+import { Logo } from '@icons/logo'
 
 export function Login() {
+	const form = useForm({
+		mode: 'all',
+		defaultValues: {
+			keyword: '',
+		},
+	})
+
+	const onSubmit = () => {
+		console.log(form.watch())
+	}
+
 	return (
-		<div className="mx-2 flex h-screen flex-col items-center justify-center bg-white pt-12">
-			<div className="flex h-full w-full flex-col items-center justify-center">
-				<div className="size-48">
-					<img
-						src="https://about.daangn.com/static/63d3abb868d7a650b4c0383be7891252/e9ec68d0-e49d-4071-bf92-78ed3355003f_profile_daangn.png"
-						alt="당근 로고"
-					/>
-				</div>
-				<h3 className="mb-4 text-2xl font-bold">당신 근처의 당근</h3>
-				<p className="text-center text-sm text-gray-500">
-					동네라서 가능한 모든 것
-					<br /> 지금 내 동네를 선택하고 시작해 보세요!
-				</p>
-			</div>
-			<Button className="w-full bg-brand-01 hover:bg-brand-01 hover:brightness-125">
-				<Link to="/auth/signup">시작하기</Link>
-			</Button>
-			<small className="py-4 text-gray-500">
-				이미 계정이 있나요?{' '}
-				<Link to="#" className="text-brand-01">
-					로그인
+		<section className="flex h-screen w-screen flex-col justify-center px-4">
+			<Logo className="mb-10 self-center" />
+
+			<Form form={form} onSubmit={onSubmit}>
+				<Form.Item name="phone">
+					<InputText type="number" placeholder="휴대폰 번호" className="arrow-none h-12 w-full rounded-b-none" />
+				</Form.Item>
+				<Form.Item name="password">
+					<InputText type="string" placeholder="비밀번호" className="mb-2 h-12 w-full rounded-t-none border-t-0 focus:border-t" />
+				</Form.Item>
+				<ButtonBasic text="로그인" className="mb-0 bg-brand-01 text-white" />
+
+				<Link to="#" className="block cursor-pointer py-2 text-center text-xs text-gray-500">
+					비밀번호 찾기
 				</Link>
-			</small>
-		</div>
+			</Form>
+
+			<div className="mt-10 flex flex-col items-center">
+				<small className="pb-2 text-xs text-gray-500">SNS계정으로 간편 로그인</small>
+
+				<div className="flex gap-2">
+					<ButtonCircle className="bg-[#fcda00]" icon={<RiKakaoTalkFill className="size-7" />} />
+					<ButtonCircle className="bg-[#10ad00]" icon={<SiNaver className="size-5" />} />
+				</div>
+			</div>
+		</section>
 	)
 }
