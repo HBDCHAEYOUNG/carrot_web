@@ -1,12 +1,10 @@
 import { Link } from 'react-router-dom'
 
-import { PrevpageBtn } from '@ui/button/prevpage-btn'
 import { ButtonBasic } from '@ui/index'
 
 export function Auth() {
 	return (
 		<section className="flex h-screen flex-col items-center bg-white px-4">
-			<PrevpageBtn />
 			<div className="flex h-full w-full flex-col items-center justify-center">
 				<picture className="size-48">
 					<img

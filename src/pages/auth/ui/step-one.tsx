@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { PrevpageBtn } from '@ui/button/prevpage-btn'
 import Form from '@ui/form/form'
 import { InputText } from '@ui/index'
 
@@ -19,7 +18,6 @@ export function StepOne() {
 
 	return (
 		<section className="flex h-screen flex-col px-4">
-			<PrevpageBtn />
 			<h1 className="mt-6 pb-4 text-2xl font-bold">
 				안녕하세요! <br /> 휴대폰 번호로 가입 해주세요.
 			</h1>
