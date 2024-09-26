@@ -10,6 +10,7 @@ export const HomeRoutes = {
 	children: [
 		{ index: true, element: <Home /> },
 		{ path: 'detail/:id', element: <Detail /> },
+		{ path: '/search?keyword=:keyword', element: <Home /> },
 	],
 	errorElement: <ErrorLayout />,
 }
