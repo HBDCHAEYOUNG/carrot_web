@@ -1,5 +1,5 @@
 import { Detail } from '@pages/detail'
-import { Home } from '@pages/home'
+import { Home, Search } from '@pages/home'
 
 import CommonLayout from '../layouts/common-layout'
 import { ErrorLayout } from './error-routes'
@@ -10,7 +10,7 @@ export const HomeRoutes = {
 	children: [
 		{ index: true, element: <Home /> },
 		{ path: 'detail/:id', element: <Detail /> },
-		{ path: '/search?keyword=:keyword', element: <Home /> },
+		{ path: 'search', element: <Search /> },
 	],
 	errorElement: <ErrorLayout />,
 }
