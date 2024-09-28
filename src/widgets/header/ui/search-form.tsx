@@ -26,12 +26,11 @@ export function SearchForm({ onClickSearch }: SearchFormProps) {
 
 	const onSubmitSearch = () => {
 		const value = form.watch('keyword')
-		if (searchHistory.includes(value)) {
-			return
-		}
+		if (searchHistory.includes(value)) return
+
 		setSearchHistory([...searchHistory, value])
-		console.log([...searchHistory, value])
 		router(`/search?keyword=${value}`)
+		onClickSearch()
 	}
 
 	return (
@@ -39,7 +38,7 @@ export function SearchForm({ onClickSearch }: SearchFormProps) {
 			<Form form={form} onSubmit={onSubmitSearch} className="mt-2 flex items-center justify-between gap-3">
 				<MdOutlineArrowBackIos onClick={onClickSearch} className="size-6" />
 				<Form.Item name="keyword" className="w-full">
-					<InputText className="w-full rounded-lg border-none bg-gray-01" placeholder="검색어를 입력하세요" />
+					<InputText className="h-10 w-full rounded-lg border-none bg-gray-01" placeholder="검색어를 입력하세요" />
 				</Form.Item>
 			</Form>
 			<strong className="mb-2 mt-6 block">추천</strong>
@@ -52,7 +51,14 @@ export function SearchForm({ onClickSearch }: SearchFormProps) {
 			>
 				{keyword.map((item, idx) => {
 					return (
-						<SwiperSlide key={idx} className="flex-1 cursor-pointer rounded-2xl border border-gray-01 p-1 px-2">
+						<SwiperSlide
+							key={idx}
+							onClick={() => {
+								form.setValue('keyword', item)
+								onSubmitSearch()
+							}}
+							className="flex-1 cursor-pointer rounded-2xl border border-gray-01 p-1 px-2"
+						>
 							{item}
 						</SwiperSlide>
 					)

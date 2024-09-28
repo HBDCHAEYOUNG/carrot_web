@@ -47,7 +47,7 @@ export function Menubar() {
 					className="flex items-center gap-1 bg-white font-bold hover:border-none focus-visible:outline-none"
 					onClick={() => setIsOpen(!isOpen)}
 				>
-					<small>{myLocation}</small>
+					<small className="whitespace-nowrap">{myLocation}</small>
 					{isOpen ? <MdOutlineKeyboardArrowUp /> : <MdOutlineKeyboardArrowDown />}
 				</MenubarTrigger>
 

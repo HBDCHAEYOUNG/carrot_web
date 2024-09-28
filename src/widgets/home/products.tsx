@@ -36,9 +36,9 @@ const items = [
 export function Products() {
 	return (
 		<ul className="flex flex-col px-2">
-			{[...items, ...items, ...items, ...items].map(({ title, locate, createAt, imageURL, price }) => (
+			{[...items, ...items, ...items, ...items].map(({ title, locate, createAt, imageURL, price }, index, array) => (
 				<li>
-					<Link to="#" className="flex cursor-pointer border-b border-gray-01 py-4">
+					<Link to="#" className={`flex cursor-pointer py-4 ${index !== array.length - 1 ? 'border-b border-gray-01' : ''}`}>
 						<picture className="basis-1/3 overflow-hidden rounded-md">
 							<img src={imageURL} alt={title} className="aspect-square size-full object-cover" />
 						</picture>

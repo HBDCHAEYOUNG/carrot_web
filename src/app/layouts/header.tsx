@@ -1,3 +1,4 @@
+import { useHeaderStore } from '@store/headerStore'
 import { useState } from 'react'
 import { CiBellOn, CiSearch } from 'react-icons/ci'
 import { Link } from 'react-router-dom'
@@ -8,7 +9,7 @@ import { Logo } from '@icons/logo'
 
 export function Header() {
 	const [search, setSearch] = useState(false)
-
+	const { toggleHeader } = useHeaderStore()
 	const onClickSearch = () => {
 		setSearch((prev) => !prev)
 	}
@@ -21,7 +22,9 @@ export function Header() {
 			</Link>
 			<div className="flex items-center gap-2">
 				<CiSearch className="size-5 cursor-pointer" onClick={onClickSearch} />
-				<CiBellOn className="size-5 cursor-pointer" />
+				<Link to="/notice">
+					<CiBellOn className="size-5 cursor-pointer" onClick={() => toggleHeader()} />
+				</Link>
 			</div>
 
 			{search && <SearchForm onClickSearch={onClickSearch} />}
