@@ -33,7 +33,7 @@ export function Login() {
 				<Form.Item name="password">
 					<InputText placeholder="비밀번호" className="mb-2 h-12 w-full rounded-t-none border-t-0 focus:border-t" />
 				</Form.Item>
-				<ButtonBasic text="로그인" className="mb-0 bg-brand-01 text-white" />
+				<ButtonBasic className="mb-0">로그인</ButtonBasic>
 
 				<Link to="#" className="block cursor-pointer py-2 text-center text-xs text-gray-500">
 					비밀번호 찾기

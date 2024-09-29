@@ -45,8 +45,8 @@ const FormItem = (props: FormItemProps) => {
 							{label} {require && <span className="text-Error">*</span>}
 						</FormLabel>
 					)}
+					{description && <FormDescription className={`text-xs text-gray-400 ${descriptionClassName}`}>{description}</FormDescription>}
 					<FormControl>{children && cloneElement(children as ReactElement, { ...field })}</FormControl>
-					{description && <FormDescription className={descriptionClassName}>{description}</FormDescription>}
 					<FormMessage className={errorClassName} />
 				</FormGroup>
 			)}

@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom'
 import { locale } from '@lib/locale'
 import compactNumber from '@lib/numberFormat'
 
-import '@styles/font.css'
-
 const items = [
 	{
 		title: '선글라스',

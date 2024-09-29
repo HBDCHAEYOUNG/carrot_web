@@ -1,15 +1,21 @@
 import { PropsWithChildren, ReactNode } from 'react'
 
+import { cn } from '@lib/utils'
+
 interface ButtonLinkProps {
-	text: string
 	className?: string
 	icon?: ReactNode
 }
-
-export function ButtonBasic({ text, className, icon }: PropsWithChildren<ButtonLinkProps>) {
+export function ButtonBasic({ children, className, icon }: PropsWithChildren<ButtonLinkProps>) {
+	// todo
 	return (
-		<button className={`${className} mb-2 flex h-12 w-full items-center justify-center rounded-sm px-3 font-semibold hover:brightness-90`}>
-			{icon} {text}
+		<button
+			className={cn(
+				'mb-2 flex h-12 w-full items-center justify-center rounded-sm bg-brand-01 px-3 font-semibold text-white hover:brightness-90',
+				className,
+			)}
+		>
+			{icon} {children}
 		</button>
 	)
 }

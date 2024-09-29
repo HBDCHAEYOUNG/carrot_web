@@ -1,5 +1,4 @@
 export * from './store/use-login'
 export * from './ui/auth'
+export * from './ui/join'
 export * from './ui/login'
-export * from './ui/sign-up'
-export * from './ui/step-one'

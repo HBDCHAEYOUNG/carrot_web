@@ -18,8 +18,9 @@ export function Auth() {
 					<br /> 지금 내 동네를 선택하고 시작해 보세요!
 				</p>
 			</div>
-			<Link to="/auth/signup" className="block w-full pb-2">
-				<ButtonBasic className="bg-brand-01 text-white" text="시작하기"></ButtonBasic>
+
+			<Link to="/auth/join" className="block w-full pb-2">
+				<ButtonBasic>시작하기</ButtonBasic>
 			</Link>
 
 			<small className="pb-10 text-gray-500">
