@@ -1,5 +1,5 @@
 import { IoLocationSharp } from 'react-icons/io5'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { locale } from '@lib/locale'
 import compactNumber from '@lib/numberFormat'
@@ -32,11 +32,17 @@ const items = [
 ]
 
 export function Products() {
+	const router = useNavigate()
+
 	return (
 		<ul className="flex flex-col px-2">
 			{[...items, ...items, ...items, ...items].map(({ title, locate, createAt, imageURL, price }, index, array) => (
 				<li>
-					<Link to="#" className={`flex cursor-pointer py-4 ${index !== array.length - 1 ? 'border-b border-gray-01' : ''}`}>
+					<Link
+						to="#"
+						className={`flex cursor-pointer py-4 ${index !== array.length - 1 ? 'border-b border-gray-01' : ''}`}
+						onClick={() => router(`/detail/${index}`)}
+					>
 						<picture className="basis-1/3 overflow-hidden rounded-md">
 							<img src={imageURL} alt={title} className="aspect-square size-full object-cover" />
 						</picture>
