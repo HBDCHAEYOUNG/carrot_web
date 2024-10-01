@@ -10,7 +10,7 @@ export const HomeRoutes = {
 	element: <CommonLayout />,
 	children: [
 		{ index: true, element: <Home /> },
-		{ path: 'detail/:id', element: <Detail /> },
+		{ index: false, path: 'detail/:id', element: <Detail /> },
 		{ path: 'search', element: <Search /> },
 		{ path: 'notice', element: <Notice /> },
 	],

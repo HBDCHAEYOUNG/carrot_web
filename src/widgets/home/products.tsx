@@ -41,7 +41,10 @@ export function Products() {
 					<Link
 						to="#"
 						className={`flex cursor-pointer py-4 ${index !== array.length - 1 ? 'border-b border-gray-01' : ''}`}
-						onClick={() => router(`/detail/${index}`)}
+						onClick={() => {
+							router(`/detail/${index}`)
+							window.scrollTo(0, 0)
+						}}
 					>
 						<picture className="basis-1/3 overflow-hidden rounded-md">
 							<img src={imageURL} alt={title} className="aspect-square size-full object-cover" />

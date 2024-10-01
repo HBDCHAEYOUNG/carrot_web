@@ -1,4 +1,5 @@
 export * from './_shardcn/button'
+export * from './_shardcn/carousel'
 export * from './_shardcn/checkbox'
 export * from './_shardcn/drawer'
 export * from './_shardcn/form'

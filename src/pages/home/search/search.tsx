@@ -39,29 +39,25 @@ export function Search() {
 
 	return (
 		<div className="pb-10 pt-10">
-			{filterList.map((item, index) => (
-				<Drawer>
+			<Drawer>
+				{filterList.map((item, index) => (
 					<DrawerTrigger key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
 						<SwiperSlide>{item.title}</SwiperSlide>
 					</DrawerTrigger>
-					<DrawerContent className="">
-						<DrawerHeader className="flex items-center border-b border-gray-01 py-6">
-							<DrawerTitle>{item.drawerTitle}</DrawerTitle>
-						</DrawerHeader>
-						<div className="h-full">
-							{item.content.map((content, index) => (
-								<div key={index}>{content}</div>
-							))}
-						</div>
-						<DrawerFooter className="w-full flex-row justify-center gap-2">
-							<Button className="flex-grow bg-gray-01 text-black">초기화</Button>
-							<DrawerClose className="flex-grow-[3]">
-								<Button className="w-full bg-brand-01">적용하기</Button>
-							</DrawerClose>
-						</DrawerFooter>
-					</DrawerContent>
-				</Drawer>
-			))}
+				))}
+				<DrawerContent className="">
+					<DrawerHeader className="flex items-center border-b border-gray-01 py-6">
+						<DrawerTitle>제목</DrawerTitle>
+					</DrawerHeader>
+					<div className="h-full">리스트</div>
+					<DrawerFooter className="w-full flex-row justify-center gap-2">
+						<Button className="flex-grow bg-gray-01 text-black">초기화</Button>
+						<DrawerClose className="flex-grow-[3]">
+							<Button className="w-full bg-brand-01">적용하기</Button>
+						</DrawerClose>
+					</DrawerFooter>
+				</DrawerContent>
+			</Drawer>
 			<small className="block w-full text-center text-gray-02">{`"${query}" 검색결과 입니다.`}</small>
 			<Products />
 		</div>

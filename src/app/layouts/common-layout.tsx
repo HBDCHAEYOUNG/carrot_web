@@ -1,7 +1,7 @@
 import { useHeaderStore } from '@store/headerStore'
 import { Outlet } from 'react-router-dom'
 
-import { Footer, Header } from './index'
+import { Header } from './index'
 
 function CommonLayout() {
 	const { isHeader } = useHeaderStore()
@@ -9,7 +9,6 @@ function CommonLayout() {
 		<div>
 			{isHeader && <Header />}
 			<Outlet />
-			<Footer />
 		</div>
 	)
 }
