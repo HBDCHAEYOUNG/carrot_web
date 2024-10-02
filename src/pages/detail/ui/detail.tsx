@@ -24,6 +24,7 @@ const item = {
 	description: '맥북 팝니다. 새것과 같고 흠집이 없습니다. 풀박 그대로 있습니다. 만나서 확인 후 구매 가능합니다.',
 	likes: 10,
 	views: 100,
+	myLike: true,
 }
 
 const auth = {

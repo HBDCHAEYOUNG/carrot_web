@@ -1,24 +1,22 @@
+import { useSearchStore } from '@pages/home'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { GoClock } from 'react-icons/go'
-import { MdClose, MdOutlineArrowBackIos } from 'react-icons/md'
+import { MdClose } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import 'swiper/css'
 import 'swiper/css/free-mode'
 import { FreeMode } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import Form from '@ui/form/form'
-import { InputText } from '@ui/index'
+import { SearchBox } from '@ui/index'
 
-interface SearchFormProps {
-	onClickSearch: () => void
-}
-
-export function SearchForm({ onClickSearch }: SearchFormProps) {
+export function SearchForm() {
 	const router = useNavigate()
 
 	const form = useForm()
+
+	const { setSearchMode } = useSearchStore()
 
 	const [searchHistory, setSearchHistory] = useState<string[]>(['우혁이', '채영이'])
 
@@ -30,17 +28,12 @@ export function SearchForm({ onClickSearch }: SearchFormProps) {
 
 		setSearchHistory([...searchHistory, value])
 		router(`/search?keyword=${value}`)
-		onClickSearch()
+		setSearchMode()
 	}
 
 	return (
 		<div className="fixed left-0 top-0 z-10 h-screen w-full bg-white px-4 [&_*]:text-sm">
-			<Form form={form} onSubmit={onSubmitSearch} className="mt-2 flex items-center justify-between gap-3">
-				<MdOutlineArrowBackIos onClick={onClickSearch} className="size-6" />
-				<Form.Item name="keyword" className="w-full">
-					<InputText className="h-10 w-full rounded-lg border-none bg-gray-01" placeholder="검색어를 입력하세요" />
-				</Form.Item>
-			</Form>
+			<SearchBox onSubmitSearch={onSubmitSearch} />
 			<strong className="mb-2 mt-6 block">추천</strong>
 			<Swiper
 				modules={[FreeMode]}
@@ -64,7 +57,7 @@ export function SearchForm({ onClickSearch }: SearchFormProps) {
 					)
 				})}
 			</Swiper>
-			
+
 			<div className="flex items-center justify-between">
 				<strong className="mb-2 mt-6 inline-block">최근 검색어</strong>
 				<button className="text-gray-02" onClick={() => setSearchHistory([])}>

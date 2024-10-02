@@ -1,3 +1,3 @@
 export function useLogin() {
-	return { test: 123 }
+	return { test: true }
 }

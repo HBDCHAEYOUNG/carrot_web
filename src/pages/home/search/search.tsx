@@ -1,9 +1,11 @@
+import { useHeaderStore } from '@store/headerStore'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { SwiperSlide } from 'swiper/react'
 
 import { Products } from '@widgets/home'
 
-import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@ui/index'
+import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, SearchBox } from '@ui/index'
 
 const filterList = [
 	{ title: '읍내동 외 동네 설정', drawerTitle: '동네 설정', content: [''] },
@@ -37,8 +39,16 @@ export function Search() {
 	const [searchParams] = useSearchParams()
 	const query = searchParams.get('keyword') || ''
 
+	const { toggleHeader } = useHeaderStore()
+
+	useEffect(() => {
+		toggleHeader(false)
+		return () => toggleHeader(true)
+	}, [toggleHeader])
+
 	return (
 		<div className="pb-10 pt-10">
+			<SearchBox onSubmitSearch={onSubmitSearch} />
 			<Drawer>
 				{filterList.map((item, index) => (
 					<DrawerTrigger key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">

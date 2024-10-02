@@ -1,11 +1,13 @@
+import { useHeaderStore } from '@store/headerStore'
 import { Outlet } from 'react-router-dom'
 
 import { ButtonBack } from '@ui/index'
 
 function BackLayout() {
+	const { isHeader } = useHeaderStore()
 	return (
 		<div>
-			<ButtonBack />
+			{isHeader && <ButtonBack />}
 			<Outlet />
 		</div>
 	)
