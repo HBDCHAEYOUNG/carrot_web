@@ -8,12 +8,31 @@ import { cn } from '@lib/utils'
 import { Menubar as MenubarWrapper } from '@ui/_shardcn/menubar'
 import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, Overlay } from '@ui/index'
 
+import { useAreas } from '../model/use-area'
+
 export function Menubar() {
+	const { data: areasData } = useAreas()
 	const [isOpen, setIsOpen] = useState(false)
 	const [myLocation, setMyLocation] = useState('서울')
 	const [mylocationList, setMyLocationList] = useState(['서울', '대구'])
 
-	const region = ['서울', '대구', '부산', '제주', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충청', '전라', '경상', '제주']
+	// const region: AreaListDataDto['data'] = [
+	// 	{ id: 1, name: '서울' },
+	// 	{ id: 2, name: '대구' },
+	// 	{ id: 3, name: '부산' },
+	// 	// '제주',
+	// 	// '인천',
+	// 	// '광주',
+	// 	// '대전',
+	// 	// '울산',
+	// 	// '세종',
+	// 	// '경기',
+	// 	// '강원',
+	// 	// '충청',
+	// 	// '전라',
+	// 	// '경상',
+	// 	// '제주',
+	// ]
 
 	const onClickContent = (e: React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation()
@@ -74,9 +93,9 @@ export function Menubar() {
 								<DrawerTitle>내 동네 설정</DrawerTitle>
 							</DrawerHeader>
 							<ul className="flex h-full flex-col items-center justify-center bg-gray-100">
-								{region.map((item) => (
-									<li key={item} className="cursor-pointer hover:border-b-2 hover:border-black" onClick={() => onclickRegion(item)}>
-										{item}
+								{areasData?.map((item) => (
+									<li key={item.id} className="cursor-pointer hover:border-b-2 hover:border-black" onClick={() => onclickRegion(item.name)}>
+										{item.name}
 									</li>
 								))}
 							</ul>

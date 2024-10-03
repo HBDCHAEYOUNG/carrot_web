@@ -2,14 +2,16 @@ import fs from 'fs'
 import path from 'path'
 import { generateApi } from 'swagger-typescript-api'
 
-const key = { 로그인: 'sinin', 공통: 'common', 회원가입: 'signup', 대출신청: 'service', 홈: 'home' }
+// const key = { 로그인: 'sinin', 공통: 'common', 회원가입: 'signup', 대출신청: 'service', 홈: 'home' }
+
+const OUTPUT = 'src/shared/type'
 
 generateApi({
 	name: 'swaggerGenerate.ts',
 	// url: 'https://wfl-app.fit-technet.com/api/v1/app/pub/api-docs',
 	input: path.resolve(process.cwd(), 'scripts/carrot.json'),
-	output: path.resolve(process.cwd(), 'src/shared/types'),
-	templates: path.resolve(process.cwd(), 'templates'),
+	output: path.resolve(process.cwd(), OUTPUT),
+	// templates: path.resolve(process.cwd(), 'templates'),
 	generateClient: false,
 	toJS: false,
 	generateRouteTypes: true,
@@ -27,7 +29,7 @@ generateApi({
 	sortTypes: true,
 })
 	.then(({ files }) => {
-		const outputDir = path.resolve(process.cwd(), 'src/shared/types')
+		const outputDir = path.resolve(process.cwd(), OUTPUT)
 
 		// Delete existing files except data-contracts.ts
 		fs.readdirSync(outputDir).forEach((file) => {

@@ -50,7 +50,7 @@
 			"@providers/*": ["src/shared/providers/*"],
 			"@store/*": ["src/shared/store/*"],
 			"@styles/*": ["src/shared/styles/*"],
-			"@types/*": ["src/shared/types/*"],
+			"@type/*": ["src/shared/type/*"],
 			"@ui/*": ["src/shared/ui/*"],
 			"@utils/*": ["src/shared/utils/*"],
 

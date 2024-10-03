@@ -32,7 +32,7 @@ export function DetailProducts({ title, data, className }: DetailProductsProps) 
 						}}
 					>
 						<picture className="overflow-hidden rounded-md">
-							<img src={imageURL} alt={title} className="aspect-[4/3] size-full object-cover" />
+							<img src={imageURL[0]} alt={title} className="aspect-[4/3] size-full object-cover" />
 						</picture>
 						<h3 className="mt-2 truncate text-sm">{title}</h3>
 						<span className="font-bold">{compactNumber(price)}원</span>
