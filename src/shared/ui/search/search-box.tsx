@@ -6,18 +6,23 @@ import { useNavigate } from 'react-router-dom'
 import Form from '@ui/form/form'
 import { InputText } from '@ui/input/input-text'
 
-interface SearchBoxProps {
-	onSubmitSearch: () => void
-}
-
-export function SearchBox({ onSubmitSearch }: SearchBoxProps) {
+export function SearchBox() {
 	const form = useForm()
 
 	const { setSearchMode } = useSearchStore()
 	const router = useNavigate()
 
+	const onSubmitSearch = () => {
+		const value = form.watch('keyword')
+		// if (searchHistory.includes(value)) return
+
+		// setSearchHistory([...searchHistory, value])
+		router(`/search?keyword=${value}`)
+		setSearchMode()
+	}
+
 	return (
-		<Form form={form} onSubmit={onSubmitSearch} className="mt-2 flex items-center justify-between gap-3">
+		<Form form={form} onSubmit={onSubmitSearch} className="mt-2 flex items-center justify-between gap-3 common-padding">
 			<MdOutlineArrowBackIos
 				className="size-6 cursor-pointer"
 				onClick={() => {

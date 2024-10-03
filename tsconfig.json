@@ -58,5 +58,5 @@
 			"@images/*": ["public/images/*"]
 		}
 	},
-	"include": ["src", "svg.d.ts", "vite-env.d.ts", "layouts/routes", "layouts"]
+	"include": ["src", "svg.d.ts", "vite-env.d.ts", "layouts/routes", "layouts", "src/widgets/home/api/.ts"]
 }

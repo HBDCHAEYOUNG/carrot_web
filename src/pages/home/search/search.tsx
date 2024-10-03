@@ -1,7 +1,6 @@
 import { useHeaderStore } from '@store/headerStore'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { SwiperSlide } from 'swiper/react'
 
 import { Products } from '@widgets/home'
 
@@ -33,14 +32,11 @@ const filterList = [
 		],
 	},
 	{ title: '최신순', drawerTitle: '범위', content: ['최신순', '오래된순'] },
-	{ title: '최신순', drawerTitle: '범위', content: ['최신순', '오래된순'] },
-	{ title: '최신순', drawerTitle: '범위', content: ['최신순', '오래된순'] },
 ]
 
 export function Search() {
 	const [searchParams] = useSearchParams()
 	const query = searchParams.get('keyword') || ''
-
 	const { toggleHeader } = useHeaderStore()
 
 	useEffect(() => {
@@ -48,20 +44,18 @@ export function Search() {
 		return () => toggleHeader(true)
 	}, [toggleHeader])
 
-	const onSubmitSearch = () => {
-		console.log('수정정정')
-	}
-
 	return (
-		<div className="px-4">
-			<SearchBox onSubmitSearch={onSubmitSearch} />
+		<div>
+			<SearchBox />
 			<Drawer>
-				<div>
-					{filterList.map((item, index) => (
-						<DrawerTrigger key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
-							<SwiperSlide>{item.title}</SwiperSlide>
-						</DrawerTrigger>
-					))}
+				<div className="w-full overflow-auto pt-4">
+					<div className="w-max">
+						{filterList.map((item, index) => (
+							<DrawerTrigger key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
+								{item.title}
+							</DrawerTrigger>
+						))}
+					</div>
 				</div>
 
 				<DrawerContent className="">
@@ -77,7 +71,7 @@ export function Search() {
 					</DrawerFooter>
 				</DrawerContent>
 			</Drawer>
-			<small className="block w-full text-center text-gray-02">{`"${query}" 검색결과 입니다.`}</small>
+			<small className="block w-full pt-4 text-center text-gray-02">{`"${query}" 검색결과 입니다.`}</small>
 			<Products />
 		</div>
 	)
