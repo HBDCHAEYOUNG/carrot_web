@@ -56,5 +56,49 @@ export default {
 			},
 		},
 	},
-	plugins: [require('tailwindcss-animate')],
+	plugins: [
+		require('tailwindcss-animate'),
+		({ addUtilities }) => {
+			addUtilities({
+				// common
+				'.common-max-width': {
+					'@screen lg': {
+						maxWidth: '385px',
+					},
+				},
+				'.common-padding': {
+					paddingLeft: '1.5rem',
+					paddingRight: '1.5rem',
+				},
+				'.common-min-height': {
+					minHeight: 'calc(100vh - 60px)',
+				},
+				'.flex-center': {
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				},
+				'.translate-center': {
+					left: '50%',
+					top: '50%',
+					transform: 'translate(-50%, -50%)',
+				},
+				'.translate-x-center': {
+					left: '50%',
+					transform: 'translateX(-50%)',
+				},
+				'.translate-y-center': {
+					top: '50%',
+					transform: 'translateY(-50%)',
+				},
+				'.no-scrollbar::-webkit-scrollbar': {
+					display: 'none',
+				},
+				'.no-scrollbar': {
+					'-ms-overflow-style': 'none',
+					'scrollbar-width': 'none',
+				},
+			})
+		},
+	],
 }
