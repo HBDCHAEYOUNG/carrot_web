@@ -33,6 +33,8 @@ const filterList = [
 		],
 	},
 	{ title: '최신순', drawerTitle: '범위', content: ['최신순', '오래된순'] },
+	{ title: '최신순', drawerTitle: '범위', content: ['최신순', '오래된순'] },
+	{ title: '최신순', drawerTitle: '범위', content: ['최신순', '오래된순'] },
 ]
 
 export function Search() {
@@ -51,16 +53,17 @@ export function Search() {
 	}
 
 	return (
-		<div>
+		<div className="px-4">
 			<SearchBox onSubmitSearch={onSubmitSearch} />
 			<Drawer>
-				<DrawerTrigger className="flex">
+				<div>
 					{filterList.map((item, index) => (
-						<SwiperSlide key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
-							{item.title}
-						</SwiperSlide>
+						<DrawerTrigger key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
+							<SwiperSlide>{item.title}</SwiperSlide>
+						</DrawerTrigger>
 					))}
-				</DrawerTrigger>
+				</div>
+
 				<DrawerContent className="">
 					<DrawerHeader className="flex items-center border-b border-gray-01 py-6">
 						<DrawerTitle>제목</DrawerTitle>

@@ -35,7 +35,7 @@ export function Products() {
 	const router = useNavigate()
 
 	return (
-		<ul className="flex flex-col px-2">
+		<ul className="flex flex-col">
 			{[...items, ...items, ...items, ...items].map(({ title, locate, createAt, imageURL, price }, index, array) => (
 				<li>
 					<Link
