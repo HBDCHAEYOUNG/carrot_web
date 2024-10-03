@@ -2,10 +2,18 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { createArea, deleteArea, readAreas, updateArea } from '../api/area'
 
-export const useAreas = () => {
+export const useReadAreas = () => {
 	return useQuery({
 		queryKey: ['areas'],
 		queryFn: readAreas,
+	})
+}
+
+export const useReadArea = (id: number) => {
+	return useQuery({
+		queryKey: ['areas'],
+		queryFn: readAreas,
+		enabled: !!id,
 	})
 }
 

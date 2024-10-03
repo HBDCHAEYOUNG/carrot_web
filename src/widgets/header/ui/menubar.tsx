@@ -8,31 +8,14 @@ import { cn } from '@lib/utils'
 import { Menubar as MenubarWrapper } from '@ui/_shardcn/menubar'
 import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, Overlay } from '@ui/index'
 
-import { useAreas } from '../model/use-area'
+import { useReadAreas } from '../model/use-area'
 
 export function Menubar() {
-	const { data: areasData } = useAreas()
+	const { data: areasData } = useReadAreas()
+
 	const [isOpen, setIsOpen] = useState(false)
 	const [myLocation, setMyLocation] = useState('서울')
 	const [mylocationList, setMyLocationList] = useState(['서울', '대구'])
-
-	// const region: AreaListDataDto['data'] = [
-	// 	{ id: 1, name: '서울' },
-	// 	{ id: 2, name: '대구' },
-	// 	{ id: 3, name: '부산' },
-	// 	// '제주',
-	// 	// '인천',
-	// 	// '광주',
-	// 	// '대전',
-	// 	// '울산',
-	// 	// '세종',
-	// 	// '경기',
-	// 	// '강원',
-	// 	// '충청',
-	// 	// '전라',
-	// 	// '경상',
-	// 	// '제주',
-	// ]
 
 	const onClickContent = (e: React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation()
