@@ -46,15 +46,21 @@ export function Search() {
 		return () => toggleHeader(true)
 	}, [toggleHeader])
 
+	const onSubmitSearch = () => {
+		console.log('수정정정')
+	}
+
 	return (
-		<div className="pb-10 pt-10">
+		<div>
 			<SearchBox onSubmitSearch={onSubmitSearch} />
 			<Drawer>
-				{filterList.map((item, index) => (
-					<DrawerTrigger key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
-						<SwiperSlide>{item.title}</SwiperSlide>
-					</DrawerTrigger>
-				))}
+				<DrawerTrigger className="flex">
+					{filterList.map((item, index) => (
+						<SwiperSlide key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
+							{item.title}
+						</SwiperSlide>
+					))}
+				</DrawerTrigger>
 				<DrawerContent className="">
 					<DrawerHeader className="flex items-center border-b border-gray-01 py-6">
 						<DrawerTitle>제목</DrawerTitle>
