@@ -9,6 +9,7 @@ import { DetailProducts } from '@widgets/detail'
 import { locale } from '@lib/locale'
 
 import { Carousel, CarouselContent, CarouselItem } from '@ui/_shardcn/carousel'
+import { ButtonBasic } from '@ui/index'
 
 import { useReadProduct } from '../model/use-product'
 
@@ -17,72 +18,6 @@ const auth = {
 	profileImageURL:
 		'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fCVFQyVBMCU5QyVFRCU5MiU4OHxlbnwwfHwwfHx8MA%3D%3D',
 }
-
-const myProducts = [
-	{
-		title: '선글라스',
-		locate: '심곡본동',
-		createAt: '2024-09-05',
-		price: 100000,
-		category: '잡화',
-		imageURL: [
-			'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fCVFQyVBMCU5QyVFRCU5MiU4OHxlbnwwfHwwfHx8MA%3D%3D',
-		],
-	},
-	{
-		title: '플스4 화이트',
-		locate: '심곡본동',
-		createAt: '2024-09-08',
-		price: 210000,
-		category: '디지털기기',
-		imageURL: [
-			'https://images.unsplash.com/photo-1486401899868-0e435ed85128?w=1400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzV8fCVFQyVBMCU5QyVFRCU5MiU4OHxlbnwwfHwwfHx8MA%3D%3D',
-		],
-	},
-	{
-		title: '텀블러',
-		locate: '심곡본동',
-		createAt: '2024-09-21',
-		price: 10000,
-		category: '생활/주방',
-		imageURL: [
-			'https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=1400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDd8fCVFQyVBMCU5QyVFRCU5MiU4OHxlbnwwfHwwfHx8MA%3D%3D',
-		],
-	},
-	{
-		title: '맥북',
-		locate: '심곡본동',
-		createAt: '2024-09-10',
-		price: 1100000,
-		category: '디지털기기',
-		imageURL: [
-			'https://plus.unsplash.com/premium_photo-1680538420450-ff2f4c19faa9?q=80&w=2970&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-			'https://images.unsplash.com/photo-1589710917567-60ca712f0431?q=80&w=3051&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-			'https://images.unsplash.com/photo-1420406676079-b8491f2d07c8?q=80&w=2999&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-		],
-	},
-	{
-		title: '그릇',
-		locate: '심곡본동',
-		createAt: '2024-09-21',
-		price: 10000,
-		category: '생활/주방',
-		imageURL: [
-			'https://plus.unsplash.com/premium_photo-1714702845510-e65f6ae711c2?q=80&w=2969&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-			'https://images.unsplash.com/photo-1727257049020-3496cfd2861a?q=80&w=3087&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-		],
-	},
-	{
-		title: '냉장고',
-		locate: '심곡본동',
-		createAt: '2024-09-10',
-		price: 300000,
-		category: '생활/주방',
-		imageURL: [
-			'https://images.unsplash.com/photo-1649518755041-651c29b56309?q=80&w=3006&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-		],
-	},
-]
 
 export function Detail() {
 	const router = useNavigate()
@@ -147,15 +82,13 @@ export function Detail() {
 					<h3 className="mr-auto border-l-2 border-gray-01 pl-4 text-xl font-bold">
 						{item?.price.toLocaleString('ko-KR')}원<span className="block text-sm text-gray-02">가격 제안 불가</span>
 					</h3>
-					{/* <ButtonBasic className="w-fit px-6 text-xl">채팅하기</ButtonBasic> */}
+					<ButtonBasic className="w-fit px-6 text-xl">채팅하기</ButtonBasic>
 				</div>
 			</section>
-			<DetailProducts title={`${auth.nickname}님의 판매 물품`} data={myProducts} />
-			<DetailProducts
-				className="pb-16"
-				title={`${item?.category?.name} 다른 상품`}
-				data={myProducts.filter((product) => product.category === item?.category?.name)}
-			/>
+			<section className="pb-10">
+				<DetailProducts title={`${auth.nickname}님의 판매 물품`} />
+				<DetailProducts className="pb-16" title={`${item?.category?.name} 다른 상품`} category={item?.area[0].name} />
+			</section>
 		</>
 	)
 }

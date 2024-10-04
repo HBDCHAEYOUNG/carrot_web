@@ -13,13 +13,13 @@ export function Products() {
 
 	return (
 		<ul className="flex flex-col">
-			{productsData?.products?.map(({ area, createdAt, price, thumbnail, title }, index, array) => (
+			{productsData?.products?.map(({ id, area, createdAt, price, thumbnail, title }, index, array) => (
 				<li>
 					<Link
 						to="#"
 						className={`flex cursor-pointer py-4 common-padding ${index !== array.length - 1 ? 'border-b border-gray-01' : ''}`}
 						onClick={() => {
-							router(`/detail/${index}`)
+							router(`/detail/${id}`)
 							window.scrollTo(0, 0)
 						}}
 					>
