@@ -71,7 +71,9 @@ export function Search() {
 					</DrawerFooter>
 				</DrawerContent>
 			</Drawer>
+
 			<small className="block w-full pt-4 text-center text-gray-02">{`"${query}" 검색결과 입니다.`}</small>
+
 			<Products />
 		</div>
 	)

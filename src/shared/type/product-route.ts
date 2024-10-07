@@ -6,6 +6,8 @@ import {
 	ProductListDataDto,
 	ProductPartialUpdateDataDto,
 	ProductPartialUpdatePayloadDto,
+	SalesListDataDto,
+	SalesListParams1StatusEnumDto,
 } from './data-contracts'
 
 export namespace Product {
@@ -37,11 +39,13 @@ export namespace Product {
 			 * 한 페이지당 항목 수 (기본값: 10)
 			 * @min 1
 			 * @max 100
+			 * @example 10
 			 */
 			limit: number
 			/**
 			 * 페이지 번호 (기본값: 1)
 			 * @min 1
+			 * @example 1
 			 */
 			page: number
 		}
@@ -174,5 +178,56 @@ export namespace Product {
 		export type RequestBody = never
 		export type RequestHeaders = {}
 		export type ResponseBody = ProductDeleteDataDto
+	}
+
+	/**
+ * @description 사용자의 판매 내역을 페이지네이션하여 조회합니다.
+ * @tags Product
+ * @name SalesList
+ * @summary 내 판매 내역 조회
+ * @request GET:/product/sales
+ * @secure
+ * @response `200` `SalesListDataDto` 내 판매 내역 조회 성공
+ * @response `400` `{
+  \** 오류 메시지 *\
+    message: string,
+
+}` 잘못된 요청
+ * @response `401` `{
+  \** 오류 메시지 *\
+    message: string,
+
+}` 인증되지 않은 사용자
+ * @response `404` `{
+  \** 오류 메시지 *\
+    message: string,
+
+}` 판매중인 상품이 없음
+*/
+	export namespace SalesList {
+		export type RequestParams = {}
+		export type RequestQuery = {
+			/**
+			 * 한 페이지당 항목 수 (기본값: 10)
+			 * @min 1
+			 * @max 100
+			 * @example 10
+			 */
+			limit?: number
+			/**
+			 * 페이지 번호 (기본값: 1)
+			 * @min 1
+			 * @example 1
+			 */
+			page?: number
+			/**
+			 * 판매 상태 (sold: 판매완료, sale: 판매중)
+			 * @example "sale"
+			 */
+			status?: SalesListParams1StatusEnumDto
+		}
+		export type RequestBody = never
+		export type RequestHeaders = {}
+		export type ResponseBody = SalesListDataDto
 	}
 }

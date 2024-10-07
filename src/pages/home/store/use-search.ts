@@ -1,5 +1,4 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
 
 interface Search {
 	// 변수값만
@@ -16,15 +15,8 @@ const INIT = {
 	searchMode: false,
 }
 
-export const useSearchStore = create(
-	persist<SearchProps>(
-		(set) => ({
-			...INIT,
+export const useSearchStore = create<SearchProps>((set) => ({
+	...INIT,
 
-			setSearchMode: () => set((state) => ({ searchMode: !state.searchMode })),
-		}),
-		{
-			name: 'search',
-		},
-	),
-)
+	setSearchMode: () => set((state) => ({ searchMode: !state.searchMode })),
+}))

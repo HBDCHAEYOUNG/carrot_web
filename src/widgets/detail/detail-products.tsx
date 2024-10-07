@@ -16,7 +16,7 @@ export function DetailProducts({ title, category, className }: DetailProductsPro
 
 	const { data } = useReadProducts()
 
-	const productsData = data?.products.filter((product) => product.area[0].name === category)
+	const productsData = data?.products.filter((product) => product.areas[0].name === category)
 
 	return (
 		<div className={cn('border-t px-4 py-6', className)}>

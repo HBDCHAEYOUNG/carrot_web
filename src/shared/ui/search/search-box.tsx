@@ -1,4 +1,5 @@
 import { useSearchStore } from '@pages/home'
+import { useSearchHistoryStore } from '@pages/home/store/use-search-history'
 import { useForm } from 'react-hook-form'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
@@ -7,16 +8,17 @@ import Form from '@ui/form/form'
 import { InputText } from '@ui/input/input-text'
 
 export function SearchBox() {
-	const form = useForm()
-
+	const { searchHistory, setSearchHistory } = useSearchHistoryStore()
 	const { setSearchMode } = useSearchStore()
+
+	const form = useForm()
 	const router = useNavigate()
 
 	const onSubmitSearch = () => {
 		const value = form.watch('keyword')
-		// if (searchHistory.includes(value)) return
+		if (searchHistory.includes(value)) return
 
-		// setSearchHistory([...searchHistory, value])
+		setSearchHistory(value)
 		router(`/search?keyword=${value}`)
 		setSearchMode()
 	}

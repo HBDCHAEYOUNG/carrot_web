@@ -1,5 +1,5 @@
 import { useHeaderStore } from '@store/headerStore'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { GoHeart, GoHeartFill, GoHome, GoShare } from 'react-icons/go'
 import { MdOutlineArrowBackIos } from 'react-icons/md'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -11,6 +11,7 @@ import { locale } from '@lib/locale'
 import { Carousel, CarouselContent, CarouselItem } from '@ui/_shardcn/carousel'
 import { ButtonBasic } from '@ui/index'
 
+import { useCreateLike, useDeleteLike } from '../model/use-like'
 import { useReadProduct } from '../model/use-product'
 
 const auth = {
@@ -26,8 +27,15 @@ export function Detail() {
 	const { toggleHeader } = useHeaderStore()
 
 	const { data: item, isLoading } = useReadProduct(Number(id))
+	const { mutate: createLike } = useCreateLike()
+	const { mutate: deleteLike } = useDeleteLike()
 
-	const [like, setLike] = useState(item?.isLike)
+	const setLike = () => {
+		createLike(Number(id))
+	}
+	const setDeleteLike = () => {
+		deleteLike(Number(id))
+	}
 
 	useEffect(() => {
 		toggleHeader(false)
@@ -61,7 +69,7 @@ export function Detail() {
 					</picture>
 					<div className="flex flex-col justify-center">
 						<strong>{auth.nickname}</strong>
-						<p className="text-sm text-gray-500">{item?.area[0].name}</p>
+						<p className="text-sm text-gray-500">{item?.areas[0].name}</p>
 					</div>
 				</div>
 				<div className="flex flex-col gap-2 px-4 py-6">
@@ -73,10 +81,10 @@ export function Detail() {
 					<p className="text-sm text-gray-500">관심 {item?.like}</p>
 				</div>
 				<div className="fixed bottom-0 left-0 right-0 flex items-center gap-4 border-t border-gray-01 bg-white px-4 py-4">
-					{like ? (
-						<GoHeart className="size-6 fill-gray-02 font-bold" onClick={() => setLike(false)} />
+					{item?.isLike ? (
+						<GoHeartFill className="size-6 fill-brand-01" onClick={() => setDeleteLike()} />
 					) : (
-						<GoHeartFill className="size-6 fill-brand-01" onClick={() => setLike(true)} />
+						<GoHeart className="size-6 fill-gray-02 font-bold" onClick={() => setLike()} />
 					)}
 
 					<h3 className="mr-auto border-l-2 border-gray-01 pl-4 text-xl font-bold">
@@ -87,7 +95,7 @@ export function Detail() {
 			</section>
 			<section className="pb-10">
 				<DetailProducts title={`${auth.nickname}님의 판매 물품`} />
-				<DetailProducts className="pb-16" title={`${item?.category?.name} 다른 상품`} category={item?.area[0].name} />
+				<DetailProducts className="pb-16" title={`${item?.category?.name} 다른 상품`} category={item?.areas[0].name} />
 			</section>
 		</>
 	)

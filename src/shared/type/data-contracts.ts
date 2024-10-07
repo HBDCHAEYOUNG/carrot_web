@@ -37,6 +37,11 @@ export interface AuthCreateDataDto {
 	token: string
 }
 
+export type AuthCreateErrorDto = {
+	/** 오류 메시지 */
+	message: string
+}
+
 export interface AuthCreatePayloadDto {
 	/**
 	 * 이메일
@@ -93,6 +98,108 @@ export interface AuthListDataDto {
 	token: string
 }
 
+export type AuthListErrorDto = {
+	/** 오류 메시지 */
+	message: string
+}
+
+export interface AuthPartialUpdateDataDto {
+	/**
+	 * 성공 메시지
+	 * @example "사용자 정보가 성공적으로 업데이트되었습니다."
+	 */
+	message: string
+}
+
+export type AuthPartialUpdateErrorDto =
+	| {
+			/**
+			 * 오류 메시지
+			 * @example "비밀번호는 최소 6자 이상이어야 합니다."
+			 */
+			message: string
+	  }
+	| {
+			/**
+			 * 오류 메시지
+			 * @example "인증되지 않은 사용자입니다."
+			 */
+			message: string
+	  }
+	| {
+			/**
+			 * 오류 메시지
+			 * @example "사용자를 찾을 수 없습니다."
+			 */
+			message: string
+	  }
+	| {
+			/**
+			 * 오류 메시지
+			 * @example "이미 사용 중인 닉네임입니다."
+			 */
+			message: string
+	  }
+
+export interface AuthPartialUpdatePayloadDto {
+	/**
+	 * 수정할 닉네임 (2자에서 20자 사이)
+	 * @example "NewNickname"
+	 */
+	nickname?: string
+	/**
+	 * 수정할 비밀번호 (최소 6자 이상)
+	 * @example "newPassword123"
+	 */
+	password?: string
+	/**
+	 * 수정할 프로필 이미지 URL
+	 * @example "https://picsum.photos/200/300"
+	 */
+	profile?: string
+}
+
+export interface AuthUpdateDataDto {
+	/**
+	 * 성공 메시지
+	 * @example "도시 정보가 성공적으로 업데이트되었습니다."
+	 */
+	message: string
+}
+
+export type AuthUpdateErrorDto =
+	| {
+			/**
+			 * 오류 메시지
+			 * @example "지역은 1개 또는 2개를 선택해야 합니다."
+			 */
+			message: string
+	  }
+	| {
+			/**
+			 * 오류 메시지
+			 * @example "인증되지 않은 사용자입니다."
+			 */
+			message: string
+	  }
+	| {
+			/**
+			 * 오류 메시지
+			 * @example "사용자를 찾을 수 없습니다."
+			 */
+			message: string
+	  }
+
+export interface AuthUpdatePayloadDto {
+	/**
+	 * 수정할 지역 ID 목록
+	 * @maxItems 2
+	 * @minItems 1
+	 * @example [1,2]
+	 */
+	areaIds: number[]
+}
+
 export interface CategoryDetailDataDto {
 	/** 카테고리 ID */
 	id: number
@@ -128,9 +235,88 @@ export type EmailCheckCreateErrorDto = {
 export interface EmailCheckCreatePayloadDto {
 	/**
 	 * 이메일
-	 * @example "test@example.com"
+	 * @example "user@naver.com"
 	 */
 	email: string
+}
+
+export interface LikeCreateDataDto {
+	/** 좋아요가 추가된 상품의 ID */
+	id: number
+}
+
+export type LikeCreateErrorDto = {
+	/** 오류 메시지 */
+	message: string
+}
+
+export type LikeDeleteDataDto = any
+
+export type LikeDeleteErrorDto = {
+	/** 오류 메시지 */
+	message: string
+}
+
+export interface LikeListDataDto {
+	/** 현재 페이지 번호 */
+	currentPage: number
+	product: {
+		areas: {
+			/** 지역 ID */
+			id: number
+			/** 지역 이름 */
+			name: string
+		}[]
+		/**
+		 * 상품 생성 날짜
+		 * @format date-time
+		 */
+		createdAt: string
+		/** 좋아요 ID */
+		id: number
+		/** 좋아요 수 */
+		like: number
+		/** 상품 가격 */
+		price: number
+		/** 상품 ID */
+		productId: number
+		/**
+		 * 상품 상태
+		 * - `reserved`: 예약됨
+		 * - `sold`: 판매완료
+		 * - `sale`: 판매중
+		 */
+		status: ProductStatusEnumDto
+		/** 상품 썸네일 URL */
+		thumbnail: string
+		/** 상품 제목 */
+		title: string
+	}[]
+	/** 전체 좋아요한 상품 수 */
+	total: number
+	/** 전체 페이지 수 */
+	totalPages: number
+}
+
+export type LikeListErrorDto = {
+	/** 오류 메시지 */
+	message: string
+}
+
+export interface LikeListParamsDto {
+	/**
+	 * 한 페이지당 항목 수 (기본값: 10)
+	 * @min 1
+	 * @max 100
+	 * @example 10
+	 */
+	limit?: number
+	/**
+	 * 페이지 번호 (기본값: 1)
+	 * @min 1
+	 * @example 1
+	 */
+	page?: number
 }
 
 export interface NicknameCheckCreateDataDto {
@@ -316,7 +502,7 @@ export interface ProductDetailDataDto {
 	title: string
 	/**
 	 * 판매자 정보
-	 * @example {"id":1,"nickname":"판매자","profile":"https://example.com/profile.jpg"}
+	 * @example {"id":1,"nickname":"판매자","profile":"https://picsum.photos/200/300"}
 	 */
 	user: {
 		/** 판매자 ID */
@@ -384,11 +570,13 @@ export interface ProductListParamsDto {
 	 * 한 페이지당 항목 수 (기본값: 10)
 	 * @min 1
 	 * @max 100
+	 * @example 10
 	 */
 	limit: number
 	/**
 	 * 페이지 번호 (기본값: 1)
 	 * @min 1
+	 * @example 1
 	 */
 	page: number
 }
@@ -421,7 +609,7 @@ export interface ProductPartialUpdatePayloadDto {
 	description: string
 	/**
 	 * 상품 이미지 URL 목록
-	 * @example ["https://example.com/iphone14promax_1.jpg","https://example.com/iphone14promax_2.jpg"]
+	 * @example ["https://picsum.photos/200/300","https://picsum.photos/200/300"]
 	 */
 	images: string[]
 	/**
@@ -445,7 +633,7 @@ export interface ProductPartialUpdatePayloadDto {
 	status: ProductPartialUpdatePayloadStatusEnumDto
 	/**
 	 * 상품 썸네일 이미지 URL
-	 * @example "https://example.com/iphone14promax_thumbnail.jpg"
+	 * @example "https://picsum.photos/200/300"
 	 */
 	thumbnail: string
 	/**
@@ -474,10 +662,108 @@ export enum ProductPartialUpdatePayloadStatusEnumDto {
  * - `sold`: 판매완료
  * - `sale`: 판매중
  */
+export enum ProductStatusEnumDto {
+	Reserved = 'reserved',
+	Sold = 'sold',
+	Sale = 'sale',
+}
+
+/**
+ * 상품 상태
+ * - `reserved`: 예약됨
+ * - `sold`: 판매완료
+ * - `sale`: 판매중
+ */
+export enum ProductsStatusEnum1Dto {
+	Reserved = 'reserved',
+	Sold = 'sold',
+	Sale = 'sale',
+}
+
+/**
+ * 상품 상태
+ * - `reserved`: 예약됨
+ * - `sold`: 판매완료
+ * - `sale`: 판매중
+ */
 export enum ProductsStatusEnumDto {
 	Reserved = 'reserved',
 	Sold = 'sold',
 	Sale = 'sale',
+}
+
+export interface SalesListDataDto {
+	products: {
+		areas?: {
+			/** 지역 ID */
+			id?: number
+			/** 지역 이름 */
+			name?: string
+		}[]
+		/**
+		 * 상품 등록일
+		 * @format date-time
+		 */
+		createdAt?: string
+		/** 상품 ID */
+		id?: number
+		/** 현재 사용자의 좋아요 여부 */
+		isLike?: boolean
+		/** 좋아요 수 */
+		like?: number
+		/** 상품 가격 */
+		price?: number
+		/**
+		 * 상품 상태
+		 * - `reserved`: 예약됨
+		 * - `sold`: 판매완료
+		 * - `sale`: 판매중
+		 */
+		status?: ProductsStatusEnum1Dto
+		/** 상품 썸네일 이미지 URL */
+		thumbnail?: string
+		/** 상품 제목 */
+		title?: string
+	}[]
+	/** 전체 판매 상품 수 */
+	total: number
+	/** 전체 페이지 수 */
+	totalPages: number
+}
+
+export type SalesListErrorDto = {
+	/** 오류 메시지 */
+	message: string
+}
+
+/**
+ * 판매 상태 (sold: 판매완료, sale: 판매중)
+ * @example "sale"
+ */
+export enum SalesListParams1StatusEnumDto {
+	Sold = 'sold',
+	Sale = 'sale',
+}
+
+export interface SalesListParamsDto {
+	/**
+	 * 한 페이지당 항목 수 (기본값: 10)
+	 * @min 1
+	 * @max 100
+	 * @example 10
+	 */
+	limit?: number
+	/**
+	 * 페이지 번호 (기본값: 1)
+	 * @min 1
+	 * @example 1
+	 */
+	page?: number
+	/**
+	 * 판매 상태 (sold: 판매완료, sale: 판매중)
+	 * @example "sale"
+	 */
+	status?: StatusEnum1Dto
 }
 
 export interface SignupCreateDataDto {
@@ -506,14 +792,14 @@ export interface SignupCreatePayloadDto {
 	/**
 	 * 이메일
 	 * @pattern ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
-	 * @example "test@example.com"
+	 * @example "user@naver.com"
 	 */
 	email: string
 	/**
 	 * 닉네임
 	 * @minLength 2
 	 * @maxLength 20
-	 * @example "user123"
+	 * @example "test"
 	 */
 	nickname: string
 	/**
@@ -522,6 +808,15 @@ export interface SignupCreatePayloadDto {
 	 * @example 123123
 	 */
 	password: string
+}
+
+/**
+ * 판매 상태 (sold: 판매완료, sale: 판매중)
+ * @example "sale"
+ */
+export enum StatusEnum1Dto {
+	Sold = 'sold',
+	Sale = 'sale',
 }
 
 /**

@@ -10,7 +10,7 @@ import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader,
 
 import { useReadAreas } from '../model/use-area'
 
-export function Menubar() {
+export function AreaMenu() {
 	const { data: areasData } = useReadAreas()
 
 	const [isOpen, setIsOpen] = useState(false)
@@ -49,7 +49,7 @@ export function Menubar() {
 					className="flex items-center gap-1 bg-white font-bold hover:border-none focus-visible:outline-none"
 					onClick={() => setIsOpen(!isOpen)}
 				>
-					<small className="whitespace-nowrap">{myLocation}</small>
+					<small className="whitespace-nowrap text-lg">{myLocation}</small>
 					{isOpen ? <MdOutlineKeyboardArrowUp /> : <MdOutlineKeyboardArrowDown />}
 				</MenubarTrigger>
 
@@ -87,8 +87,11 @@ export function Menubar() {
 									<strong className="text-sm">내 동네</strong>
 									{mylocationList.length < 2 && <small className="italic text-brand-01">내 장소를 추가하려면 선택해주세요!</small>}
 									<div className="flex gap-2">
-										{mylocationList.map((item) => (
-											<button className="flex w-full items-center justify-between rounded-md bg-brand-01 px-4 py-2 text-white hover:brightness-125">
+										{mylocationList.map((item, index) => (
+											<button
+												key={index}
+												className="flex w-full items-center justify-between rounded-md bg-brand-01 px-4 py-2 text-white hover:brightness-125"
+											>
 												<p>{item}</p>
 												<MdClose onClick={() => onclickDelete(item)} />
 											</button>
