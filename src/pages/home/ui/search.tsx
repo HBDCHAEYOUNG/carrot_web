@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router-dom'
 
 import { Products } from '@widgets/home'
 
-import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger, SearchBox } from '@ui/index'
+import { Carousel, CarouselContent, CarouselDrawer, SearchBox } from '@ui/index'
 
 const filterList = [
 	{ title: '읍내동 외 동네 설정', drawerTitle: '동네 설정', content: [''] },
@@ -47,30 +47,22 @@ export function Search() {
 	return (
 		<div>
 			<SearchBox />
-			<Drawer>
-				<div className="w-full overflow-auto pt-4">
-					<div className="w-max">
-						{filterList.map((item, index) => (
-							<DrawerTrigger key={index} className="ml-3 cursor-pointer rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
-								{item.title}
-							</DrawerTrigger>
-						))}
-					</div>
-				</div>
 
-				<DrawerContent className="">
-					<DrawerHeader className="flex items-center border-b border-gray-01 py-6">
-						<DrawerTitle>제목</DrawerTitle>
-					</DrawerHeader>
-					<div className="h-full">리스트</div>
-					<DrawerFooter className="w-full flex-row justify-center gap-2">
-						<Button className="flex-grow bg-gray-01 text-black">초기화</Button>
-						<DrawerClose className="flex-grow-[3]">
-							<Button className="w-full bg-brand-01">적용하기</Button>
-						</DrawerClose>
-					</DrawerFooter>
-				</DrawerContent>
-			</Drawer>
+			<Carousel
+				opts={{
+					dragFree: true,
+				}}
+			>
+				<CarouselContent className="ml-1.5 mr-6">
+					{[...filterList, ...filterList, ...filterList].map((item, index) => (
+						<CarouselDrawer key={index} title={item.drawerTitle}>
+							{index === 0 && <div>1</div>}
+							{index === 1 && <div>2</div>}
+							{index === 2 && <div>3</div>}
+						</CarouselDrawer>
+					))}
+				</CarouselContent>
+			</Carousel>
 
 			<small className="block w-full pt-4 text-center text-gray-02">{`"${query}" 검색결과 입니다.`}</small>
 
