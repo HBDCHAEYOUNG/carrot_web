@@ -24,7 +24,7 @@ export function SearchBox() {
 	}
 
 	return (
-		<Form form={form} onSubmit={onSubmitSearch} className="mt-2 flex items-center justify-between gap-3 common-padding">
+		<Form form={form} onSubmit={onSubmitSearch} className="flex items-center justify-between gap-3 common-padding">
 			<MdOutlineArrowBackIos
 				className="size-6 cursor-pointer"
 				onClick={() => {

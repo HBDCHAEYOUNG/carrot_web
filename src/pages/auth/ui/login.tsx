@@ -1,5 +1,6 @@
+import { useAuthStore } from '@store/authStore'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { SocialloginForm } from '@widgets/header'
 
@@ -8,16 +9,30 @@ import { ButtonBasic, InputText } from '@ui/index'
 
 import { Logo } from '@icons/logo'
 
+import { useLogin } from '../model/use-login'
+
 export function Login() {
 	const form = useForm({
 		mode: 'all',
-		defaultValues: {
-			keyword: '',
-		},
 	})
 
-	const onSubmit = () => {
-		console.log(form.watch())
+	const router = useNavigate()
+
+	const { mutateAsync: login } = useLogin()
+	const { setLogin, isLogin } = useAuthStore()
+
+	const onSubmit = async () => {
+		const email = form.watch('email')
+		const password = form.watch('password')
+
+		try {
+			const data = await login({ email, password })
+			setLogin(data.token)
+			router('/')
+			console.log(isLogin)
+		} catch (error: any) {
+			console.log(error.response.data.message)
+		}
 	}
 
 	return (
@@ -27,7 +42,7 @@ export function Login() {
 			</Link>
 
 			<Form form={form} onSubmit={onSubmit}>
-				<Form.Item name="phone">
+				<Form.Item name="email">
 					<InputText placeholder="이메일" className="h-12 w-full rounded-b-none" />
 				</Form.Item>
 				<Form.Item name="password">

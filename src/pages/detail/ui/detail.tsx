@@ -44,6 +44,8 @@ export function Detail() {
 
 	if (isLoading) return <div>로딩중</div>
 
+	console.log(item)
+
 	return (
 		<>
 			<header className="fixed left-0 right-0 top-4 z-10 flex items-center gap-4 px-4 [&_*]:cursor-pointer">

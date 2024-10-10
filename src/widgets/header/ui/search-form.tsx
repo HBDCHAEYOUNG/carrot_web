@@ -17,7 +17,7 @@ export function SearchForm() {
 	const router = useNavigate()
 
 	return (
-		<div className="fixed left-0 top-0 z-10 h-screen w-full bg-white">
+		<div className="fixed left-0 top-0 z-10 h-screen w-full bg-white pt-2">
 			<SearchBox />
 
 			<section className="common-padding [&_*]:text-sm">

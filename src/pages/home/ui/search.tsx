@@ -45,7 +45,7 @@ export function Search() {
 	}, [toggleHeader])
 
 	return (
-		<div>
+		<div className="pt-2">
 			<SearchBox />
 
 			<Carousel
