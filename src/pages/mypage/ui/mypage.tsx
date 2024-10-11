@@ -1,4 +1,5 @@
 import { Footer } from '@app/layouts'
+import { useAuthStore } from '@store/authStore'
 import { useHeaderStore } from '@store/headerStore'
 import { useEffect } from 'react'
 import { FaUserLarge } from 'react-icons/fa6'
@@ -7,38 +8,16 @@ import { MdOutlineArrowBackIos } from 'react-icons/md'
 import { TfiHeart as heartIcon, TfiReceipt as listIcon } from 'react-icons/tfi'
 
 import { LikeProducts } from '@widgets/mypage'
+import { EditProfile } from '@widgets/mypage/ui/edit-profile'
 
-import { ButtonBasic, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger } from '@ui/index'
+import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger } from '@ui/index'
 
-const auth = {
-	token: 'string',
-	email: 'string',
-	nickname: '우혁이짱',
-	profile: '',
-	area: [
-		{
-			id: 1,
-			name: '서울특별시',
-		},
-		{
-			id: 2,
-			name: '경기도',
-		},
-	],
-	notice: {
-		type: 'activity',
-		message: 'string',
-		isRead: true,
-		createdAt: '2024-10-04T05:38:03.107Z',
-	},
-	noticeKeyword: {
-		keyword: 'string',
-		createdAt: '2024-10-04T05:38:03.107Z',
-	},
-}
+import { useReadAuth } from '../model/use-auth'
 
 export function Mypage() {
 	const { toggleHeader } = useHeaderStore()
+	const { token } = useAuthStore()
+	const { data: auth } = useReadAuth(token)
 
 	useEffect(() => {
 		toggleHeader(false)
@@ -52,12 +31,12 @@ export function Mypage() {
 			</header>
 			<section className="flex flex-col gap-4 common-padding">
 				<div className="flex items-center gap-2">
-					<picture className="size-10 rounded-full bg-gray-01 flex-center">
-						{auth.profile ? <img src={auth.profile} alt={auth.nickname} /> : <FaUserLarge className="size-6 fill-white" />}
+					<picture className="size-10 overflow-hidden rounded-full bg-gray-01 flex-center">
+						{auth?.profile ? <img src={auth.profile} alt={auth.nickname} /> : <FaUserLarge className="size-6 fill-white" />}
 					</picture>
-					<h2 className="text-2xl font-semibold">{auth.nickname}</h2>
+					<h2 className="text-2xl font-semibold">{auth?.nickname}</h2>
 				</div>
-				<ButtonBasic className="cursor-pointer bg-gray-01 text-black">프로필 수정</ButtonBasic>
+				<EditProfile />
 			</section>
 			<section className="flex flex-col gap-4 py-6 common-padding">
 				<h3 className="text-lg font-bold">나의 거래</h3>
