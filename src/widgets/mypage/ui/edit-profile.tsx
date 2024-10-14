@@ -1,8 +1,11 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useReadAuth } from '@pages/mypage'
 import { useAuthStore } from '@store/authStore'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaUserLarge } from 'react-icons/fa6'
 import { MdClose, MdPhotoCamera } from 'react-icons/md'
+import { z } from 'zod'
 
 import Form from '@ui/form/form'
 import { ButtonBasic, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger, InputText } from '@ui/index'
@@ -11,11 +14,29 @@ export function EditProfile() {
 	const { token } = useAuthStore()
 	const { data: auth } = useReadAuth(token)
 
-	const form = useForm()
+	const formSchema = z.object({
+		nickname: z.string().min(2, {
+			message: 'nickname must be at least 2 characters.',
+		}),
+	})
 
-	const onSubmit = () => {
-		console.log(form.getValues())
+	const form = useForm<z.infer<typeof formSchema>>({
+		mode: 'all',
+		resolver: zodResolver(formSchema),
+		defaultValues: {
+			nickname: '',
+		},
+	})
+
+	function onSubmit(values: z.infer<typeof formSchema>) {
+		console.log(values)
 	}
+
+	console.log(form.getValues())
+
+	useEffect(() => {
+		form.setValue('nickname', auth?.nickname ?? '')
+	}, [form, auth])
 
 	return (
 		<Drawer direction="right">
@@ -23,11 +44,12 @@ export function EditProfile() {
 				<ButtonBasic className="cursor-pointer bg-gray-01 text-black">프로필 수정</ButtonBasic>
 			</DrawerTrigger>
 			<DrawerContent className="h-full">
-				<DrawerHeader>
+				<DrawerHeader className="flex flex-center">
 					<DrawerClose>
 						<MdClose className="fixed left-6 top-11 size-6" />
 					</DrawerClose>
-					<h1 className="font-semibold">프로필 수정</h1>
+					<h1 className="text-lg font-semibold">프로필 수정</h1>
+					<p className="fixed right-6 top-11 cursor-pointer text-gray-02">완료</p>
 				</DrawerHeader>
 
 				<div className="flex-col gap-4 common-padding flex-center">
