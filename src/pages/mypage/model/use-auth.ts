@@ -1,12 +1,24 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { QUERY_KEY } from 'src/shared/const'
 
-import { readAuth } from '../api/auth'
+import { readAuth, updateAuth } from '../api/auth'
 
 export const useReadAuth = (token: string) => {
 	return useQuery({
-		queryKey: ['auth'],
+		queryKey: [QUERY_KEY.AUTH],
 		queryFn: () => readAuth(token),
 		enabled: !!token,
+	})
+}
+
+export const useUpdateAuth = (token: string) => {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationFn: (nickname: string) => updateAuth(token, nickname),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [QUERY_KEY.AUTH] })
+		},
 	})
 }
 
@@ -23,17 +35,6 @@ export const useReadAuth = (token: string) => {
 
 // 	return useMutation({
 // 		mutationFn: createProduct,
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ['products'] })
-// 		},
-// 	})
-// }
-
-// export const useUpdateProduct = () => {
-// 	const queryClient = useQueryClient()
-
-// 	return useMutation({
-// 		mutationFn: updateProduct,
 // 		onSuccess: () => {
 // 			queryClient.invalidateQueries({ queryKey: ['products'] })
 // 		},

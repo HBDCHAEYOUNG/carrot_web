@@ -3,4 +3,5 @@ export const QUERY_KEY = {
 	LIKE: 'like',
 	PRODUCTS: 'products',
 	LOGIN: 'login',
+	AUTH: 'auth',
 }
