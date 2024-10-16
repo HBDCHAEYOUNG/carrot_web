@@ -46,7 +46,7 @@ export function Search() {
 
 	return (
 		<div className="pt-2">
-			<SearchBox />
+			<SearchBox keyword={query} />
 
 			<Carousel
 				opts={{
