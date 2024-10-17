@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { LikeProducts } from '@widgets/mypage'
 import { EditProfile } from '@widgets/mypage/ui/edit-profile'
+import { SalesProducts } from '@widgets/mypage/ui/sales-products'
 
 import { Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger } from '@ui/index'
 import { Modal } from '@ui/modal/modal'
@@ -82,7 +83,7 @@ export function Mypage() {
 
 				{[
 					{ icon: heartIcon, title: '관심목록', content: <LikeProducts /> },
-					{ icon: listIcon, title: '판매내역', content: <LikeProducts /> },
+					{ icon: listIcon, title: '판매내역', content: <SalesProducts /> },
 					// { icon: bagIcon, title: '구매내역', content: <PurchaseHistory /> },
 				].map(({ icon: Icon, title, content }) => (
 					<Drawer key={title}>

@@ -1,4 +1,4 @@
-import { ProductListDataDto } from '@type/data-contracts'
+import { ProductListDataDto, SalesListDataDto } from '@type/data-contracts'
 
 import axiosInstance from '@lib/instance'
 
@@ -22,4 +22,8 @@ export const updateProduct = ({ id, name }: { id: number; name: string }): Promi
 // Delete an Product
 export const deleteProduct = (id: number): Promise<void> => {
 	return axiosInstance.delete(`${PATH}/${id}`)
+}
+
+export const readSales = (token: string): Promise<SalesListDataDto> => {
+	return axiosInstance.get(`${PATH}/sales?status=sale`, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
 }

@@ -4,4 +4,5 @@ export const QUERY_KEY = {
 	PRODUCTS: 'products',
 	LOGIN: 'login',
 	AUTH: 'auth',
+	SALES: 'sales',
 }

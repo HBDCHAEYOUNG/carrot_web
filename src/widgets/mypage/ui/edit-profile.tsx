@@ -14,7 +14,6 @@ import { Modal } from '@ui/modal/modal'
 export function EditProfile() {
 	const { token } = useAuthStore()
 	const { data: auth } = useReadAuth(token)
-	console.log(auth)
 
 	const { mutate: updateNickname } = useUpdateAuth(token)
 
