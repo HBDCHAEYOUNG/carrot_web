@@ -4,7 +4,7 @@ import { Products } from '@widgets/home'
 
 export function Home() {
 	return (
-		<section className="py-10">
+		<section className="py-12">
 			<Products />
 			<Footer />
 		</section>

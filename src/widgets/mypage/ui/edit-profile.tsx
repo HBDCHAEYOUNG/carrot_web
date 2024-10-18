@@ -13,16 +13,11 @@ import { Modal } from '@ui/modal/modal'
 
 export function EditProfile() {
 	const { token } = useAuthStore()
-	const { data: auth } = useReadAuth(token)
 
+	const { data: auth } = useReadAuth(token)
 	const { mutate: updateNickname } = useUpdateAuth(token)
 
 	const [isOpen, setIsOpen] = useState(false)
-
-	const onClickContent = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
-		e.stopPropagation()
-		setIsOpen(false)
-	}
 
 	const formSchema = z.object({
 		nickname: z.string().min(2, {
@@ -42,15 +37,24 @@ export function EditProfile() {
 		console.log(values)
 	}
 
-	useEffect(() => {
-		form.setValue('nickname', auth?.nickname ?? '')
-	}, [form, auth])
+	const onClickEvent = () => {
+		if (auth?.nickname === form.getValues('nickname')) return
+		setIsOpen(!isOpen)
+	}
 
+	const onClickCancel = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
+		e.stopPropagation()
+		setIsOpen(false)
+	}
 	const onClickComplete = () => {
 		const { nickname } = form.getValues()
 		updateNickname(nickname)
 		setIsOpen(false)
 	}
+
+	useEffect(() => {
+		form.setValue('nickname', auth?.nickname ?? '')
+	}, [form, auth])
 
 	return (
 		<Drawer direction="right">
@@ -63,13 +67,13 @@ export function EditProfile() {
 						<MdClose className="fixed left-6 top-11 size-6" />
 					</DrawerClose>
 					<h1 className="text-lg font-semibold">프로필 수정</h1>
-					<p className="fixed right-6 top-11 cursor-pointer text-gray-02" onClick={() => setIsOpen(!isOpen)}>
+					<p className="fixed right-6 top-11 cursor-pointer text-gray-02" onClick={onClickEvent}>
 						완료
 					</p>
 				</DrawerHeader>
 
 				{isOpen && (
-					<Modal onClickContent={onClickContent} onClickComplete={onClickComplete}>
+					<Modal onClickCancel={onClickCancel} onClickComplete={onClickComplete}>
 						<h1 className="text-lg font-semibold">정말 닉네임을 변경할까요?</h1>
 						<p className="text-gray-02">닉네임은 30일마다 1번 수정할 수 있어요</p>
 					</Modal>

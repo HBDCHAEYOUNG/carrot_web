@@ -1,4 +1,4 @@
-import { AuthListDataDto, AuthPartialUpdateDataDto } from '@type/data-contracts'
+import { AuthListDataDto, AuthPartialUpdatePayloadDto, AuthUpdatePayloadDto } from '@type/data-contracts'
 
 import axiosInstance from '@lib/instance'
 
@@ -10,16 +10,11 @@ export const readAuth = (token: string): Promise<AuthListDataDto> => {
 }
 
 // Update a profile
-export const updateAuth = (token: string, nickname: string): Promise<AuthPartialUpdateDataDto> => {
+export const updateAuthNickname = (token: string, nickname: string): Promise<AuthPartialUpdatePayloadDto> => {
 	return axiosInstance.patch(PATH, { nickname }, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
 }
 
-// // Create a new Product
-// export const createAuth = (): Promise<SignupCreateDataDto> => {
-// 	return axiosInstance.post(`${PATH}/signup`).then((response) => response.data)
-// }
-
-// // Delete an Product
-// export const deleteProduct = (id: number): Promise<void> => {
-// 	return axiosInstance.delete(`${PATH}/${id}`)
-// }
+// Update an area
+export const updateAuthArea = (token: string, areaIds: number[]): Promise<AuthUpdatePayloadDto> => {
+	return axiosInstance.patch(PATH, { areaIds }, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
+}

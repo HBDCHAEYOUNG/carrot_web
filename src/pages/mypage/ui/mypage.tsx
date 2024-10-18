@@ -27,7 +27,7 @@ export function Mypage() {
 
 	const [isOpen, setIsOpen] = useState(false)
 
-	const onClickContent = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
+	const onClickCancel = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation()
 		setIsOpen(false)
 	}
@@ -61,7 +61,7 @@ export function Mypage() {
 							로그아웃
 						</p>
 						{isOpen && (
-							<Modal onClickContent={onClickContent} onClickComplete={onClickComplete}>
+							<Modal onClickCancel={onClickCancel} onClickComplete={onClickComplete}>
 								<h1 className="text-lg font-semibold">로그아웃</h1>
 								<p className="cursor-pointer text-gray-02">로그아웃 하시겠습니까?</p>
 							</Modal>

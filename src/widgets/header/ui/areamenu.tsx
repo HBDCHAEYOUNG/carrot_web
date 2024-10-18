@@ -1,4 +1,6 @@
+import { useReadAuth } from '@pages/mypage'
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@radix-ui/react-menubar'
+import { useAuthStore } from '@store/authStore'
 import { useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { MdClose, MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
@@ -12,10 +14,12 @@ import { useReadAreas } from '../model/use-area'
 
 export function AreaMenu() {
 	const { data: areasData } = useReadAreas()
+	const { token } = useAuthStore()
+	const { data: user } = useReadAuth(token)
 
 	const [isOpen, setIsOpen] = useState(false)
-	const [myLocation, setMyLocation] = useState('서울')
-	const [mylocationList, setMyLocationList] = useState(['서울', '대구'])
+	const [myLocation, setMyLocation] = useState(user?.area[0].name)
+	const [mylocationList, setMyLocationList] = useState(user?.area.map((area) => area.name))
 
 	const onClickContent = (e: React.MouseEvent<HTMLDivElement>) => {
 		e.stopPropagation()
@@ -23,11 +27,11 @@ export function AreaMenu() {
 	}
 
 	const onclickRegion = (item: string) => {
-		if (mylocationList.length === 2) {
+		if (mylocationList?.length === 2) {
 			alert('내 장소는 2개만 저장할 수 있어요!')
 			return
 		}
-		if (mylocationList.includes(item)) {
+		if (mylocationList?.includes(item)) {
 			alert('이미 선택한 장소에요!')
 			return
 		}
@@ -35,11 +39,11 @@ export function AreaMenu() {
 	}
 
 	const onclickDelete = (item: string) => {
-		if (mylocationList.length === 1) {
+		if (mylocationList?.length === 1) {
 			alert('내 장소는 최소 1개 이상 선택해야 해요!')
 			return
 		}
-		setMyLocationList(mylocationList.filter((items) => items !== item))
+		setMyLocationList(mylocationList?.filter((items) => items !== item))
 	}
 
 	return (
@@ -56,7 +60,7 @@ export function AreaMenu() {
 				{isOpen && <Overlay onClick={onClickContent} />}
 
 				<MenubarContent className="relative flex flex-col rounded-xl border bg-white" onClick={onClickContent}>
-					{mylocationList.map((items, index) => (
+					{mylocationList?.map((items, index) => (
 						<MenubarItem
 							key={index}
 							onClick={() => setMyLocation(items)}
@@ -85,9 +89,9 @@ export function AreaMenu() {
 							<DrawerFooter>
 								<div className="flex flex-col gap-2">
 									<strong className="text-sm">내 동네</strong>
-									{mylocationList.length < 2 && <small className="italic text-brand-01">내 장소를 추가하려면 선택해주세요!</small>}
+									{mylocationList?.length < 2 && <small className="italic text-brand-01">내 장소를 추가하려면 선택해주세요!</small>}
 									<div className="flex gap-2">
-										{mylocationList.map((item, index) => (
+										{mylocationList?.map((item, index) => (
 											<button
 												key={index}
 												className="flex w-full items-center justify-between rounded-md bg-brand-01 px-4 py-2 text-white hover:brightness-125"
@@ -96,7 +100,7 @@ export function AreaMenu() {
 												<MdClose onClick={() => onclickDelete(item)} />
 											</button>
 										))}
-										{mylocationList.length < 2 && (
+										{mylocationList?.length < 2 && (
 											<button className="flex w-full items-center justify-center rounded-md bg-gray-01 px-4 py-2 hover:brightness-95">
 												<AiOutlinePlus />
 											</button>

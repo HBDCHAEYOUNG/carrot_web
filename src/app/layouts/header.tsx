@@ -10,7 +10,7 @@ export function Header() {
 	const { searchMode, setSearchMode } = useSearchStore()
 
 	return (
-		<header className="fixed z-10 flex w-full items-center justify-between bg-white p-2">
+		<header className="fixed z-10 flex w-full items-center justify-between bg-white pt-4 common-padding">
 			<AreaMenu />
 			<Link to="/">
 				<Logo className="h-8 w-auto" />
