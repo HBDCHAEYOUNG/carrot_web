@@ -16,5 +16,5 @@ export const updateAuthNickname = (token: string, nickname: string): Promise<Aut
 
 // Update an area
 export const updateAuthArea = (token: string, areaIds: number[]): Promise<AuthUpdatePayloadDto> => {
-	return axiosInstance.patch(PATH, { areaIds }, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
+	return axiosInstance.put(PATH, { areaIds }, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
 }

@@ -1,4 +1,5 @@
 export * from './api/area'
+export * from './model/area.schema'
 export * from './model/use-area'
 export * from './ui/areamenu'
 export * from './ui/loaction-drawer'
