@@ -24,6 +24,7 @@ export const deleteProduct = (id: number): Promise<void> => {
 	return axiosInstance.delete(`${PATH}/${id}`)
 }
 
-export const readSales = (token: string): Promise<SalesListDataDto> => {
-	return axiosInstance.get(`${PATH}/sales?status=sale`, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
+export const readSales = (): Promise<SalesListDataDto> => {
+	// return axiosInstance.get(`${PATH}/sales?status=sale`, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
+	return axiosInstance.get(`${PATH}/sales?status=sale`).then((response) => response.data)
 }

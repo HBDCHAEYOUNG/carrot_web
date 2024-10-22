@@ -1,4 +1,5 @@
 import { useSearchStore } from '@pages/home'
+import { useAuthStore } from '@store/authStore'
 import { CiBellOn, CiSearch } from 'react-icons/ci'
 import { Link } from 'react-router-dom'
 
@@ -8,9 +9,11 @@ import { Logo } from '@icons/logo'
 
 export function Header() {
 	const { searchMode, setSearchMode } = useSearchStore()
-
+	const { isLogin } = useAuthStore()
+	console.log(isLogin)
 	return (
 		<header className="fixed z-10 flex w-full items-center justify-between bg-white pt-4 common-padding">
+			{/* <AreaMenu /> */}
 			<AreaMenu />
 			<Link to="/">
 				<Logo className="h-8 w-auto" />

@@ -3,34 +3,35 @@ import { useForm } from 'react-hook-form'
 import Form from '@ui/form/form'
 import { ButtonBasic, Checkbox, InputSelect, InputText } from '@ui/index'
 
+const domainList = [
+	{ value: 'naver.com', label: 'naver.com' },
+	{ value: 'daum.net', label: 'daum.net' },
+	{ value: 'hanmail.net', label: 'hanmail.net' },
+	{ value: 'gmail.com', label: 'gmail.com' },
+	{ value: 'nate.com', label: 'nate.com' },
+	{ value: '직접입력', label: '직접입력' },
+]
+
+const agreement = [
+	{ label: '14세 이상', value: 'adaultAgree' },
+	{ label: '이용약관 동의', value: 'termsAgree' },
+	{ label: '마케팅 정보 수신', value: 'snsAgree' },
+]
+
 export function Join() {
+	// const { mutate: join } = useJoin()
+
 	const form = useForm({
 		mode: 'all',
-		defaultValues: {
-			keyword: '',
-		},
 	})
 
-	const domainList = [
-		{ value: 'naver.com', label: 'naver.com' },
-		{ value: 'daum.net', label: 'daum.net' },
-		{ value: 'hanmail.net', label: 'hanmail.net' },
-		{ value: 'gmail.com', label: 'gmail.com' },
-		{ value: 'nate.com', label: 'nate.com' },
-		{ value: '직접입력', label: '직접입력' },
-	]
-
-	const agreement = [
-		{ label: '14세 이상', value: 'adaultAgree' },
-		{ label: '이용약관 동의', value: 'termsAgree' },
-		{ label: '마케팅 정보 수신', value: 'snsAgree' },
-	]
-
 	const onSubmit = () => {
-		console.log('submit')
+		const { email, address, aggrement, areaIds, nickname, password } = form.getValues()
+		const values = { email: `${email}@${address}`, aggrement, areaIds, nickname, password }
+		console.log(111, values)
+		// join(values)
 	}
-
-	console.log(form.watch())
+	// 왓더헬~~
 
 	return (
 		<section className="flex h-screen flex-col px-4 pt-16">
@@ -44,7 +45,7 @@ export function Join() {
 						<InputText placeholder="이메일" />
 					</Form.Item>
 					<p className="mx-2 flex h-12 items-center">@</p>
-					<Form.Item name="test" className="flex-1">
+					<Form.Item name="address" className="flex-1">
 						<InputSelect options={domainList} />
 					</Form.Item>
 				</div>

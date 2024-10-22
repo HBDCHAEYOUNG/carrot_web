@@ -29,7 +29,7 @@ export function Login() {
 			const data = await login({ email, password })
 			setLogin(data.token)
 			router('/')
-			console.log(isLogin)
+			console.log(isLogin, data)
 		} catch (error: any) {
 			console.log(error.response.data.message)
 		}

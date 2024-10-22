@@ -15,12 +15,11 @@ import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader,
 import { AreaFormData, areaSchema } from '../model/area.schema'
 import { useReadAreas } from '../model/use-area'
 
-export function AreaMenu() {
+export function Areamenu() {
 	const { token } = useAuthStore()
 	const { data: user } = useReadAuth(token)
 	const { data: areasData } = useReadAreas()
 	const { mutate: updateAuthArea } = useUpdateAuthArea(token)
-
 	const form = useForm<AreaFormData>({
 		mode: 'all',
 		resolver: zodResolver(areaSchema),
@@ -53,7 +52,7 @@ export function AreaMenu() {
 			)
 		} else {
 			if (areaIds.length === 2) {
-				return alert('내 장소는 최소 1개 이상 선택해야 해요!')
+				return alert('내 장소는 최대 2개까지 선택할 수 있어요!')
 			}
 			form.setValue('areaIds', [...areaIds, item])
 		}
