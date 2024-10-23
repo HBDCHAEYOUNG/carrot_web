@@ -1,3 +1,4 @@
+import { useLogout } from '@pages/auth'
 import { useAuthStore } from '@store/authStore'
 import { MouseEvent, useState } from 'react'
 import { IoSettingsOutline } from 'react-icons/io5'
@@ -11,6 +12,7 @@ export function SettingDrawer() {
 	const router = useNavigate()
 
 	const { setLogout } = useAuthStore()
+	const { logout } = useLogout()
 
 	const [isOpen, setIsOpen] = useState(false)
 
@@ -23,6 +25,7 @@ export function SettingDrawer() {
 		setIsOpen(false)
 		setLogout()
 		router('/')
+		logout()
 	}
 	return (
 		<Drawer direction="right">

@@ -1,7 +1,7 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEY } from 'src/shared/const'
 
-import { login } from '../api/login'
+import { login, logout } from '../api/login'
 
 export const useLogin = () => {
 	const queryClient = useQueryClient()
@@ -15,5 +15,12 @@ export const useLogin = () => {
 			console.error('Login failed:', error)
 			throw error // Re-throw the error to be caught in the component
 		},
+	})
+}
+
+export const useLogout = () => {
+	return useQuery({
+		queryKey: [QUERY_KEY.LOGIN],
+		queryFn: logout,
 	})
 }

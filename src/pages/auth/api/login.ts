@@ -8,3 +8,7 @@ const PATH = '/auth'
 export const login = (parmas: Auth.AuthCreate.RequestBody) => {
 	return axiosInstance.post(PATH, { ...parmas }).then((response) => response.data)
 }
+
+export const logout = () => {
+	return axiosInstance.delete(PATH).then((response) => response.data)
+}
