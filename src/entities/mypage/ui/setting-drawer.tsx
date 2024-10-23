@@ -12,7 +12,7 @@ export function SettingDrawer() {
 	const router = useNavigate()
 
 	const { setLogout } = useAuthStore()
-	const { logout } = useLogout()
+	const { mutateAsync: logout } = useLogout()
 
 	const [isOpen, setIsOpen] = useState(false)
 

@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEY } from 'src/shared/const'
 
 import { login, logout } from '../api/login'
@@ -19,8 +19,16 @@ export const useLogin = () => {
 }
 
 export const useLogout = () => {
-	return useQuery({
-		queryKey: [QUERY_KEY.LOGIN],
-		queryFn: logout,
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationFn: logout,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: [QUERY_KEY.LOGIN] })
+		},
+		onError: (error) => {
+			console.error('Logout failed:', error)
+			throw error // Re-throw the error to be caught in the component
+		},
 	})
 }
