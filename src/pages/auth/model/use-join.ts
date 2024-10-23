@@ -6,7 +6,6 @@ import { signup } from '../api/join'
 
 export const useJoin = () => {
 	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationFn: (params: SignupCreatePayloadDto) => signup(params),
 		onSuccess: () => {

@@ -1,7 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useReadAuth, useUpdateAuthArea } from '@pages/mypage'
 import { MenubarContent, MenubarItem, MenubarMenu, MenubarTrigger } from '@radix-ui/react-menubar'
-import { useAuthStore } from '@store/authStore'
 import { useEffect, useState } from 'react'
 import { FieldValues, useForm } from 'react-hook-form'
 import { MdClose, MdOutlineKeyboardArrowDown, MdOutlineKeyboardArrowUp } from 'react-icons/md'
@@ -16,10 +15,9 @@ import { AreaFormData, areaSchema } from '../model/area.schema'
 import { useReadAreas } from '../model/use-area'
 
 export function Areamenu() {
-	const { token } = useAuthStore()
-	const { data: user } = useReadAuth(token)
+	const { data: user } = useReadAuth()
 	const { data: areasData } = useReadAreas()
-	const { mutate: updateAuthArea } = useUpdateAuthArea(token)
+	const { mutate: updateAuthArea } = useUpdateAuthArea()
 	const form = useForm<AreaFormData>({
 		mode: 'all',
 		resolver: zodResolver(areaSchema),
