@@ -12,7 +12,6 @@ export function SalesProducts() {
 	const { token } = useAuthStore()
 
 	const { data: sales } = useReadSales(token)
-	console.log(123, sales)
 
 	return (
 		<ul className="flex flex-col">

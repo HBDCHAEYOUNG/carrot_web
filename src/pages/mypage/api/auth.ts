@@ -12,12 +12,10 @@ export const readAuth = (): Promise<AuthListDataDto> => {
 
 // Update a profile
 export const updateAuthNickname = (nickname: string): Promise<AuthPartialUpdatePayloadDto> => {
-	// return axiosInstance.patch(PATH, { nickname }, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
 	return axiosInstance.patch(PATH, { nickname }).then((response) => response.data)
 }
 
 // Update an area
 export const updateAuthArea = (areaIds: number[]): Promise<AuthUpdatePayloadDto> => {
-	// return axiosInstance.put(PATH, { areaIds }, { headers: { Authorization: `Bearer ${token}` } }).then((response) => response.data)
 	return axiosInstance.put(PATH, { areaIds }).then((response) => response.data)
 }
