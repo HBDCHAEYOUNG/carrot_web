@@ -17,8 +17,8 @@ export function CarouselDrawer({ children, title }: PropsWithChildren<CarouselDr
 				</DrawerTrigger>
 			</CarouselItem>
 
-			<DrawerContent>
-				<DrawerHeader className="flex items-center border-b border-gray-01 py-6">
+			<DrawerContent className="px-4">
+				<DrawerHeader className="border-b border-gray-01 py-6 flex-center">
 					<DrawerTitle>{title}</DrawerTitle>
 				</DrawerHeader>
 

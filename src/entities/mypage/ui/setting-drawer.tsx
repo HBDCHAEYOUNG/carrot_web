@@ -45,7 +45,7 @@ export function SettingDrawer() {
 				{isOpen && (
 					<Modal onClickCancel={onClickCancel} onClickComplete={onClickComplete}>
 						<h1 className="text-lg font-semibold">로그아웃</h1>
-						<p className="cursor-pointer text-gray-02">로그아웃 하시겠습니까?</p>
+						<p className="cursor-pointer whitespace-nowrap text-gray-02">로그아웃 하시겠습니까?</p>
 					</Modal>
 				)}
 			</DrawerContent>

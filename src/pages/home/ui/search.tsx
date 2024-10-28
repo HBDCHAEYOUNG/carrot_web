@@ -2,36 +2,22 @@ import { useHeaderStore } from '@store/headerStore'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
+import { CategoryFilter } from '@features/search'
+import { AreaFilter } from '@features/search/ui/area-filter'
+import { PriceFilter } from '@features/search/ui/price-filter'
+
 import { Products } from '@widgets/home'
 
 import { Carousel, CarouselContent, CarouselDrawer, SearchBox } from '@ui/index'
 
 const filterList = [
-	{ title: '읍내동 외 동네 설정', drawerTitle: '동네 설정', content: [''] },
-	{ title: '가격', drawerTitle: '가격', content: ['최소금액', '최대금액'] },
+	{ title: '읍내동 외 동네 설정', drawerTitle: '동네 설정' },
+	{ title: '가격', drawerTitle: '가격' },
 	{
 		title: '카테고리',
 		drawerTitle: '카테고리',
-		content: [
-			'디지털기기',
-			'생활가전',
-			'가구/인테리어',
-			'유아동',
-			'유아도서',
-			'생활/주방',
-			'스포츠/레저',
-			'여성잡화',
-			'여성의류',
-			'남성패션/잡화',
-			'취미/게임/음반',
-			'뷰티/미용',
-			'반려동물용품',
-			'도서',
-			'식물',
-			'기타 중고물품',
-		],
 	},
-	{ title: '최신순', drawerTitle: '범위', content: ['최신순', '오래된순'] },
+	{ title: '최신순', drawerTitle: '범위' },
 ]
 
 export function Search() {
@@ -53,12 +39,12 @@ export function Search() {
 					dragFree: true,
 				}}
 			>
-				<CarouselContent className="ml-1.5 mr-6">
-					{[...filterList, ...filterList, ...filterList].map((item, index) => (
+				<CarouselContent className="ml-1.5 mr-6 h-1/3">
+					{...filterList.map((item, index) => (
 						<CarouselDrawer key={index} title={item.drawerTitle}>
-							{index === 0 && <div>1</div>}
-							{index === 1 && <div>2</div>}
-							{index === 2 && <div>3</div>}
+							{index === 0 && <AreaFilter />}
+							{index === 1 && <PriceFilter />}
+							{index === 2 && <CategoryFilter />}
 						</CarouselDrawer>
 					))}
 				</CarouselContent>

@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useReadAuth, useUpdateAuth } from '@pages/mypage'
-import { useAuthStore } from '@store/authStore'
 import { MouseEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { FaUserLarge } from 'react-icons/fa6'
@@ -12,10 +11,8 @@ import { ButtonBasic, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTr
 import { Modal } from '@ui/modal/modal'
 
 export function EditProfile() {
-	const { token } = useAuthStore()
-
-	const { data: auth } = useReadAuth(token)
-	const { mutate: updateNickname } = useUpdateAuth(token)
+	const { data: auth } = useReadAuth()
+	const { mutate: updateNickname } = useUpdateAuth()
 
 	const [isOpen, setIsOpen] = useState(false)
 

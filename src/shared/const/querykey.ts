@@ -6,4 +6,6 @@ export const QUERY_KEY = {
 	AUTH: 'auth',
 	SALES: 'sales',
 	JOIN: 'join',
+	AREA: 'area',
+	CATEGORY: 'category',
 }
