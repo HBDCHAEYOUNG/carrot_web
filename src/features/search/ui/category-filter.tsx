@@ -11,18 +11,17 @@ export function CategoryFilter() {
 	// const onClickCategory = (id: number) => {
 	// 	form.setValue('category', id)
 	// }
+
+	console.log(form.watch('category'))
+
 	return (
-		<Form form={form} onSubmit={() => {}} className="overflow-scroll">
+		<Form form={form} onSubmit={() => {}} className="overflow-scroll py-6">
 			{categories?.map((category) => (
-				<Form.Item key={category.id} name="category" label={category.name}>
-					<InputText type="checkbox" name="category" value={category.id} />
-				</Form.Item>
-				// <div key={category.id} className="flex items-center gap-1">
-				// 	<input type="checkbox" value={category.id} onChange={() => onClickCategory(category.id)} />
-				// 	<p>{category.name}</p>
-				// </div>
+				<div key={category.id} className="flex items-center gap-1">
+					<InputText {...form.register('category')} className="size-4" type="checkbox" name="category" value={category.id} />
+					<p>{category.name}</p>
+				</div>
 			))}
-			‹
 		</Form>
 	)
 }

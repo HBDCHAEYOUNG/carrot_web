@@ -8,11 +8,12 @@ export function AreaFilter() {
 	const { data: auth } = useReadAuth()
 	const form = useForm()
 	return (
-		<Form form={form} onSubmit={() => {}}>
+		<Form form={form} className="py-6" onSubmit={() => {}}>
 			{auth?.area.map((area) => (
-				<Form.Item key={area.id} name="area" label={area.name}>
-					<InputText name="area" value={area.id} />
-				</Form.Item>
+				<div key={area.id} className="flex items-center gap-1">
+					<InputText {...form.register('category')} type="checkbox" className="size-4" name="area" value={area.id} />
+					<p>{area.name}</p>
+				</div>
 			))}
 		</Form>
 	)
