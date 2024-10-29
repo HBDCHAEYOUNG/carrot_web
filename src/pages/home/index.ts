@@ -1,3 +1,4 @@
+export * from './store/use-filter'
 export * from './store/use-search-history'
 export * from './store/use-search'
 export * from './ui/home'
