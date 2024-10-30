@@ -10,8 +10,6 @@ import { Products } from '@widgets/home'
 
 import { Carousel, CarouselContent, CarouselDrawer, SearchBox } from '@ui/index'
 
-import { useFilterStore } from '../store/use-filter'
-
 const filterList = [
 	{ title: '읍내동 외 동네 설정', drawerTitle: '동네 설정' },
 	{ title: '가격', drawerTitle: '가격' },
@@ -19,23 +17,25 @@ const filterList = [
 		title: '카테고리',
 		drawerTitle: '카테고리',
 	},
-	{ title: '최신순', drawerTitle: '범위' },
 ]
 
 export function Search() {
 	const [searchParams] = useSearchParams()
 
 	const query = searchParams.get('keyword') || ''
-	const { toggleHeader } = useHeaderStore()
-	const { areaFilter, categoryFilter, minPrice, maxPrice } = useFilterStore()
+	const area = searchParams.get('area') || ''
+	const category = searchParams.get('category') || ''
+	const minPrice = searchParams.get('minPrice') || ''
+	const maxPrice = searchParams.get('maxPrice') || ''
 
-	console.log(areaFilter, categoryFilter, minPrice, maxPrice)
+	const { toggleHeader } = useHeaderStore()
 
 	useEffect(() => {
 		toggleHeader(false)
 		return () => toggleHeader(true)
 	}, [toggleHeader])
 
+	console.log(area, category, minPrice, maxPrice)
 	return (
 		<div className="pt-2">
 			<SearchBox keyword={query} />
