@@ -6,11 +6,13 @@ import { InputText } from '@ui/index'
 
 export function PriceFilter() {
 	const form = useForm()
-	const { setPriceFilter, priceFilter } = useFilterStore()
+	const { setPriceFilter, minPrice, maxPrice } = useFilterStore()
 	const onSubmit = () => {
-		setPriceFilter(form.getValues('minPrice'), form.getValues('maxPrice'))
+		const min = form.getValues('minPrice')
+		const max = form.getValues('maxPrice')
+		setPriceFilter(min, max)
 	}
-	console.log(333, priceFilter)
+	console.log(333, minPrice, maxPrice)
 	return (
 		<Form form={form} className="flex gap-2 py-6 flex-center" onSubmit={onSubmit}>
 			<Form.Item name="minPrice" className="text-center" label="최소 가격">

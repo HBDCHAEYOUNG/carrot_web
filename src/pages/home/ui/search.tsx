@@ -10,6 +10,8 @@ import { Products } from '@widgets/home'
 
 import { Carousel, CarouselContent, CarouselDrawer, SearchBox } from '@ui/index'
 
+import { useFilterStore } from '../store/use-filter'
+
 const filterList = [
 	{ title: '읍내동 외 동네 설정', drawerTitle: '동네 설정' },
 	{ title: '가격', drawerTitle: '가격' },
@@ -22,8 +24,12 @@ const filterList = [
 
 export function Search() {
 	const [searchParams] = useSearchParams()
+
 	const query = searchParams.get('keyword') || ''
 	const { toggleHeader } = useHeaderStore()
+	const { areaFilter, categoryFilter, minPrice, maxPrice } = useFilterStore()
+
+	console.log(areaFilter, categoryFilter, minPrice, maxPrice)
 
 	useEffect(() => {
 		toggleHeader(false)
