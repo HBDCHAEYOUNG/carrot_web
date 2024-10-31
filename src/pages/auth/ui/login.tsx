@@ -19,7 +19,7 @@ export function Login() {
 	const router = useNavigate()
 
 	const { mutateAsync: login } = useLogin()
-	const { setLogin, isLogin } = useAuthStore()
+	const { setLogin } = useAuthStore()
 
 	const onSubmit = async () => {
 		const email = form.watch('email')
@@ -29,7 +29,6 @@ export function Login() {
 			const data = await login({ email, password })
 			setLogin(data.token)
 			router('/')
-			console.log(isLogin, data)
 		} catch (error: any) {
 			console.log(error.response.data.message)
 		}

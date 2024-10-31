@@ -3,18 +3,10 @@ import { QUERY_KEY } from 'src/shared/const'
 
 import { createProduct, deleteProduct, readProducts, readSales, updateProduct } from '../api/product'
 
-export const useReadProducts = () => {
+export const useReadProducts = (keyword: string, area: string, category: string, minPrice: number, maxPrice: number) => {
 	return useQuery({
-		queryKey: [QUERY_KEY.PRODUCTS],
-		queryFn: readProducts,
-	})
-}
-
-export const useReadProduct = (id: number) => {
-	return useQuery({
-		queryKey: [QUERY_KEY.PRODUCTS],
-		queryFn: readProducts,
-		enabled: !!id,
+		queryKey: [QUERY_KEY.PRODUCTS, keyword, area, category, minPrice, maxPrice],
+		queryFn: () => readProducts(keyword, area, category, minPrice, maxPrice),
 	})
 }
 
@@ -54,7 +46,7 @@ export const useDeleteProduct = () => {
 export const useReadSales = (token: string) => {
 	return useQuery({
 		queryKey: [QUERY_KEY.SALES],
-		queryFn: () => readSales(token),
+		queryFn: () => readSales(),
 		enabled: !!token,
 	})
 }
