@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form'
 
+import { AreaDrawer } from '@entities/join'
+
 import Form from '@ui/form/form'
 import { ButtonBasic, Checkbox, InputSelect, InputText } from '@ui/index'
 
@@ -27,6 +29,7 @@ export function Join() {
 
 	const onSubmit = () => {
 		const { email, address, aggrement, areaIds, nickname, password } = form.getValues()
+		console.log(email, address, aggrement, areaIds, nickname, password)
 		const values = { email: `${email}@${address}`, aggrement, areaIds, nickname, password }
 		console.log(111, values)
 		// join(values)
@@ -60,6 +63,10 @@ export function Join() {
 
 				<Form.Item name="nickname" label="닉네임" description="다른 유저와 겹치지 않도록 입력해주세요. (2~20자)">
 					<InputText placeholder="비밀번호" />
+				</Form.Item>
+
+				<Form.Item name="areaIds" label="내 동네" labelClassName="flex" className="block w-full">
+					<AreaDrawer />
 				</Form.Item>
 
 				<div className="flex flex-col gap-2">

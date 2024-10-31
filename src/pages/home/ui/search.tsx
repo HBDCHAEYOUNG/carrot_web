@@ -23,10 +23,6 @@ export function Search() {
 	const [searchParams] = useSearchParams()
 
 	const query = searchParams.get('keyword') || ''
-	const area = searchParams.get('area') || ''
-	const category = searchParams.get('category') || ''
-	const minPrice = searchParams.get('minPrice') || ''
-	const maxPrice = searchParams.get('maxPrice') || ''
 
 	const { toggleHeader } = useHeaderStore()
 
@@ -35,7 +31,6 @@ export function Search() {
 		return () => toggleHeader(true)
 	}, [toggleHeader])
 
-	console.log(area, category, minPrice, maxPrice)
 	return (
 		<div className="pt-2">
 			<SearchBox keyword={query} />

@@ -5,13 +5,7 @@ import axiosInstance from '@lib/instance'
 const PATH = '/product'
 
 // Read productsList
-export const readProducts = (
-	keyword: string,
-	area: string,
-	category: string,
-	minPrice: number,
-	maxPrice: number,
-): Promise<ProductListDataDto> => {
+export const readProducts = (keyword: string, area: string, category: string, minPrice: number, maxPrice: number) => {
 	return axiosInstance.get(PATH, { params: { keyword, area, category, minPrice, maxPrice } }).then((response) => response.data)
 }
 

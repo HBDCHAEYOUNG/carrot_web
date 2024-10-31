@@ -5,7 +5,7 @@ import { createProduct, deleteProduct, readProducts, readSales, updateProduct } 
 
 export const useReadProducts = (keyword: string, area: string, category: string, minPrice: number, maxPrice: number) => {
 	return useQuery({
-		queryKey: [QUERY_KEY.PRODUCTS, keyword, area, category, minPrice, maxPrice],
+		queryKey: [QUERY_KEY.PRODUCTS],
 		queryFn: () => readProducts(keyword, area, category, minPrice, maxPrice),
 	})
 }
