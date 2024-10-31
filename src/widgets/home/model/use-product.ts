@@ -1,12 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Product } from '@type/product-route'
 import { QUERY_KEY } from 'src/shared/const'
 
 import { createProduct, deleteProduct, readProducts, readSales, updateProduct } from '../api/product'
 
-export const useReadProducts = (keyword: string, area: string, category: string, minPrice: number, maxPrice: number) => {
+export const useReadProducts = (params: Product.ProductList.RequestQuery) => {
 	return useQuery({
 		queryKey: [QUERY_KEY.PRODUCTS],
-		queryFn: () => readProducts(keyword, area, category, minPrice, maxPrice),
+		queryFn: () => readProducts(params),
 	})
 }
 

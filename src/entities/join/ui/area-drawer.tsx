@@ -1,5 +1,5 @@
-import { useUpdateAuthArea } from '@pages/mypage'
 import { useState } from 'react'
+import { useFormContext } from 'react-hook-form'
 import { MdClose } from 'react-icons/md'
 
 import { useReadAreas } from '@widgets/header'
@@ -9,12 +9,11 @@ import { cn } from '@lib/utils'
 import { ButtonBasic, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTrigger } from '@ui/index'
 
 export function AreaDrawer() {
+	const form = useFormContext()
 	const { data: area } = useReadAreas()
 
 	const [myArea, setMyArea] = useState<{ id: number; name: string }[]>([])
 	const [isOpen, setIsOpen] = useState(false)
-
-	const { mutateAsync: updateAuthArea } = useUpdateAuthArea()
 
 	const onClickSelectArea = (area: { id: number; name: string }) => {
 		if (myArea?.find((a) => a.id === area.id)) return
@@ -34,7 +33,7 @@ export function AreaDrawer() {
 		} else {
 			const ids = myArea?.map((a) => a.id)
 			if (!ids) return
-			updateAuthArea(ids)
+			form.setValue('areaIds', ids)
 			setIsOpen(false)
 		}
 	}

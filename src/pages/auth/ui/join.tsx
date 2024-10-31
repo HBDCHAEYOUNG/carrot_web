@@ -1,9 +1,11 @@
-import { useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
 
 import { AreaDrawer } from '@entities/join'
 
 import Form from '@ui/form/form'
 import { ButtonBasic, Checkbox, InputSelect, InputText } from '@ui/index'
+
+import { useJoin } from '../model/use-join'
 
 const domainList = [
 	{ value: 'naver.com', label: 'naver.com' },
@@ -15,26 +17,23 @@ const domainList = [
 ]
 
 const agreement = [
-	{ label: '14세 이상', value: 'adaultAgree' },
+	{ label: '14세 이상', value: 'adultAgree' },
 	{ label: '이용약관 동의', value: 'termsAgree' },
 	{ label: '마케팅 정보 수신', value: 'snsAgree' },
 ]
 
 export function Join() {
-	// const { mutate: join } = useJoin()
+	const { mutate: join } = useJoin()
 
 	const form = useForm({
 		mode: 'all',
 	})
 
-	const onSubmit = () => {
-		const { email, address, aggrement, areaIds, nickname, password } = form.getValues()
-		console.log(email, address, aggrement, areaIds, nickname, password)
-		const values = { email: `${email}@${address}`, aggrement, areaIds, nickname, password }
-		console.log(111, values)
-		// join(values)
+	const onSubmit = (formValues: FieldValues) => {
+		const { email, address, agreement, areaIds, nickname, password } = formValues
+		const values = { email: `${email}@${address}`, agreement, areaIds, nickname, password }
+		join(values)
 	}
-	// 왓더헬~~
 
 	return (
 		<section className="flex h-screen flex-col px-4 pt-16">
@@ -65,15 +64,13 @@ export function Join() {
 					<InputText placeholder="비밀번호" />
 				</Form.Item>
 
-				<Form.Item name="areaIds" label="내 동네" labelClassName="flex" className="block w-full">
-					<AreaDrawer />
-				</Form.Item>
+				<AreaDrawer />
 
 				<div className="flex flex-col gap-2">
 					<label>약관동의</label>
 					<div className="flex flex-col gap-2 rounded-md border p-4">
 						{agreement.map((items) => (
-							<Form.Item name={`agerement.${items.value}`}>
+							<Form.Item name={`agreement.${items.value}`}>
 								<fieldset className="flex items-center gap-2">
 									<Checkbox id={items.value} />
 									<label htmlFor={items.value}>{items.label}</label>
