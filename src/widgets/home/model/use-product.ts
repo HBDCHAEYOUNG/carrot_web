@@ -6,7 +6,7 @@ import { createProduct, deleteProduct, readProducts, readSales, updateProduct } 
 
 export const useReadProducts = (params: Product.ProductList.RequestQuery) => {
 	return useQuery({
-		queryKey: [QUERY_KEY.PRODUCTS],
+		queryKey: [QUERY_KEY.PRODUCTS, params],
 		queryFn: () => readProducts(params),
 	})
 }
