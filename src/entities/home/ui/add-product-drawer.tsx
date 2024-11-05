@@ -1,11 +1,11 @@
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useReadAuth } from '@pages/mypage'
+import { FieldValues, useForm } from 'react-hook-form'
 import { BsCameraFill, BsFillPlusCircleFill } from 'react-icons/bs'
 import { MdClose } from 'react-icons/md'
 
-import { useReadAreas } from '@widgets/header'
+import { useReadCategories } from '@features/search'
 
-import { cn } from '@lib/utils'
+import { useCreateProduct } from '@widgets/home'
 
 import Form from '@ui/form/form'
 import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerPortal, DrawerTrigger, InputText } from '@ui/index'
@@ -15,11 +15,14 @@ export function AddProductDrawer() {
 		mode: 'all',
 	})
 
-	const { data: areas } = useReadAreas()
+	const { data: auth } = useReadAuth()
+	const { data: categories } = useReadCategories()
+	const { mutate: createProduct } = useCreateProduct()
 
-	const [sellType, setSellType] = useState<'sale' | 'share'>('sale')
-
-	console.log(111, form.watch())
+	const onSubmit = (formValues: FieldValues) => {
+		console.log(formValues)
+		createProduct(111, formValues)
+	}
 
 	return (
 		<Drawer direction="right">
@@ -46,27 +49,21 @@ export function AddProductDrawer() {
 							<InputText name="title" placeholder="제목" className="mt-4" />
 						</Form.Item>
 
-						<div>
-							<h3>거래방식</h3>
+						<Form.Item name="price" label="가격">
+							<InputText name="price" type="number" placeholder="가격을 입력해주세요." className="mt-4" />
+						</Form.Item>
 
-							<button
-								onClick={() => setSellType('sale')}
-								className={cn('mr-4 mt-4 rounded-2xl border px-2 py-1', {
-									'bg-brand-01 text-white': sellType === 'sale',
-								})}
-							>
-								판매하기
-							</button>
-							<button
-								onClick={() => setSellType('share')}
-								className={cn('mt-4 rounded-2xl border px-2 py-1', {
-									'bg-brand-01 text-white': sellType === 'share',
-								})}
-							>
-								나눔하기
-							</button>
-							<Form.Item name="price">
-								<InputText name="price" type="number" placeholder="가격을 입력해주세요." className="mt-4" />
+						<div className="flex items-center gap-2">
+							<InputText {...form.register('isOffer')} name="isOffer" type="checkbox" className="size-4" />
+							<p className="text-nowrap text-sm">가격제안받기</p>
+						</div>
+
+						<div>
+							<p className="mb-2 text-sm">지역</p>
+							<Form.Item name="areaIds">
+								<select name="areaIds" className="w-full rounded-md border border-gray-300 p-2">
+									{auth?.area?.map((area) => <option value={area.id}>{area.name}</option>)}
+								</select>
 							</Form.Item>
 						</div>
 
@@ -75,14 +72,24 @@ export function AddProductDrawer() {
 								name="description"
 								id="description"
 								className="mt-4 min-h-60 w-full rounded-md border border-gray-300 p-4"
-								placeholder={`${areas?.[0].name}에 올릴 게시글 내용을 작성해 주세요. (판매금지 물품은 게시가 제한될 수 있어요.) \n신뢰할 수 있는`}
+								placeholder={`게시글 내용을 작성해 주세요. (판매금지 물품은 게시가 제한될 수 있어요.) 신뢰할 수 있는`}
 							></textarea>
 						</Form.Item>
 
+						<Form.Item name="categoryId">
+							<select name="categoryId" className="w-full rounded-md border border-gray-300 p-2">
+								{categories?.map((category) => <option value={category.id}>{category.name}</option>)}
+							</select>
+						</Form.Item>
+
 						<DrawerFooter className="w-full flex-row justify-center gap-2">
-							<Button className="flex-grow bg-gray-01 text-black">초기화</Button>
+							<Button className="flex-grow bg-gray-01 text-black" onClick={() => form.reset()}>
+								초기화
+							</Button>
 							<DrawerClose className="flex-grow-[3]">
-								<Button className="w-full bg-brand-01">적용하기</Button>
+								<Button className="w-full bg-brand-01" onClick={onSubmit}>
+									적용하기
+								</Button>
 							</DrawerClose>
 						</DrawerFooter>
 					</Form>
