@@ -3,6 +3,8 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 
+import { useReadAreas } from '@widgets/header'
+
 import Form from '@ui/form/form'
 import { Button, DrawerClose, DrawerFooter, InputText } from '@ui/index'
 
@@ -12,6 +14,7 @@ export function AreaFilter() {
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const { data: auth } = useReadAuth()
+	const { data: areas } = useReadAreas()
 
 	const onSubmit = () => {
 		const area = form.getValues('area')
@@ -26,15 +29,24 @@ export function AreaFilter() {
 
 	return (
 		<Form form={form} className="py-6" onSubmit={onSubmit}>
-			{auth?.area.map((area) => (
+			{(auth?.area || areas)?.map((area) => (
 				<div key={area.id} className="flex items-center gap-1">
-					<InputText {...form.register('area')} type="checkbox" className="size-4" name="area" value={area.id} />
-					<p>{area.name}</p>
+					<InputText
+						{...form.register('area')}
+						type="checkbox"
+						className="mr-1 size-4 accent-brand-01"
+						name="area"
+						value={area.id}
+						id={area.name}
+					/>
+					<label for={area.name}>{area.name}</label>
 				</div>
 			))}
 
 			<DrawerFooter className="w-full flex-row justify-center gap-2">
-				<Button className="flex-grow bg-gray-01 text-black">초기화</Button>
+				<Button className="flex-grow bg-gray-01 text-black" onClick={() => form.reset()}>
+					초기화
+				</Button>
 				<DrawerClose className="flex-grow-[3]">
 					<Button className="w-full bg-brand-01">적용하기</Button>
 				</DrawerClose>

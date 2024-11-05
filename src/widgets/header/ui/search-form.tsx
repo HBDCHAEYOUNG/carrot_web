@@ -42,8 +42,8 @@ export function SearchForm() {
 					))}
 				</Swiper>
 
-				<div className="flex items-center justify-between">
-					<h2 className="mb-2 mt-6 inline-block font-bold">최근 검색어</h2>
+				<div className="mb-2 mt-6 flex items-center justify-between">
+					<h2 className="inline-block font-bold">최근 검색어</h2>
 					<button className="text-gray-02" onClick={setInit}>
 						전체 삭제
 					</button>

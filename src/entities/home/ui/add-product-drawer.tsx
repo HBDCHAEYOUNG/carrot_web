@@ -5,8 +5,6 @@ import { MdClose } from 'react-icons/md'
 
 import { useReadCategories } from '@features/search'
 
-import { useCreateProduct } from '@widgets/home'
-
 import Form from '@ui/form/form'
 import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerPortal, DrawerTrigger, InputText } from '@ui/index'
 
@@ -17,13 +15,12 @@ export function AddProductDrawer() {
 
 	const { data: auth } = useReadAuth()
 	const { data: categories } = useReadCategories()
-	const { mutate: createProduct } = useCreateProduct()
+	// const { mutate: createProduct } = useCreateProduct()
 
 	const onSubmit = (formValues: FieldValues) => {
 		console.log(formValues)
-		createProduct(111, formValues)
 	}
-
+	console.log(111, form.watch())
 	return (
 		<Drawer direction="right">
 			<DrawerTrigger>

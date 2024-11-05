@@ -28,8 +28,17 @@ export function CategoryFilter() {
 		<Form form={form} onSubmit={onSubmit} className="overflow-scroll py-6">
 			{categories?.map((category) => (
 				<div key={category.id} className="flex items-center gap-1">
-					<InputText {...form.register('category')} className="size-4" type="checkbox" name="category" value={category.id} />
-					<p>{category.name}</p>
+					<InputText
+						{...form.register('category')}
+						id={category.name}
+						className="size-4"
+						type="checkbox"
+						name="category"
+						value={category.id}
+					/>
+					<label for={category.name} className="cursor-pointer">
+						{category.name}
+					</label>
 				</div>
 			))}
 

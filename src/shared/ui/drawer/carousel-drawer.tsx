@@ -11,7 +11,7 @@ export function CarouselDrawer({ children, title }: PropsWithChildren<CarouselDr
 	return (
 		<Drawer>
 			<CarouselItem className="basis-auto">
-				<DrawerTrigger key={title} className="mt-4 cursor-pointer text-nowrap rounded-full bg-gray-01 p-1 px-3 text-sm outline-none">
+				<DrawerTrigger key={title} className="text-md mt-4 cursor-pointer text-nowrap rounded-full bg-gray-01 p-1 px-3 outline-none">
 					{title}
 				</DrawerTrigger>
 			</CarouselItem>

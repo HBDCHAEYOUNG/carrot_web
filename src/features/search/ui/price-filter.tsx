@@ -31,7 +31,7 @@ export function PriceFilter() {
 				<Form.Item name="minPrice" className="text-center" label="최소 가격">
 					<InputText name="minPrice" />
 				</Form.Item>
-				<p>~</p>
+				<p className="mt-7">~</p>
 				<Form.Item name="maxPrice" className="text-center" label="최대 가격">
 					<InputText name="maxPrice" />
 				</Form.Item>
