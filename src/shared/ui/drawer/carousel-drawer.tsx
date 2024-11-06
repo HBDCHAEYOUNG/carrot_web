@@ -22,13 +22,6 @@ export function CarouselDrawer({ children, title }: PropsWithChildren<CarouselDr
 				</DrawerHeader>
 
 				{children}
-
-				{/* <DrawerFooter className="w-full flex-row justify-center gap-2">
-				<Button className="flex-grow bg-gray-01 text-black">초기화</Button>
-				<DrawerClose className="flex-grow-[3]">
-					<Button className="w-full bg-brand-01">적용하기</Button>
-				</DrawerClose>
-				</DrawerFooter> */}
 			</DrawerContent>
 		</Drawer>
 	)

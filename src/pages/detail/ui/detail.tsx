@@ -1,3 +1,4 @@
+import { useAuthStore } from '@store/authStore'
 import { useHeaderStore } from '@store/headerStore'
 import { useEffect } from 'react'
 import { GoHeart, GoHeartFill, GoHome, GoShare } from 'react-icons/go'
@@ -9,7 +10,6 @@ import { DetailProducts } from '@widgets/detail'
 import { locale } from '@lib/locale'
 
 import { Carousel, CarouselContent, CarouselItem } from '@ui/_shardcn/carousel'
-import { ButtonBasic } from '@ui/index'
 
 import { useCreateLike, useDeleteLike } from '../model/use-like'
 import { useReadProduct } from '../model/use-product'
@@ -25,6 +25,7 @@ export function Detail() {
 	const { id } = useParams()
 
 	const { toggleHeader } = useHeaderStore()
+	const { isLogin } = useAuthStore()
 
 	const { data: item, isLoading } = useReadProduct(Number(id))
 	const { mutate: createLike } = useCreateLike()
@@ -65,6 +66,7 @@ export function Detail() {
 						))}
 					</CarouselContent>
 				</Carousel>
+
 				<div className="flex items-center gap-2 border-b px-4 py-6">
 					<picture className="block aspect-square size-14 overflow-hidden rounded-full border">
 						<img src={auth.profileImageURL} alt={auth.nickname} />
@@ -86,13 +88,19 @@ export function Detail() {
 					{item?.isLike ? (
 						<GoHeartFill className="size-6 fill-brand-01" onClick={() => setDeleteLike()} />
 					) : (
-						<GoHeart className="size-6 fill-gray-02 font-bold" onClick={() => setLike()} />
+						<GoHeart
+							className="size-6 fill-gray-02 font-bold"
+							onClick={() => {
+								if (!isLogin) return router('/auth')
+								else setLike()
+							}}
+						/>
 					)}
 
 					<h3 className="mr-auto border-l-2 border-gray-01 pl-4 text-xl font-bold">
 						{item?.price.toLocaleString('ko-KR')}원<span className="block text-sm text-gray-02">가격 제안 불가</span>
 					</h3>
-					<ButtonBasic className="w-fit px-6 text-xl">채팅하기</ButtonBasic>
+					{/* <ButtonBasic className="w-fit px-6 text-xl">채팅하기</ButtonBasic> */}
 				</div>
 			</section>
 			<section className="pb-10">
