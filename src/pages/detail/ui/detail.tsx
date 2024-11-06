@@ -10,15 +10,10 @@ import { DetailProducts } from '@widgets/detail'
 import { locale } from '@lib/locale'
 
 import { Carousel, CarouselContent, CarouselItem } from '@ui/_shardcn/carousel'
+import { ProfileImg } from '@ui/index'
 
 import { useCreateLike, useDeleteLike } from '../model/use-like'
 import { useReadProduct } from '../model/use-product'
-
-const auth = {
-	nickname: '우혁이최고',
-	profileImageURL:
-		'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=1400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mzh8fCVFQyVBMCU5QyVFRCU5MiU4OHxlbnwwfHwwfHx8MA%3D%3D',
-}
 
 export function Detail() {
 	const router = useNavigate()
@@ -68,14 +63,13 @@ export function Detail() {
 				</Carousel>
 
 				<div className="flex items-center gap-2 border-b px-4 py-6">
-					<picture className="block aspect-square size-14 overflow-hidden rounded-full border">
-						<img src={auth.profileImageURL} alt={auth.nickname} />
-					</picture>
+					<ProfileImg className="size-14" img={item?.user.profile} name={item?.user.name} />
 					<div className="flex flex-col justify-center">
-						<strong>{auth.nickname}</strong>
+						<strong>{item?.user.name}</strong>
 						<p className="text-sm text-gray-500">{item?.areas[0].name}</p>
 					</div>
 				</div>
+
 				<div className="flex flex-col gap-2 px-4 py-6">
 					<h1 className="text-2xl font-bold">{item?.title}</h1>
 					<p className="text-sm text-gray-500">
@@ -104,7 +98,7 @@ export function Detail() {
 				</div>
 			</section>
 			<section className="pb-10">
-				<DetailProducts title={`${auth.nickname}님의 판매 물품`} />
+				<DetailProducts title={`${item?.user.name}님의 판매 물품`} />
 				<DetailProducts className="pb-16" title={`${item?.category?.name} 다른 상품`} category={item?.areas[0].name} />
 			</section>
 		</>

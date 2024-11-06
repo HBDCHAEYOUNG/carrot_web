@@ -28,14 +28,14 @@ export function AddProductDrawer() {
 			</DrawerTrigger>
 			<DrawerPortal>
 				<DrawerContent className="h-screen common-padding">
-					<DrawerHeader className="px-0 pb-8">
+					<DrawerHeader className="px-0 pb-4">
 						<DrawerClose className="fixed top-11">
 							<MdClose />
 						</DrawerClose>
 						상품 등록하기
 					</DrawerHeader>
 
-					<Form form={form} onSubmit={() => {}} className="flex max-h-[calc(100vh-10rem)] flex-col gap-8 overflow-y-auto">
+					<Form form={form} onSubmit={() => {}} className="flex max-h-[calc(100vh-5rem)] flex-col gap-8 overflow-y-auto">
 						<ul className="flex">
 							<li className="flex w-fit border p-4">
 								<BsCameraFill className="size-6" />
@@ -79,7 +79,7 @@ export function AddProductDrawer() {
 							</select>
 						</Form.Item>
 
-						<DrawerFooter className="w-full flex-row justify-center gap-2">
+						<DrawerFooter className="mb-10 w-full flex-row justify-center gap-2 p-0">
 							<Button className="flex-grow bg-gray-01 text-black" onClick={() => form.reset()}>
 								초기화
 							</Button>
