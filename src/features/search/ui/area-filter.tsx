@@ -39,7 +39,7 @@ export function AreaFilter() {
 						value={area.id}
 						id={area.name}
 					/>
-					<label for={area.name}>{area.name}</label>
+					<label htmlFor={area.name}>{area.name}</label>
 				</div>
 			))}
 

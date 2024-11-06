@@ -36,7 +36,7 @@ export function CategoryFilter() {
 						name="category"
 						value={category.id}
 					/>
-					<label for={category.name} className="cursor-pointer">
+					<label htmlFor={category.name} className="cursor-pointer">
 						{category.name}
 					</label>
 				</div>
