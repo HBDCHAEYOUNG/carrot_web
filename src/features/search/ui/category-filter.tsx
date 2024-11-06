@@ -43,7 +43,9 @@ export function CategoryFilter() {
 			))}
 
 			<DrawerFooter className="w-full flex-row justify-center gap-2">
-				<Button className="flex-grow bg-gray-01 text-black">초기화</Button>
+				<Button className="flex-grow bg-gray-01 text-black" onClick={() => form.reset()}>
+					초기화
+				</Button>
 				<DrawerClose className="flex-grow-[3]">
 					<Button className="w-full bg-brand-01">적용하기</Button>
 				</DrawerClose>

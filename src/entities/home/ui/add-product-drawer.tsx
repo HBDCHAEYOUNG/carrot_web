@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useReadAuth } from '@pages/mypage'
 import { FieldValues, useForm } from 'react-hook-form'
 import { BsCameraFill, BsFillPlusCircleFill } from 'react-icons/bs'
@@ -8,9 +9,12 @@ import { useReadCategories } from '@features/search'
 import Form from '@ui/form/form'
 import { Button, Drawer, DrawerClose, DrawerContent, DrawerFooter, DrawerHeader, DrawerPortal, DrawerTrigger, InputText } from '@ui/index'
 
+import { ProductFormData, productSchema } from '../model/product.schema'
+
 export function AddProductDrawer() {
-	const form = useForm({
+	const form = useForm<ProductFormData>({
 		mode: 'all',
+		resolver: zodResolver(productSchema),
 	})
 
 	const { data: auth } = useReadAuth()
@@ -20,7 +24,7 @@ export function AddProductDrawer() {
 	const onSubmit = (formValues: FieldValues) => {
 		console.log(formValues)
 	}
-	console.log(111, form.watch())
+	console.log(form.watch())
 	return (
 		<Drawer direction="right">
 			<DrawerTrigger>
@@ -47,7 +51,7 @@ export function AddProductDrawer() {
 						</Form.Item>
 
 						<Form.Item name="price" label="가격">
-							<InputText name="price" type="number" placeholder="가격을 입력해주세요." className="mt-4" />
+							<InputText name="price" type="number" placeholder="가격을 입력해주세요." className="mt-4" min="1" step="1" />
 						</Form.Item>
 
 						<div className="flex items-center gap-2">
@@ -66,11 +70,11 @@ export function AddProductDrawer() {
 
 						<Form.Item name="description" label="자세한 설명">
 							<textarea
-								name="description"
+								{...form.register('description')}
 								id="description"
 								className="mt-4 min-h-60 w-full rounded-md border border-gray-300 p-4"
 								placeholder={`게시글 내용을 작성해 주세요. (판매금지 물품은 게시가 제한될 수 있어요.) 신뢰할 수 있는`}
-							></textarea>
+							/>
 						</Form.Item>
 
 						<Form.Item name="categoryId">
