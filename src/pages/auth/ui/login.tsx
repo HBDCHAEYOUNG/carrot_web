@@ -1,10 +1,8 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuthStore } from '@store/authStore'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import { Link, useNavigate } from 'react-router-dom'
-import { z } from 'zod'
 
 import Form from '@ui/form/form'
 import { ButtonBasic, InputText } from '@ui/index'
@@ -16,23 +14,19 @@ import { useLogin } from '../model/use-login'
 export function Login() {
 	const [isShowPassword, setIsShowPassword] = useState(false)
 
-	const formSchema = z.object({
-		email: z.string().email({ message: '이메일 형식이 올바르지 않습니다.' }),
-	})
 	const form = useForm({
 		mode: 'all',
-		resolver: zodResolver(formSchema),
 	})
 
 	const router = useNavigate()
 
-	const { mutateAsync: login } = useLogin()
+	const { mutateAsync: login, error } = useLogin()
 	const { setLogin } = useAuthStore()
 
 	const onSubmit = async () => {
 		const email = form.watch('email')
 		const password = form.watch('password')
-
+		console.log(error)
 		try {
 			const data = await login({ email, password })
 			setLogin(data.token)
@@ -70,8 +64,9 @@ export function Login() {
 						/>
 					)}
 				</div>
+				{error && <p className="pb-1 text-sm text-red-500">{error?.response?.data?.errors || error?.response?.data?.message}</p>}
 				<ButtonBasic className="mb-0">로그인</ButtonBasic>
-				<Link to="/auth/join" className="block cursor-pointer py-10 text-center text-sm text-brand-01">
+				<Link to="/auth/join" className="block cursor-pointer py-10 text-center text-sm">
 					회원가입
 				</Link>
 			</Form>
