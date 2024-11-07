@@ -39,7 +39,7 @@ export function AddProductDrawer() {
 						상품 등록하기
 					</DrawerHeader>
 
-					<Form form={form} onSubmit={() => {}} className="flex max-h-[calc(100vh-5rem)] flex-col gap-8 overflow-y-auto">
+					<Form form={form} onSubmit={() => {}} className="flex max-h-[calc(100vh-5rem)] flex-col gap-8 overflow-y-auto no-scrollbar">
 						<ul className="flex">
 							<li className="flex w-fit border p-4">
 								<BsCameraFill className="size-6" />

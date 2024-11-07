@@ -1,6 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useAuthStore } from '@store/authStore'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import { Link, useNavigate } from 'react-router-dom'
+import { z } from 'zod'
 
 import { SocialloginForm } from '@widgets/header'
 
@@ -12,8 +16,14 @@ import { Logo } from '@icons/logo'
 import { useLogin } from '../model/use-login'
 
 export function Login() {
+	const [isShowPassword, setIsShowPassword] = useState(false)
+
+	const formSchema = z.object({
+		email: z.string().email({ message: '이메일 형식이 올바르지 않습니다.' }),
+	})
 	const form = useForm({
 		mode: 'all',
+		resolver: zodResolver(formSchema),
 	})
 
 	const router = useNavigate()
@@ -44,11 +54,27 @@ export function Login() {
 				<Form.Item name="email">
 					<InputText placeholder="이메일" className="h-12 w-full rounded-b-none" />
 				</Form.Item>
-				<Form.Item name="password">
-					<InputText placeholder="비밀번호" className="mb-2 h-12 w-full rounded-t-none border-t-0 focus:border-t" />
-				</Form.Item>
+				<div className="relative mb-2">
+					<Form.Item name="password">
+						<InputText
+							type={isShowPassword ? 'text' : 'password'}
+							placeholder="비밀번호"
+							className="h-12 w-full rounded-t-none border-t-0 focus:border-t"
+						/>
+					</Form.Item>
+					{isShowPassword ? (
+						<IoEyeOffOutline
+							className="absolute right-4 top-1/2 size-10 -translate-y-1/2 cursor-pointer p-2"
+							onClick={() => setIsShowPassword(false)}
+						/>
+					) : (
+						<IoEyeOutline
+							className="absolute right-4 top-1/2 size-10 -translate-y-1/2 cursor-pointer p-2"
+							onClick={() => setIsShowPassword(true)}
+						/>
+					)}
+				</div>
 				<ButtonBasic className="mb-0">로그인</ButtonBasic>
-
 				<Link to="#" className="block cursor-pointer py-2 text-center text-xs text-gray-500">
 					비밀번호 찾기
 				</Link>
