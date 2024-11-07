@@ -6,8 +6,6 @@ import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import { Link, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
-import { SocialloginForm } from '@widgets/header'
-
 import Form from '@ui/form/form'
 import { ButtonBasic, InputText } from '@ui/index'
 
@@ -45,12 +43,10 @@ export function Login() {
 	}
 
 	return (
-		<section className="flex h-screen w-screen flex-col justify-center px-4">
-			<Link to="/" className="flex justify-center">
-				<Logo className="mb-10 cursor-pointer" />
-			</Link>
+		<section className="h-screen w-screen flex-col justify-center px-4 flex-center">
+			<Logo className="mb-10" />
 
-			<Form form={form} onSubmit={onSubmit}>
+			<Form form={form} onSubmit={onSubmit} className="w-full">
 				<Form.Item name="email">
 					<InputText placeholder="이메일" className="h-12 w-full rounded-b-none" />
 				</Form.Item>
@@ -75,12 +71,12 @@ export function Login() {
 					)}
 				</div>
 				<ButtonBasic className="mb-0">로그인</ButtonBasic>
-				<Link to="#" className="block cursor-pointer py-2 text-center text-xs text-gray-500">
-					비밀번호 찾기
+				<Link to="/auth/join" className="block cursor-pointer py-10 text-center text-sm text-brand-01">
+					회원가입
 				</Link>
 			</Form>
 
-			<SocialloginForm className="mt-10" />
+			{/* <SocialloginForm className="mt-10" /> */}
 		</section>
 	)
 }
