@@ -26,7 +26,6 @@ export function Login() {
 	const onSubmit = async () => {
 		const email = form.watch('email')
 		const password = form.watch('password')
-		console.log(error)
 		try {
 			const data = await login({ email, password })
 			setLogin(data.token)
@@ -35,7 +34,7 @@ export function Login() {
 			console.log(error.response.data.message)
 		}
 	}
-
+	console.log(error)
 	return (
 		<section className="h-screen w-screen flex-col justify-center px-4 flex-center">
 			<Logo className="mb-10" />

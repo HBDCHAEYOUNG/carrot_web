@@ -6,11 +6,13 @@ import { AreaDrawer } from '@entities/join'
 
 import { useReadAreas } from '@widgets/header'
 
+import { cn } from '@lib/utils'
+
 import Form from '@ui/form/form'
-import { ButtonBasic, Checkbox, InputSelect, InputText } from '@ui/index'
+import { ButtonBasic, InputSelect, InputText } from '@ui/index'
 
 import { JoinFormData, joinSchema } from '../model/join.schema'
-import { useJoin } from '../model/use-join'
+import { useCheckEmail, useCheckNickname, useJoin } from '../model/use-join'
 
 const domainList = [
 	{ value: 'naver.com', label: 'naver.com' },
@@ -29,7 +31,10 @@ const agreement = [
 
 export function Join() {
 	const router = useNavigate()
-	const { mutate: join } = useJoin()
+
+	const { mutateAsync: join } = useJoin()
+	const { mutateAsync: checkEmail, error: checkEmailError } = useCheckEmail()
+	const { mutateAsync: checkNickname, error: checkNicknameError } = useCheckNickname()
 	const { data: areas } = useReadAreas()
 
 	const form = useForm<JoinFormData>({
@@ -37,11 +42,20 @@ export function Join() {
 		resolver: zodResolver(joinSchema),
 	})
 
-	const onSubmit = (formValues: FieldValues) => {
-		const { email, address, agreement, areaIds, nickname, password } = formValues
-		const values = { email: `${email}@${address}`, agreement, areaIds, nickname, password }
-		join(values)
-		router('/')
+	const onSubmit = async (formValues: FieldValues) => {
+		try {
+			const { id, address, password, nickname, areaIds, agreement } = formValues
+			const email = `${id}@${address}`
+			const values = { email, password, nickname, areaIds, agreement }
+
+			await checkEmail({ email })
+			await checkNickname({ nickname })
+			await join(values)
+			router('/')
+		} catch (error: any) {
+			console.log(111, error.response.data.message)
+			alert(error.response.data.message)
+		}
 	}
 
 	const areaIds = form.watch('areaIds')
@@ -53,9 +67,9 @@ export function Join() {
 			{/* todo: <SocialloginForm />
 			<hr className="my-4" /> */}
 
-			<Form form={form} onSubmit={onSubmit} className="flex flex-col [&_label]:font-semibold">
+			<Form form={form} onSubmit={onSubmit} className="flex flex-col">
 				<div className="flex gap-4 pb-4">
-					<Form.Item name="email" label="이메일" className="flex-1">
+					<Form.Item name="id" label="이메일" className="flex-1" labelClassName={cn(checkEmailError && 'text-red-500')}>
 						<InputText placeholder="이메일" />
 					</Form.Item>
 					<p className="mt-11">@</p>
@@ -63,6 +77,7 @@ export function Join() {
 						<InputSelect options={domainList} />
 					</Form.Item>
 				</div>
+				{checkEmailError && <p className="mb-4 text-sm text-red-500">{checkEmailError.response.data.message}</p>}
 
 				<Form.Item name="password" label="비밀번호">
 					<InputText type="password" placeholder="비밀번호" />
@@ -72,33 +87,37 @@ export function Join() {
 					<InputText type="password" placeholder="비밀번호 확인" />
 				</Form.Item>
 
-				<Form.Item name="nickname" label="닉네임" description="다른 유저와 겹치지 않도록 입력해주세요. (2~20자)" className="pb-4">
+				<Form.Item name="nickname" label="닉네임" className="pb-4" labelClassName={cn(checkNicknameError && 'text-red-500')}>
 					<InputText placeholder="닉네임을 입력해주세요." />
 				</Form.Item>
+				{/* <label className="pb-2 text-sm font-semibold">내 도시</label> */}
 
 				<Form.Item name="areaIds" label="내 도시">
-					<ul className="w-full gap-1 pb-2 flex-center">
+					<div className="w-full gap-1 pb-2 flex-center">
 						{myArea?.map((a, index) => (
-							<li className="w-full rounded-md border border-brand-01 p-2 text-center text-brand-01" key={index}>
-								{a}
-							</li>
-						))}
-					</ul>
-				</Form.Item>
-				<AreaDrawer myAreaLength={myArea?.length} />
-
-				<Form.Item name="agreement" label="약관동의" className="pt-4">
-					<div className="flex flex-col gap-2 rounded-md border p-4">
-						{agreement.map((items) => (
-							<Form.Item name={`agreement.${items.value}`}>
-								<fieldset className="flex items-center gap-2">
-									<Checkbox id={items.value} />
-									<label htmlFor={items.value}>{items.label}</label>
-								</fieldset>
-							</Form.Item>
+							<InputText
+								type="text"
+								value={a}
+								readOnly
+								className="w-full rounded-md border border-brand-01 p-2 text-center text-brand-01"
+								key={index}
+							/>
 						))}
 					</div>
 				</Form.Item>
+				<AreaDrawer myAreaLength={myArea?.length} />
+
+				<label className="pb-2 pt-4 text-sm font-semibold">내 도시</label>
+				<div className="flex flex-col gap-2 rounded-md border p-4">
+					{agreement.map((items) => (
+						<Form.Item name={`agreement.${items.value}`}>
+							<fieldset className="flex items-center gap-2">
+								<InputText type="checkbox" name={`agreement.${items.value}`} id={items.value} className="size-4" />
+								<label htmlFor={items.value}>{items.label}</label>
+							</fieldset>
+						</Form.Item>
+					))}
+				</div>
 
 				<ButtonBasic>회원가입하기</ButtonBasic>
 			</Form>

@@ -37,7 +37,6 @@ export function AreaDrawer({ myAreaLength }: { myAreaLength: number }) {
 			setIsOpen(false)
 		}
 	}
-	console.log(myAreaLength)
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen} direction="left">
 			<DrawerTrigger className="w-full p-0">
