@@ -8,7 +8,7 @@ import { cn } from '@lib/utils'
 
 import { ButtonBasic, Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTrigger } from '@ui/index'
 
-export function AreaDrawer() {
+export function AreaDrawer({ myAreaLength }: { myAreaLength: number }) {
 	const form = useFormContext()
 	const { data: area } = useReadAreas()
 
@@ -37,11 +37,17 @@ export function AreaDrawer() {
 			setIsOpen(false)
 		}
 	}
-
+	console.log(myAreaLength)
 	return (
 		<Drawer open={isOpen} onOpenChange={setIsOpen} direction="left">
-			<DrawerTrigger className="p-0">
-				<p className="cursor-pointertext-sm block">도시 설정하기</p>
+			<DrawerTrigger className="w-full p-0">
+				{myAreaLength === undefined || myAreaLength === 0 ? (
+					<ButtonBasic className="text-md cursor-pointer border border-gray-300 bg-white font-normal text-gray-02">
+						도시 설정하기
+					</ButtonBasic>
+				) : (
+					<p className="text-sm text-gray-02 underline">도시 수정하기</p>
+				)}
 			</DrawerTrigger>
 			<DrawerContent className="h-full">
 				<DrawerHeader className="text-lg font-semibold">

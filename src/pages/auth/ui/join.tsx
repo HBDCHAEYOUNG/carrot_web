@@ -1,6 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { FieldValues, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import { AreaDrawer } from '@entities/join'
+
+import { useReadAreas } from '@widgets/header'
 
 import Form from '@ui/form/form'
 import { ButtonBasic, Checkbox, InputSelect, InputText } from '@ui/index'
@@ -24,9 +28,18 @@ const agreement = [
 
 export function Join() {
 	const { mutate: join } = useJoin()
+	const { data: areas } = useReadAreas()
 
-	const form = useForm({
+	const formSchema: any = z.object({
+		email: z.string().regex(/^[a-zA-Z0-9]+$/, '특수문자는 사용할 수 없습니다'),
+		passwordConfirm: z.string().refine((val) => val === form.getValues().password, {
+			message: '비밀번호가 일치하지 않습니다.',
+		}),
+	})
+
+	const form = useForm<z.infer<typeof formSchema>>({
 		mode: 'all',
+		resolver: zodResolver(formSchema),
 	})
 
 	const onSubmit = (formValues: FieldValues) => {
@@ -35,6 +48,10 @@ export function Join() {
 		join(values)
 	}
 
+	const areaIds = form.watch('areaIds')
+	console.log(areaIds)
+	const myArea = areaIds?.map((id: number) => areas?.find((area: { id: number }) => area.id === id)?.name)
+	console.log(myArea)
 	return (
 		<section className="flex h-screen flex-col px-4 pt-16">
 			<h1 className="pb-4 text-lg font-bold">회원가입</h1>
@@ -51,20 +68,30 @@ export function Join() {
 						<InputSelect options={domainList} />
 					</Form.Item>
 				</div>
-
 				<Form.Item name="password" label="비밀번호" description="영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.">
-					<InputText placeholder="비밀번호" />
+					<InputText type="password" placeholder="비밀번호" />
 				</Form.Item>
 
 				<Form.Item name="passwordConfirm" label="비밀번호 확인">
-					<InputText placeholder="비밀번호 확인" />
+					<InputText type="password" placeholder="비밀번호 확인" />
 				</Form.Item>
 
 				<Form.Item name="nickname" label="닉네임" description="다른 유저와 겹치지 않도록 입력해주세요. (2~20자)">
-					<InputText placeholder="비밀번호" />
+					<InputText placeholder="닉네임을 입력해주세요." />
 				</Form.Item>
 
-				<AreaDrawer />
+				<Form.Item name="areaIds" label="내 도시" description="내 도시를 선택해주세요.">
+					<>
+						<ul className="w-full gap-1 flex-center">
+							{myArea?.map((a: string, index: number) => (
+								<li className="w-full rounded-md border border-brand-01 p-2 text-center text-brand-01" key={index}>
+									{a}
+								</li>
+							))}
+						</ul>
+						<AreaDrawer myAreaLength={myArea?.length} />
+					</>
+				</Form.Item>
 
 				<div className="flex flex-col gap-2">
 					<label>약관동의</label>

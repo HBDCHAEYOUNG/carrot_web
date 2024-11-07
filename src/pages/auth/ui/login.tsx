@@ -1,9 +1,9 @@
 import { useAuthStore } from '@store/authStore'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { IoEyeOffOutline, IoEyeOutline } from 'react-icons/io5'
 import { Link, useNavigate } from 'react-router-dom'
 
+import { ButtonPassword } from '@ui/button/button-password'
 import Form from '@ui/form/form'
 import { ButtonBasic, InputText } from '@ui/index'
 
@@ -52,21 +52,11 @@ export function Login() {
 							className="h-12 w-full rounded-t-none border-t-0 focus:border-t"
 						/>
 					</Form.Item>
-					{isShowPassword ? (
-						<IoEyeOffOutline
-							className="absolute right-4 top-1/2 size-10 -translate-y-1/2 cursor-pointer p-2"
-							onClick={() => setIsShowPassword(false)}
-						/>
-					) : (
-						<IoEyeOutline
-							className="absolute right-4 top-1/2 size-10 -translate-y-1/2 cursor-pointer p-2"
-							onClick={() => setIsShowPassword(true)}
-						/>
-					)}
+					<ButtonPassword isShowPassword={isShowPassword} setIsShowPassword={setIsShowPassword} />
 				</div>
 				{error && <p className="pb-1 text-sm text-red-500">{error?.response?.data?.errors || error?.response?.data?.message}</p>}
 				<ButtonBasic className="mb-0">로그인</ButtonBasic>
-				<Link to="/auth/join" className="block cursor-pointer py-10 text-center text-sm">
+				<Link to="/auth/join" className="text-smgi block cursor-pointer py-10 text-center">
 					회원가입
 				</Link>
 			</Form>
