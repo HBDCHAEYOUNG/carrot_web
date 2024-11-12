@@ -20,11 +20,10 @@ const filterList = [
 ]
 
 export function Search() {
+	const { toggleHeader } = useHeaderStore()
 	const [searchParams] = useSearchParams()
 
 	const query = searchParams.get('keyword') || ''
-
-	const { toggleHeader } = useHeaderStore()
 
 	useEffect(() => {
 		toggleHeader(false)

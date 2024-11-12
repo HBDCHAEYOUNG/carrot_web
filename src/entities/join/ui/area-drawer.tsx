@@ -41,7 +41,7 @@ export function AreaDrawer({ myAreaLength }: { myAreaLength: number }) {
 		<Drawer open={isOpen} onOpenChange={setIsOpen} direction="left">
 			<DrawerTrigger className="w-full p-0">
 				{myAreaLength === undefined || myAreaLength === 0 ? (
-					<ButtonBasic className="text-md cursor-pointer border border-gray-300 bg-white font-normal text-gray-02">
+					<ButtonBasic type="button" className="text-md cursor-pointer border border-gray-300 bg-white font-normal text-gray-02">
 						도시 설정하기
 					</ButtonBasic>
 				) : (

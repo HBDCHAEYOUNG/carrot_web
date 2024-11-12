@@ -77,7 +77,7 @@ export function Join() {
 						<InputSelect options={domainList} />
 					</Form.Item>
 				</div>
-				{checkEmailError && <p className="mb-4 text-sm text-red-500">{checkEmailError.response.data.message}</p>}
+				{/* {checkEmailError && <p className="mb-4 text-sm text-red-500">{checkEmailError.response.data.message}</p>} */}
 
 				<Form.Item name="password" label="비밀번호">
 					<InputText type="password" placeholder="비밀번호" />
@@ -105,6 +105,7 @@ export function Join() {
 						))}
 					</div>
 				</Form.Item>
+
 				<AreaDrawer myAreaLength={myArea?.length} />
 
 				<label className="pb-2 pt-4 text-sm font-semibold">내 도시</label>

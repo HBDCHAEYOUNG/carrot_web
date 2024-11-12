@@ -1,6 +1,8 @@
 import { HTMLAttributes, PropsWithChildren, ReactElement, ReactNode, cloneElement } from 'react'
 import { FieldValues, UseFormProps, UseFormReturn, useFormContext } from 'react-hook-form'
 
+import { cn } from '@lib/utils'
+
 import {
 	FormControl,
 	FormDescription,
@@ -41,7 +43,7 @@ const FormItem = (props: FormItemProps) => {
 			render={({ field }) => (
 				<FormGroup className={className} {...rest}>
 					{label && (
-						<FormLabel className={labelClassName}>
+						<FormLabel className={cn('text-black', labelClassName)}>
 							{label} {require && <span className="text-Error">*</span>}
 						</FormLabel>
 					)}

@@ -6,34 +6,37 @@ import Form from '@ui/form/form'
 import { Button, DrawerClose, DrawerFooter, InputText } from '@ui/index'
 
 export function PriceFilter() {
-	const [searchParams, setSearchParams] = useSearchParams()
-
 	const form = useForm()
+
+	const [searchParams, setSearchParams] = useSearchParams()
 
 	const onSubmit = () => {
 		const min = form.getValues('minPrice')
 		const max = form.getValues('maxPrice')
-		if (min === '' && max === '') {
-			searchParams.delete('maxPrice')
-			searchParams.delete('minPrice')
-		} else {
-			searchParams.set('maxPrice', max)
-			searchParams.set('minPrice', min)
-		}
+
+		if (min) searchParams.set('minPrice', min)
+		else if (min === '') searchParams.delete('minPrice')
+
+		if (max) searchParams.set('maxPrice', max)
+		else if (max === '') searchParams.delete('maxPrice')
+
 		setSearchParams(searchParams)
+	}
+
+	const onClickInit = () => {
+		form.reset({
+			minPrice: '',
+			maxPrice: '',
+		})
 	}
 
 	useEffect(() => {
 		const min = searchParams.get('minPrice')
 		const max = searchParams.get('maxPrice')
-		if (min === null && max === null) {
-			form.setValue('maxPrice', '')
-			form.setValue('minPrice', '')
-		} else {
-			form.setValue('maxPrice', max)
-			form.setValue('minPrice', min)
-		}
-	}, [searchParams, form])
+
+		form.setValue('maxPrice', max)
+		form.setValue('minPrice', min)
+	}, [])
 
 	return (
 		<Form form={form} onSubmit={onSubmit}>
@@ -48,13 +51,7 @@ export function PriceFilter() {
 			</div>
 
 			<DrawerFooter className="w-full flex-row justify-center gap-2">
-				<Button
-					className="flex-grow bg-gray-01 text-black"
-					onClick={() => {
-						form.reset()
-						setSearchParams({})
-					}}
-				>
+				<Button type="button" className="flex-grow bg-gray-01 text-black" onClick={onClickInit}>
 					초기화
 				</Button>
 				<DrawerClose className="flex-grow-[3]">

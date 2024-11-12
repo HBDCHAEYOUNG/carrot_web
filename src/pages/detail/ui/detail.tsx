@@ -10,7 +10,7 @@ import { DetailProducts } from '@widgets/detail'
 import { locale } from '@lib/locale'
 
 import { Carousel, CarouselContent, CarouselItem } from '@ui/_shardcn/carousel'
-import { ProfileImg } from '@ui/index'
+import { Profile } from '@ui/index'
 
 import { useCreateLike, useDeleteLike } from '../model/use-like'
 import { useReadProduct } from '../model/use-product'
@@ -62,13 +62,7 @@ export function Detail() {
 					</CarouselContent>
 				</Carousel>
 
-				<div className="flex items-center gap-2 border-b px-4 py-6">
-					<ProfileImg className="size-14" img={item?.user.profile} name={item?.user.name} />
-					<div className="flex flex-col justify-center">
-						<strong>{item?.user.name}</strong>
-						<p className="text-sm text-gray-500">{item?.areas[0].name}</p>
-					</div>
-				</div>
+				<Profile img={item?.user?.profile} name={item?.user?.name} area={item?.areas[0]?.name} />
 
 				<div className="flex flex-col gap-2 px-4 py-6">
 					<h1 className="text-2xl font-bold">{item?.title}</h1>

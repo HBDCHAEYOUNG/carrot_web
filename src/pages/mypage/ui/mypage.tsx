@@ -1,39 +1,41 @@
 import { Footer } from '@app/layouts'
-import { useHeaderStore } from '@store/headerStore'
-import { useEffect } from 'react'
+import { useLogout } from '@pages/auth'
+import { useAuthStore } from '@store/authStore'
 import { TfiHeart as heartIcon, TfiReceipt as listIcon } from 'react-icons/tfi'
-
-import { SettingDrawer } from '@entities/mypage'
+import { useNavigate } from 'react-router-dom'
 
 import { LikeProducts } from '@widgets/mypage'
 import { EditProfile } from '@widgets/mypage/ui/edit-profile'
 import { SalesProducts } from '@widgets/mypage/ui/sales-products'
 
-import { DeallistDrawer, ProfileImg } from '@ui/index'
+import { ButtonBasic, DeallistDrawer, Profile } from '@ui/index'
 
 import { useReadAuth } from '../model/use-auth'
 
 export function Mypage() {
+	const { setLogout } = useAuthStore()
+
+	const router = useNavigate()
+
 	const { data: auth } = useReadAuth()
-
-	const { toggleHeader } = useHeaderStore()
-
-	useEffect(() => {
-		toggleHeader(false)
-		return () => toggleHeader(true)
-	}, [toggleHeader])
+	const { mutateAsync: logout } = useLogout()
+	console.log(auth)
+	const onClickLogout = () => {
+		setLogout()
+		logout()
+		router('/')
+	}
 
 	return (
 		<>
-			<header className="flex w-full justify-end py-6 common-padding">
-				<SettingDrawer />
-			</header>
-
-			<section className="flex flex-col gap-4 common-padding">
-				<div className="flex items-center gap-2">
-					<ProfileImg img={auth?.profile} name={auth?.nickname} />
-					<h2 className="text-2xl font-semibold">{auth?.nickname}</h2>
+			<section className="flex flex-col gap-4 pt-14 common-padding">
+				<div className="flex items-center justify-between gap-2">
+					<Profile className="size-16" img={auth?.profile} name={auth?.nickname} area={auth?.area[0]?.name} />
+					<ButtonBasic className="w-fit" type="button" onClick={onClickLogout}>
+						로그아웃
+					</ButtonBasic>
 				</div>
+
 				<EditProfile />
 			</section>
 

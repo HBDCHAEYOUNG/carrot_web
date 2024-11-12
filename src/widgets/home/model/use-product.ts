@@ -5,6 +5,7 @@ import { QUERY_KEY } from 'src/shared/const'
 import { createProduct, deleteProduct, readProducts, readSales, updateProduct } from '../api/product'
 
 export const useReadProducts = (params: Product.ProductList.RequestQuery) => {
+	console.log(params)
 	return useQuery({
 		queryKey: [QUERY_KEY.PRODUCTS, params],
 		queryFn: () => readProducts(params),

@@ -7,11 +7,10 @@ import { useReadProducts } from '../model/use-product'
 export function Products() {
 	const [searchParams] = useSearchParams()
 
-	const keyword = searchParams.get('keyword') || ''
-	const area = searchParams.get('area') || ''
-	const minPrice = Number(searchParams.get('minPrice')) || 0
-	const maxPrice = Number(searchParams.get('maxPrice')) || 0
-	// const category = searchParams.get('category') || ''
+	const keyword = searchParams.get('keyword') || undefined
+	const area = searchParams.get('area') || undefined
+	const minPrice = Number(searchParams.get('minPrice')) || undefined
+	const maxPrice = Number(searchParams.get('maxPrice')) || undefined
 
 	const { data: productsData } = useReadProducts({ keyword, area, minPrice, maxPrice, limit: 10, page: 1 })
 
