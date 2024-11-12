@@ -6,8 +6,6 @@ import { AreaDrawer } from '@entities/join'
 
 import { useReadAreas } from '@widgets/header'
 
-import { cn } from '@lib/utils'
-
 import Form from '@ui/form/form'
 import { ButtonBasic, InputSelect, InputText } from '@ui/index'
 
@@ -42,19 +40,35 @@ export function Join() {
 		resolver: zodResolver(joinSchema),
 	})
 
+	const onClickCheckEmail = async () => {
+		try {
+			const { id, address } = form.getValues()
+			const email = `${id}@${address}`
+			await checkEmail({ email })
+			alert('사용 가능한 이메일입니다.')
+		} catch (error: any) {
+			console.log(error.response.data.message)
+		}
+	}
+
+	const onClickCheckNickname = async () => {
+		try {
+			const nickname = form.getValues('nickname')
+			await checkNickname({ nickname })
+			alert('사용 가능한 닉네임입니다.')
+		} catch (error: any) {
+			console.log(error.response.data.message)
+		}
+	}
 	const onSubmit = async (formValues: FieldValues) => {
 		try {
 			const { id, address, password, nickname, areaIds, agreement } = formValues
 			const email = `${id}@${address}`
 			const values = { email, password, nickname, areaIds, agreement }
-
-			await checkEmail({ email })
-			await checkNickname({ nickname })
 			await join(values)
 			router('/')
 		} catch (error: any) {
 			console.log(111, error.response.data.message)
-			alert(error.response.data.message)
 		}
 	}
 
@@ -68,8 +82,8 @@ export function Join() {
 			<hr className="my-4" /> */}
 
 			<Form form={form} onSubmit={onSubmit} className="flex flex-col">
-				<div className="flex gap-4 pb-4">
-					<Form.Item name="id" label="이메일" className="flex-1" labelClassName={cn(checkEmailError && 'text-red-500')}>
+				<div className="flex gap-4">
+					<Form.Item name="id" label="이메일" className="flex-1">
 						<InputText placeholder="이메일" />
 					</Form.Item>
 					<p className="mt-11">@</p>
@@ -77,7 +91,10 @@ export function Join() {
 						<InputSelect options={domainList} />
 					</Form.Item>
 				</div>
-				{/* {checkEmailError && <p className="mb-4 text-sm text-red-500">{checkEmailError.response.data.message}</p>} */}
+				{checkEmailError && <p className="text-red-500">{checkEmailError.response.data.message}</p>}
+				<ButtonBasic onClick={onClickCheckEmail} className="mb-4">
+					이메일 중복 확인
+				</ButtonBasic>
 
 				<Form.Item name="password" label="비밀번호">
 					<InputText type="password" placeholder="비밀번호" />
@@ -87,10 +104,13 @@ export function Join() {
 					<InputText type="password" placeholder="비밀번호 확인" />
 				</Form.Item>
 
-				<Form.Item name="nickname" label="닉네임" className="pb-4" labelClassName={cn(checkNicknameError && 'text-red-500')}>
+				<Form.Item name="nickname" label="닉네임">
 					<InputText placeholder="닉네임을 입력해주세요." />
 				</Form.Item>
-				{/* <label className="pb-2 text-sm font-semibold">내 도시</label> */}
+				{checkNicknameError && <p className="text-red-500">{checkNicknameError.response.data.message}</p>}
+				<ButtonBasic onClick={onClickCheckNickname} className="mb-4">
+					닉네임 중복 확인
+				</ButtonBasic>
 
 				<Form.Item name="areaIds" label="내 도시">
 					<div className="w-full gap-1 pb-2 flex-center">

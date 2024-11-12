@@ -62,9 +62,9 @@ export function Detail() {
 					</CarouselContent>
 				</Carousel>
 
-				<Profile img={item?.user?.profile} name={item?.user?.name} area={item?.areas[0]?.name} />
+				<Profile className="ml-4" img={item?.user?.profile} name={item?.user?.name} area={item?.areas[0]?.name} />
 
-				<div className="flex flex-col gap-2 px-4 py-6">
+				<div className="flex flex-col gap-2 border-t border-gray-01 px-4 py-6">
 					<h1 className="text-2xl font-bold">{item?.title}</h1>
 					<p className="text-sm text-gray-500">
 						<u>{item?.category?.name}</u> ∙ {item?.createdAt && locale(item.createdAt)}
