@@ -7,23 +7,23 @@ export const joinSchema = z
 		password: z.string({ message: '필수 입력 항목입니다.' }).min(6, '6자 이상의 비밀번호를 입력해주세요.'),
 		passwordConfirm: z.string({ message: '필수 입력 항목입니다.' }),
 		nickname: z
-			.string()
+			.string({ message: '필수 입력 항목입니다.' })
 			.min(2, '2자 이상 입력해주세요.')
 			.max(20, '20자 이하로 입력해주세요.')
 			.regex(/^[a-zA-Z0-9가-힣]+$/, '특수문자는 사용할 수 없습니다.'),
-		areaIds: z.array(z.number()).min(1, '도시를 선택해주세요.'),
+		areaIds: z.array(z.number({ message: '필수 선택 항목입니다.' })).min(1, '도시를 선택해주세요.'),
 		agreement: z.object({
-			adultAgree: z.boolean().refine((val) => val === true, {
+			adultAgree: z.boolean({ message: '필수 동의 항목입니다.' }).refine((val) => val === true, {
 				message: '14세 이상 동의를 체크해주세요.',
 			}),
-			termsAgree: z.boolean().refine((val) => val === true, {
+			termsAgree: z.boolean({ message: '필수 동의 항목입니다.' }).refine((val) => val === true, {
 				message: '이용약관 동의를 체크해주세요.',
 			}),
 		}),
 	})
 	.refine((data) => data.password === data.passwordConfirm, {
 		message: '비밀번호가 일치하지 않습니다.',
-		path: ['passwordConfirm'],
+		path: ['password'],
 	})
 
 export type JoinFormData = z.infer<typeof joinSchema>

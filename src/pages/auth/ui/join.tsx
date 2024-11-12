@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useAuthStore } from '@store/authStore'
 import { FieldValues, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,6 +12,7 @@ import { ButtonBasic, InputSelect, InputText } from '@ui/index'
 
 import { JoinFormData, joinSchema } from '../model/join.schema'
 import { useCheckEmail, useCheckNickname, useJoin } from '../model/use-join'
+import { useLogin } from '../model/use-login'
 
 const domainList = [
 	{ value: 'naver.com', label: 'naver.com' },
@@ -33,7 +35,10 @@ export function Join() {
 	const { mutateAsync: join } = useJoin()
 	const { mutateAsync: checkEmail, error: checkEmailError } = useCheckEmail()
 	const { mutateAsync: checkNickname, error: checkNicknameError } = useCheckNickname()
+	const { mutateAsync: login } = useLogin()
 	const { data: areas } = useReadAreas()
+
+	const { setLogin } = useAuthStore()
 
 	const form = useForm<JoinFormData>({
 		mode: 'all',
@@ -66,6 +71,9 @@ export function Join() {
 			const email = `${id}@${address}`
 			const values = { email, password, nickname, areaIds, agreement }
 			await join(values)
+			alert('회원가입이 완료되었습니다.')
+			const token = await login({ email, password })
+			setLogin(token)
 			router('/')
 		} catch (error: any) {
 			console.log(111, error.response.data.message)
@@ -140,7 +148,7 @@ export function Join() {
 					))}
 				</div>
 
-				<ButtonBasic>회원가입하기</ButtonBasic>
+				<ButtonBasic type="submit">회원가입하기</ButtonBasic>
 			</Form>
 		</section>
 	)
