@@ -10,7 +10,7 @@ interface ModalProps {
 
 export function Modal({ onClickCancel, onClickComplete, children }: ModalProps) {
 	return (
-		<div className="fixed left-0 top-0 h-full w-full">
+		<div className="fixed left-0 top-0 z-30 h-full w-full">
 			<Overlay onClick={onClickCancel} />
 			<div className="fixed left-1/2 top-1/2 flex -translate-x-1/2 -translate-y-1/2 flex-col gap-3 rounded-lg bg-white p-6">
 				{children}

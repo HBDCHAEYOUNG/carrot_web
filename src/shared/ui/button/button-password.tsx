@@ -10,13 +10,13 @@ export function ButtonPassword({ isShowPassword, setIsShowPassword, className }:
 	return (
 		<div>
 			{isShowPassword ? (
-				<IoEyeOffOutline
-					className={`absolute right-4 top-1/2 size-10 -translate-y-1/2 cursor-pointer p-2 ${className}`}
+				<IoEyeOutline
+					className={`absolute bottom-[0.1%] right-3 size-10 cursor-pointer p-2 ${className}`}
 					onClick={() => setIsShowPassword(false)}
 				/>
 			) : (
-				<IoEyeOutline
-					className={`absolute right-4 top-1/2 size-10 -translate-y-1/2 cursor-pointer p-2 ${className}`}
+				<IoEyeOffOutline
+					className={`absolute bottom-[0.1%] right-3 size-10 cursor-pointer p-2 ${className}`}
 					onClick={() => setIsShowPassword(true)}
 				/>
 			)}

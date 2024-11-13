@@ -71,7 +71,7 @@ export function Join() {
 			const email = `${id}@${address}`
 			const values = { email, password, nickname, areaIds, agreement }
 			await join(values)
-			alert('회원가입이 완료되었습니다.')
+			alert('회원가입이 완료되었습니다. 바로 로그인 됩니다.')
 			const token = await login({ email, password })
 			setLogin(token)
 			router('/')

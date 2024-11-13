@@ -19,7 +19,7 @@ export function Mypage() {
 
 	const { data: auth } = useReadAuth()
 	const { mutateAsync: logout } = useLogout()
-	console.log(auth)
+
 	const onClickLogout = () => {
 		setLogout()
 		logout()
