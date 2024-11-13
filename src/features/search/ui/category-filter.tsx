@@ -19,10 +19,16 @@ export function CategoryFilter() {
 		setSearchParams(searchParams)
 	}
 
+	const onClickInit = () => {
+		form.reset({
+			category: '',
+		})
+	}
+
 	useEffect(() => {
 		const category = searchParams.get('category')
 		form.setValue('category', category)
-	}, [searchParams, form])
+	}, [searchParams])
 
 	return (
 		<Form form={form} onSubmit={onSubmit} className="overflow-scroll py-6">
@@ -31,19 +37,19 @@ export function CategoryFilter() {
 					<InputText
 						{...form.register('category')}
 						id={category.name}
-						className="size-4"
+						className="mr-1 size-4 accent-brand-01"
 						type="checkbox"
 						name="category"
 						value={category.id}
 					/>
-					<label htmlFor={category.name} className="cursor-pointer">
+					<label htmlFor={category.name} className="w-full cursor-pointer">
 						{category.name}
 					</label>
 				</div>
 			))}
 
 			<DrawerFooter className="w-full flex-row justify-center gap-2">
-				<Button className="flex-grow bg-gray-01 text-black" onClick={() => form.reset()}>
+				<Button type="button" className="flex-grow bg-gray-01 text-black" onClick={onClickInit}>
 					초기화
 				</Button>
 				<DrawerClose className="flex-grow-[3]">

@@ -36,7 +36,7 @@ export function PriceFilter() {
 
 		form.setValue('maxPrice', max)
 		form.setValue('minPrice', min)
-	}, [])
+	}, [searchParams])
 
 	return (
 		<Form form={form} onSubmit={onSubmit}>

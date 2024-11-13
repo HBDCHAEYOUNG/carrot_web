@@ -22,10 +22,16 @@ export function AreaFilter() {
 		setSearchParams(searchParams)
 	}
 
+	const onClickInit = () => {
+		form.reset({
+			area: '',
+		})
+	}
+
 	useEffect(() => {
 		const area = searchParams.get('area')
 		form.setValue('area', area)
-	}, [searchParams, form])
+	}, [searchParams])
 
 	return (
 		<Form form={form} className="py-6" onSubmit={onSubmit}>
@@ -39,12 +45,14 @@ export function AreaFilter() {
 						value={area.id}
 						id={area.name}
 					/>
-					<label htmlFor={area.name}>{area.name}</label>
+					<label htmlFor={area.name} className="w-full cursor-pointer">
+						{area.name}
+					</label>
 				</div>
 			))}
 
 			<DrawerFooter className="w-full flex-row justify-center gap-2">
-				<Button className="flex-grow bg-gray-01 text-black" onClick={() => form.reset()}>
+				<Button type="button" className="flex-grow bg-gray-01 text-black" onClick={onClickInit}>
 					초기화
 				</Button>
 				<DrawerClose className="flex-grow-[3]">
