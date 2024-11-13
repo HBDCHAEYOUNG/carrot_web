@@ -38,8 +38,6 @@ export function EditProfile() {
 		console.log(values)
 	}
 
-	console.log(checkNicknameError)
-
 	const onClickNickname = async () => {
 		if (auth?.nickname === form.getValues('nickname')) return
 		try {
@@ -50,14 +48,19 @@ export function EditProfile() {
 		}
 	}
 
+	const onClickPassword = () => {
+		setIsOpen(!isOpen)
+	}
+
 	const onClickCancel = (e: MouseEvent<HTMLDivElement> | MouseEvent<HTMLButtonElement>) => {
 		e.stopPropagation()
 		setIsOpen(false)
 	}
-
 	const onClickComplete = () => {
-		const { nickname } = form.getValues()
-		updateAuth({ nickname })
+		const nickname = form.getValues('nickname')
+		const password = form.watch('password')
+		console.log(nickname, password)
+		updateAuth(nickname, password)
 		setIsOpen(false)
 	}
 
@@ -85,8 +88,7 @@ export function EditProfile() {
 							<p>중복된 닉네임입니다.</p>
 						) : (
 							<div>
-								<h1 className="text-lg font-semibold">정말 닉네임을 변경할까요?</h1>
-								<p className="text-gray-02">닉네임은 30일마다 1번 수정할 수 있어요</p>
+								<h1 className="text-lg font-semibold">정말 변경할까요?</h1>
 							</div>
 						)}
 					</Modal>
@@ -113,6 +115,9 @@ export function EditProfile() {
 						</ButtonBasic>
 
 						<Password label="비밀번호 수정" className="rounded-sm border-t" />
+						<ButtonBasic type="button" onClick={onClickPassword} className="mb-4">
+							비밀번호 수정하기
+						</ButtonBasic>
 					</Form>
 				</div>
 			</DrawerContent>
