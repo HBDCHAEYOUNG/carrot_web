@@ -1,7 +1,18 @@
-import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useAuthStore } from '@store/authStore'
+import { FieldValues, useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
+
+import { AreaDrawer } from '@entities/join'
+
+import { useReadAreas } from '@widgets/header'
 
 import Form from '@ui/form/form'
-import { ButtonBasic, Checkbox, InputSelect, InputText } from '@ui/index'
+import { ButtonBasic, InputSelect, InputText } from '@ui/index'
+
+import { JoinFormData, joinSchema } from '../model/join.schema'
+import { useCheckEmail, useCheckNickname, useJoin } from '../model/use-join'
+import { useLogin } from '../model/use-login'
 
 const domainList = [
 	{ value: 'naver.com', label: 'naver.com' },
@@ -13,25 +24,64 @@ const domainList = [
 ]
 
 const agreement = [
-	{ label: '14세 이상', value: 'adaultAgree' },
+	{ label: '14세 이상', value: 'adultAgree' },
 	{ label: '이용약관 동의', value: 'termsAgree' },
 	{ label: '마케팅 정보 수신', value: 'snsAgree' },
 ]
 
 export function Join() {
-	// const { mutate: join } = useJoin()
+	const router = useNavigate()
 
-	const form = useForm({
+	const { mutateAsync: join } = useJoin()
+	const { mutateAsync: checkEmail, error: checkEmailError } = useCheckEmail()
+	const { mutateAsync: checkNickname, error: checkNicknameError } = useCheckNickname()
+	const { mutateAsync: login } = useLogin()
+	const { data: areas } = useReadAreas()
+
+	const { setLogin } = useAuthStore()
+
+	const form = useForm<JoinFormData>({
 		mode: 'all',
+		resolver: zodResolver(joinSchema),
 	})
 
-	const onSubmit = () => {
-		const { email, address, aggrement, areaIds, nickname, password } = form.getValues()
-		const values = { email: `${email}@${address}`, aggrement, areaIds, nickname, password }
-		console.log(111, values)
-		// join(values)
+	const onClickCheckEmail = async () => {
+		try {
+			const { id, address } = form.getValues()
+			const email = `${id}@${address}`
+			await checkEmail({ email })
+			alert('사용 가능한 이메일입니다.')
+		} catch (error: any) {
+			console.log(error.response.data.message)
+		}
 	}
-	// 왓더헬~~
+
+	const onClickCheckNickname = async () => {
+		try {
+			const nickname = form.getValues('nickname')
+			await checkNickname({ nickname })
+			alert('사용 가능한 닉네임입니다.')
+		} catch (error: any) {
+			console.log(error.response.data.message)
+		}
+	}
+	const onSubmit = async (formValues: FieldValues) => {
+		try {
+			const { id, address, password, nickname, areaIds, agreement } = formValues
+			const email = `${id}@${address}`
+			const values = { email, password, nickname, areaIds, agreement }
+			await join(values)
+			alert('회원가입이 완료되었습니다. 바로 로그인 됩니다.')
+			const token = await login({ email, password })
+			setLogin(token)
+			router('/')
+		} catch (error: any) {
+			console.log(111, error.response.data.message)
+		}
+	}
+
+	const areaIds = form.watch('areaIds')
+	const myArea = areaIds?.map((id: number) => areas?.find((area: { id: number }) => area.id === id)?.name)
 
 	return (
 		<section className="flex h-screen flex-col px-4 pt-16">
@@ -39,44 +89,66 @@ export function Join() {
 			{/* todo: <SocialloginForm />
 			<hr className="my-4" /> */}
 
-			<Form form={form} onSubmit={onSubmit} className="flex flex-col gap-4 [&_label]:font-semibold">
-				<div className="flex items-end justify-center">
-					<Form.Item name="email" label="이메일" className="flex-1">
+			<Form form={form} onSubmit={onSubmit} className="flex flex-col">
+				<div className="flex gap-4">
+					<Form.Item name="id" label="이메일" className="flex-1">
 						<InputText placeholder="이메일" />
 					</Form.Item>
-					<p className="mx-2 flex h-12 items-center">@</p>
-					<Form.Item name="address" className="flex-1">
+					<p className="mt-11">@</p>
+					<Form.Item name="address" label="." labelClassName="text-white" className="flex-1">
 						<InputSelect options={domainList} />
 					</Form.Item>
 				</div>
+				{checkEmailError && <p className="text-red-500">{checkEmailError.response.data.message}</p>}
+				<ButtonBasic onClick={onClickCheckEmail} className="mb-4">
+					이메일 중복 확인
+				</ButtonBasic>
 
-				<Form.Item name="password" label="비밀번호" description="영문, 숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.">
-					<InputText placeholder="비밀번호" />
+				<Form.Item name="password" label="비밀번호">
+					<InputText type="password" placeholder="비밀번호" />
 				</Form.Item>
 
-				<Form.Item name="passwordConfirm" label="비밀번호 확인">
-					<InputText placeholder="비밀번호 확인" />
+				<Form.Item name="passwordConfirm" className="pb-4 pt-2">
+					<InputText type="password" placeholder="비밀번호 확인" />
 				</Form.Item>
 
-				<Form.Item name="nickname" label="닉네임" description="다른 유저와 겹치지 않도록 입력해주세요. (2~20자)">
-					<InputText placeholder="비밀번호" />
+				<Form.Item name="nickname" label="닉네임">
+					<InputText placeholder="닉네임을 입력해주세요." />
 				</Form.Item>
+				{checkNicknameError && <p className="text-red-500">{checkNicknameError.response.data.message}</p>}
+				<ButtonBasic onClick={onClickCheckNickname} className="mb-4">
+					닉네임 중복 확인
+				</ButtonBasic>
 
-				<div className="flex flex-col gap-2">
-					<label>약관동의</label>
-					<div className="flex flex-col gap-2 rounded-md border p-4">
-						{agreement.map((items) => (
-							<Form.Item name={`agerement.${items.value}`}>
-								<fieldset className="flex items-center gap-2">
-									<Checkbox id={items.value} />
-									<label htmlFor={items.value}>{items.label}</label>
-								</fieldset>
-							</Form.Item>
+				<Form.Item name="areaIds" label="내 도시">
+					<div className="w-full gap-1 pb-2 flex-center">
+						{myArea?.map((a, index) => (
+							<InputText
+								type="text"
+								value={a}
+								readOnly
+								className="w-full rounded-md border border-brand-01 p-2 text-center text-brand-01"
+								key={index}
+							/>
 						))}
 					</div>
+				</Form.Item>
+
+				<AreaDrawer myAreaLength={myArea?.length} />
+
+				<label className="pb-2 pt-4 text-sm font-semibold">내 도시</label>
+				<div className="flex flex-col gap-2 rounded-md border p-4">
+					{agreement.map((items) => (
+						<Form.Item name={`agreement.${items.value}`}>
+							<fieldset className="flex items-center gap-2">
+								<InputText type="checkbox" name={`agreement.${items.value}`} id={items.value} className="size-4" />
+								<label htmlFor={items.value}>{items.label}</label>
+							</fieldset>
+						</Form.Item>
+					))}
 				</div>
 
-				<ButtonBasic>회원가입하기</ButtonBasic>
+				<ButtonBasic type="submit">회원가입하기</ButtonBasic>
 			</Form>
 		</section>
 	)

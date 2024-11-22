@@ -1,5 +1,6 @@
 export * from './api/join'
 export * from './api/login'
+export * from './model/join.schema'
 export * from './model/use-join'
 export * from './model/use-login'
 export * from './ui/auth'

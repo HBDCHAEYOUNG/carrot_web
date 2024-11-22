@@ -1,4 +1,5 @@
-import { AuthListDataDto, AuthPartialUpdatePayloadDto, AuthUpdatePayloadDto } from '@type/data-contracts'
+import { Auth } from '@type/auth-route'
+import { AuthListDataDto, AuthUpdatePayloadDto } from '@type/data-contracts'
 
 import axiosInstance from '@lib/instance'
 
@@ -11,8 +12,8 @@ export const readAuth = (): Promise<AuthListDataDto> => {
 }
 
 // Update a profile
-export const updateAuthNickname = (nickname: string): Promise<AuthPartialUpdatePayloadDto> => {
-	return axiosInstance.patch(PATH, { nickname }).then((response) => response.data)
+export const updateAuth = (params: Auth.AuthPartialUpdate.RequestBody) => {
+	return axiosInstance.patch(PATH, { params }).then((response) => response.data)
 }
 
 // Update an area

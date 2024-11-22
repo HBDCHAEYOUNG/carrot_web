@@ -28,6 +28,7 @@ export function SearchBox({ keyword }: SearchBoxProps) {
 	const router = useNavigate()
 
 	const onSubmitSearch = () => {
+		if (form.watch('keyword').trim() === '') return
 		const value = form.watch('keyword')
 		router(`/search?keyword=${value}`)
 

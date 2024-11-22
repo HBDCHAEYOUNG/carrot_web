@@ -17,13 +17,13 @@ const filterList = [
 		title: '카테고리',
 		drawerTitle: '카테고리',
 	},
-	{ title: '최신순', drawerTitle: '범위' },
 ]
 
 export function Search() {
-	const [searchParams] = useSearchParams()
-	const query = searchParams.get('keyword') || ''
 	const { toggleHeader } = useHeaderStore()
+	const [searchParams] = useSearchParams()
+
+	const query = searchParams.get('keyword') || ''
 
 	useEffect(() => {
 		toggleHeader(false)
