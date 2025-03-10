@@ -32,7 +32,7 @@ export function Login() {
 			console.log(error.response.data.message)
 		}
 	}
-	console.log(error)
+
 	return (
 		<section className="h-screen w-screen flex-col justify-center px-4 flex-center">
 			<Logo className="mb-10" />

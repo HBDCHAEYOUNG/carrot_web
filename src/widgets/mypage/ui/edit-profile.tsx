@@ -34,10 +34,6 @@ export function EditProfile() {
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values)
-	}
-
 	const onClickNickname = async () => {
 		if (auth?.nickname === form.getValues('nickname')) return
 		try {
@@ -79,7 +75,6 @@ export function EditProfile() {
 						<MdClose className="fixed left-6 top-11 size-6" />
 					</DrawerClose>
 					<h1 className="text-lg font-semibold">프로필 수정</h1>
-					<p className="fixed right-6 top-11 cursor-pointer text-gray-02">완료</p>
 				</DrawerHeader>
 
 				{isOpen && (
@@ -106,7 +101,7 @@ export function EditProfile() {
 						</div>
 					</picture>
 
-					<Form form={form} onSubmit={onSubmit} className="flex w-full flex-col">
+					<Form form={form} onSubmit={() => {}} className="flex w-full flex-col">
 						<Form.Item name="nickname" label="닉네임">
 							<InputText placeholder="닉네임을 입력해주세요" />
 						</Form.Item>
