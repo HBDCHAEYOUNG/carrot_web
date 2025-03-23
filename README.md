@@ -1,5 +1,8 @@
 <div align="center"><img src="https://github.com/user-attachments/assets/54fe603b-0d34-4d2a-97ec-43c195a07360" alt="Material Bread logo"></div>
 
+# 🌐 Demo Server
+https://carrot-web-storage-pu2t.vercel.app/?area=1
+
 # 🎬 Carrot Clone Project
 
 당근마켓의 주요 기능들을 구현한 클론 프로젝트입니다. 모바일 환경에 최적화된 UI/UX를 제공합니다. 🚀
