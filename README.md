@@ -31,7 +31,7 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 
 1. **로그인 & 회원가입** 🔐
 
-<img  align="right" src="https://github.com/user-attachments/assets/8a3b4068-baad-4ff2-b41f-be5ba187e73b" width="20%">
+<img  align="right" src="https://github.com/user-attachments/assets/8a3b4068-baad-4ff2-b41f-be5ba187e73b" width="20%" margin-right="20%">
 
 - JWT 인증 방식 적용
 - 카카오 소셜 로그인 지원
