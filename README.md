@@ -31,7 +31,7 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 
 1. **로그인 & 회원가입** 🔐
 
-<img  align="right" src="https://github.com/user-attachments/assets/8a3b4068-baad-4ff2-b41f-be5ba187e73b" width="20%">
+<img  align="right" src="https://github.com/user-attachments/assets/8a3b4068-baad-4ff2-b41f-be5ba187e73b" width="20%" margin-right="10%">
 
 - JWT 인증 방식 적용
 - 카카오 소셜 로그인 지원
@@ -43,10 +43,12 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 <br />
 <br />
 <br />
+<br />
+<br />
 
 2. **지역 기반 서비스** 🌍
 
-<img  align="right" src="https://github.com/user-attachments/assets/d2df06c8-e4e9-4a4f-9af1-9e841f3d524f" width="20%">
+<img  align="right" src="https://github.com/user-attachments/assets/d2df06c8-e4e9-4a4f-9af1-9e841f3d524f" width="20%" >
 
 - 사용자별 최대 2개 동네 설정 가능
 - 지역 기반 상품 필터링
@@ -60,6 +62,9 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 <br />
 
 3. **관심/찜하기 기능** 🧡
+
+<img  align="right" src="https://github.com/user-attachments/assets/eb7aff80-91df-469b-ad18-bfda4b8192d1" width="20%">
+
    - 관심 있는 상품 찜하기
    - 찜한 상품 모아보기
    - 관심 상품 가격 변동 알림
@@ -68,19 +73,15 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 <br />
 <br />
 <br />
-
-4. **채팅 기능** 💬
-   - 실시간 채팅 지원
-   - 상품 거래 협의
-   - 이미지 전송 기능
-   - 채팅방 목록 관리
-
-<br />
 <br />
 <br />
 <br />
 
-5. **검색 기능** 🔍
+
+4. **검색 기능** 🔍
+
+<img  align="right" src="https://github.com/user-attachments/assets/f4db2199-f908-4708-b2af-738d0f99521e" width="20%">
+
    - 키워드 기반 상품 검색
    - 카테고리별 필터링
    - 가격대 설정
