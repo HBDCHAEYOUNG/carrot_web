@@ -45,6 +45,15 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 <br />
 <br />
 <br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 2. **지역 기반 서비스** 🌍
 
@@ -53,6 +62,13 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 - 사용자별 최대 2개 동네 설정 가능
 - 지역 기반 상품 필터링
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <br />
 <br />
 <br />
@@ -76,6 +92,13 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 <br />
 <br />
 <br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 
 
 4. **검색 기능** 🔍
@@ -88,6 +111,13 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
    - 최신순/인기순 정렬
    - 검색 기록 관리
 
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <br />
 <br />
 <br />
