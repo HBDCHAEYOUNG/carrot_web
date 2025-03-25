@@ -31,7 +31,7 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 
 1. **로그인 & 회원가입** 🔐
 
-<img  align="right" src="https://github.com/user-attachments/assets/8a3b4068-baad-4ff2-b41f-be5ba187e73b" width="40%">
+<img  align="right" src="https://github.com/user-attachments/assets/8a3b4068-baad-4ff2-b41f-be5ba187e73b" width="20%">
 
 - JWT 인증 방식 적용
 - 카카오 소셜 로그인 지원
@@ -40,14 +40,20 @@ https://carrot-web-storage-pu2t.vercel.app/?area=1
 <br />
 <br />
 <br />
+<br />
+<br />
+<br />
 
 2. **지역 기반 서비스** 🌍
 
-<img  align="right" src="https://user-images.githubusercontent.com/101618759/197943525-3fbbf517-4b72-47cb-8704-756bf63c9150.gif" width="45%">
+<img  align="right" src="https://github.com/user-attachments/assets/d2df06c8-e4e9-4a4f-9af1-9e841f3d524f" width="20%">
 
 - 사용자별 최대 2개 동네 설정 가능
 - 지역 기반 상품 필터링
 
+<br />
+<br />
+<br />
 <br />
 <br />
 <br />
