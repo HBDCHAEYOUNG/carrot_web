@@ -8,4 +8,5 @@ export const QUERY_KEY = {
 	JOIN: 'join',
 	AREA: 'area',
 	CATEGORY: 'category',
+	ADD_PRODUCT: 'add-product',
 }

@@ -1,7 +1,5 @@
 import { useReadAuth } from '@pages/mypage'
-import { useAuthStore } from '@store/authStore'
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md'
-import { Link } from 'react-router-dom'
 
 import { AreaDrawer } from '@entities/header'
 
@@ -11,7 +9,6 @@ import { Menubar, MenubarContent, MenubarMenu, MenubarTrigger } from '@ui/_shard
 
 export function AreaMenu() {
 	const { data: auth } = useReadAuth()
-	const { isLogin } = useAuthStore()
 	return (
 		<Menubar>
 			<MenubarMenu>
@@ -26,7 +23,7 @@ export function AreaMenu() {
 						</p>
 					))}
 
-					{isLogin ? <AreaDrawer /> : <Link to="/auth">Login</Link>}
+					<AreaDrawer />
 				</MenubarContent>
 			</MenubarMenu>
 		</Menubar>

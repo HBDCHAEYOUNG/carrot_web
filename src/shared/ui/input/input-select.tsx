@@ -11,10 +11,10 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 export const InputSelect = React.forwardRef<HTMLInputElement, InputProps>(({ options, value, onChange }, ref) => {
 	return (
 		<Select onValueChange={onChange as any}>
-			<SelectTrigger className="h-12 w-full overflow-hidden rounded-md pl-3 text-left text-gray-400 outline-none focus:ring-0 focus:[--tw-ring-offset-width:0px]">
-				<InputText value={value} onChange={onChange} ref={ref} placeholder="선택해주세요" className="border-none px-0 text-black" />
+			<SelectTrigger className="h-12 w-full overflow-hidden rounded-sm border-gray-300 pl-3 text-left text-gray-400 outline-none focus:ring-0 focus:[--tw-ring-offset-width:0px]">
+				<InputText value={value} onChange={onChange} ref={ref} placeholder="선택해주세요" className="text-md border-none px-0 text-black" />
 			</SelectTrigger>
-			<SelectContent className="w-full rounded-md bg-gray-200 px-1 py-3" onChange={() => console.log(1)}>
+			<SelectContent className="w-full rounded-sm bg-gray-200 px-1 py-3" onChange={() => console.log(1)}>
 				{options.map((item) => (
 					<SelectItem
 						key={item.value}

@@ -18,6 +18,7 @@ export function Areamenu() {
 	const { data: user } = useReadAuth()
 	const { data: areasData } = useReadAreas()
 	const { mutate: updateAuthArea } = useUpdateAuthArea()
+
 	const form = useForm<AreaFormData>({
 		mode: 'all',
 		resolver: zodResolver(areaSchema),
@@ -121,7 +122,6 @@ export function Areamenu() {
 
 							<DrawerFooter className="mt-0 overflow-auto">
 								<Form form={form} onSubmit={onSubmit}>
-									{/* <Form.Item name="areaIds"> */}
 									<ul className="grid grid-cols-3 items-center justify-center gap-1">
 										{areasData?.map((item) => (
 											<li
@@ -137,7 +137,6 @@ export function Areamenu() {
 											</li>
 										))}
 									</ul>
-									{/* </Form.Item> */}
 
 									<div className="flex flex-col gap-2">
 										<strong className="text-sm">내 동네</strong>

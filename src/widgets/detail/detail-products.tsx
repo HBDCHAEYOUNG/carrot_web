@@ -14,15 +14,15 @@ interface DetailProductsProps {
 export function DetailProducts({ title, category, className }: DetailProductsProps) {
 	const router = useNavigate()
 
-	const { data } = useReadProducts()
+	const { data } = useReadProducts({ limit: 10, page: 1 })
 
-	const productsData = data?.products.filter((product) => product.areas[0].name === category)
+	const productsData = data?.products.filter((product: any) => product.areas[0].name === category)
 
 	return (
 		<div className={cn('border-t px-4 py-6', className)}>
 			<h2 className="mb-4 text-lg font-bold">{title}</h2>
 			<ul className="grid grid-cols-2 gap-4">
-				{productsData?.map(({ title, price, thumbnail }, index) => (
+				{productsData?.map(({ title, price, thumbnail }: any, index: number) => (
 					<li
 						className={`flex cursor-pointer flex-col`}
 						onClick={() => {

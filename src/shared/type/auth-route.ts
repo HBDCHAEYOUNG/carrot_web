@@ -1,6 +1,7 @@
 import {
 	AuthCreateDataDto,
 	AuthCreatePayloadDto,
+	AuthDeleteDataDto,
 	AuthListDataDto,
 	AuthPartialUpdateDataDto,
 	AuthPartialUpdatePayloadDto,
@@ -168,6 +169,31 @@ export namespace Auth {
 		export type RequestBody = AuthUpdatePayloadDto
 		export type RequestHeaders = {}
 		export type ResponseBody = AuthUpdateDataDto
+	}
+
+	/**
+ * @description 로그아웃 API입니다.
+ * @tags Auth
+ * @name AuthDelete
+ * @summary 로그아웃
+ * @request DELETE:/auth
+ * @secure
+ * @response `200` `AuthDeleteDataDto` 로그아웃 성공
+ * @response `401` `{
+  \**
+   * 오류 메시지
+   * @example "인증되지 않은 사용자입니다."
+   *\
+    message: string,
+
+}` 인증되지 않은 사용자
+*/
+	export namespace AuthDelete {
+		export type RequestParams = {}
+		export type RequestQuery = {}
+		export type RequestBody = never
+		export type RequestHeaders = {}
+		export type ResponseBody = AuthDeleteDataDto
 	}
 
 	/**

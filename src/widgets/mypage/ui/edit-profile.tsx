@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useCheckNickname } from '@pages/auth'
 import { useReadAuth, useUpdateAuth } from '@pages/mypage'
 import { MouseEvent, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -6,13 +7,16 @@ import { FaUserLarge } from 'react-icons/fa6'
 import { MdClose, MdPhotoCamera } from 'react-icons/md'
 import { z } from 'zod'
 
+import { Password } from '@features/mypage'
+
 import Form from '@ui/form/form'
 import { ButtonBasic, Drawer, DrawerClose, DrawerContent, DrawerHeader, DrawerTrigger, InputText } from '@ui/index'
 import { Modal } from '@ui/modal/modal'
 
 export function EditProfile() {
 	const { data: auth } = useReadAuth()
-	const { mutate: updateNickname } = useUpdateAuth()
+	const { mutateAsync: updateAuth } = useUpdateAuth()
+	const { mutateAsync: checkNickname, isError: checkNicknameError } = useCheckNickname()
 
 	const [isOpen, setIsOpen] = useState(false)
 
@@ -30,12 +34,17 @@ export function EditProfile() {
 		},
 	})
 
-	function onSubmit(values: z.infer<typeof formSchema>) {
-		console.log(values)
+	const onClickNickname = async () => {
+		if (auth?.nickname === form.getValues('nickname')) return
+		try {
+			setIsOpen(!isOpen)
+			await checkNickname({ nickname: form.getValues('nickname') })
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
-	const onClickEvent = () => {
-		if (auth?.nickname === form.getValues('nickname')) return
+	const onClickPassword = () => {
 		setIsOpen(!isOpen)
 	}
 
@@ -44,8 +53,10 @@ export function EditProfile() {
 		setIsOpen(false)
 	}
 	const onClickComplete = () => {
-		const { nickname } = form.getValues()
-		updateNickname(nickname)
+		const nickname = form.getValues('nickname')
+		const password = form.watch('password')
+		console.log(nickname, password)
+		updateAuth(nickname, password)
 		setIsOpen(false)
 	}
 
@@ -64,15 +75,17 @@ export function EditProfile() {
 						<MdClose className="fixed left-6 top-11 size-6" />
 					</DrawerClose>
 					<h1 className="text-lg font-semibold">프로필 수정</h1>
-					<p className="fixed right-6 top-11 cursor-pointer text-gray-02" onClick={onClickEvent}>
-						완료
-					</p>
 				</DrawerHeader>
 
 				{isOpen && (
 					<Modal onClickCancel={onClickCancel} onClickComplete={onClickComplete}>
-						<h1 className="text-lg font-semibold">정말 닉네임을 변경할까요?</h1>
-						<p className="text-gray-02">닉네임은 30일마다 1번 수정할 수 있어요</p>
+						{checkNicknameError ? (
+							<p>중복된 닉네임입니다.</p>
+						) : (
+							<div>
+								<h1 className="text-lg font-semibold">정말 변경할까요?</h1>
+							</div>
+						)}
 					</Modal>
 				)}
 
@@ -88,11 +101,18 @@ export function EditProfile() {
 						</div>
 					</picture>
 
-					<h2 className="self-start font-semibold">닉네임</h2>
-					<Form form={form} onSubmit={onSubmit} className="w-full">
-						<Form.Item name="nickname">
+					<Form form={form} onSubmit={() => {}} className="flex w-full flex-col">
+						<Form.Item name="nickname" label="닉네임">
 							<InputText placeholder="닉네임을 입력해주세요" />
 						</Form.Item>
+						<ButtonBasic onClick={onClickNickname} type="button" className="mb-4">
+							닉네임 수정하기
+						</ButtonBasic>
+
+						<Password label="비밀번호 수정" className="rounded-sm border-t" />
+						<ButtonBasic type="button" onClick={onClickPassword} className="mb-4">
+							비밀번호 수정하기
+						</ButtonBasic>
 					</Form>
 				</div>
 			</DrawerContent>
