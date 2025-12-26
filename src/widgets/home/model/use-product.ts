@@ -1,20 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Product } from '@type/product-route'
 import { QUERY_KEY } from 'src/shared/const'
 
 import { createProduct, deleteProduct, readProducts, readSales, updateProduct } from '../api/product'
 
-export const useReadProducts = () => {
+export const useReadProducts = (params: Product.ProductList.RequestQuery) => {
+	console.log(params)
 	return useQuery({
-		queryKey: [QUERY_KEY.PRODUCTS],
-		queryFn: readProducts,
-	})
-}
-
-export const useReadProduct = (id: number) => {
-	return useQuery({
-		queryKey: [QUERY_KEY.PRODUCTS],
-		queryFn: readProducts,
-		enabled: !!id,
+		queryKey: [QUERY_KEY.PRODUCTS, params],
+		queryFn: () => readProducts(params),
 	})
 }
 
@@ -54,7 +48,7 @@ export const useDeleteProduct = () => {
 export const useReadSales = (token: string) => {
 	return useQuery({
 		queryKey: [QUERY_KEY.SALES],
-		queryFn: () => readSales(token),
+		queryFn: () => readSales(),
 		enabled: !!token,
 	})
 }

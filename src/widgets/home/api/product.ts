@@ -1,12 +1,13 @@
 import { ProductListDataDto, SalesListDataDto } from '@type/data-contracts'
+import { Product } from '@type/product-route'
 
 import axiosInstance from '@lib/instance'
 
 const PATH = '/product'
 
-// Read products
-export const readProducts = (): Promise<ProductListDataDto> => {
-	return axiosInstance.get(PATH).then((response) => response.data)
+// Read productsList
+export const readProducts = (params: Product.ProductList.RequestQuery) => {
+	return axiosInstance.get(PATH, { params }).then((response) => response.data)
 }
 
 // Create a new Product

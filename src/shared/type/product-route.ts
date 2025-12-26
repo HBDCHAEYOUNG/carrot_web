@@ -4,6 +4,7 @@ import {
 	ProductDeleteDataDto,
 	ProductDetailDataDto,
 	ProductListDataDto,
+	ProductListParams1SortEnumDto,
 	ProductPartialUpdateDataDto,
 	ProductPartialUpdatePayloadDto,
 	SalesListDataDto,
@@ -33,6 +34,8 @@ export namespace Product {
 	export namespace ProductList {
 		export type RequestParams = {}
 		export type RequestQuery = {
+			/** 지역 아이디로 필터링 */
+			area?: string
 			/** 검색 키워드 */
 			keyword?: string
 			/**
@@ -42,12 +45,26 @@ export namespace Product {
 			 * @example 10
 			 */
 			limit: number
+			/** 최대 가격으로 필터링 (기본값: 100000000) */
+			maxPrice?: number
+			/**
+			 * 최소 가격으로 필터링 (기본값: 0)
+			 * @min 0
+			 */
+			minPrice?: number
 			/**
 			 * 페이지 번호 (기본값: 1)
 			 * @min 1
 			 * @example 1
 			 */
 			page: number
+			/**
+			 * 정렬 방식
+			 * - `latest`: 최신순 (기본값)
+			 * - `priceAsc`: 낮은가격순
+			 * - `priceDesc`: 높은가격순
+			 */
+			sort?: ProductListParams1SortEnumDto
 		}
 		export type RequestBody = never
 		export type RequestHeaders = {}

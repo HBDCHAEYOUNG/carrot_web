@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { QUERY_KEY } from 'src/shared/const'
 
-import { readAuth, updateAuthArea, updateAuthNickname } from '../api/auth'
+import { readAuth, updateAuth, updateAuthArea } from '../api/auth'
 
 export const useReadAuth = () => {
 	return useQuery({
@@ -14,9 +14,12 @@ export const useUpdateAuth = () => {
 	const queryClient = useQueryClient()
 
 	return useMutation({
-		mutationFn: (nickname: string) => updateAuthNickname(nickname),
+		mutationFn: updateAuth,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: [QUERY_KEY.AUTH] })
+		},
+		onError: (error) => {
+			console.log(error)
 		},
 	})
 }

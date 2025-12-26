@@ -55,6 +55,22 @@ export interface AuthCreatePayloadDto {
 	password: string
 }
 
+export interface AuthDeleteDataDto {
+	/**
+	 * 성공 메시지
+	 * @example "로그아웃 되었습니다."
+	 */
+	message: string
+}
+
+export type AuthDeleteErrorDto = {
+	/**
+	 * 오류 메시지
+	 * @example "인증되지 않은 사용자입니다."
+	 */
+	message: string
+}
+
 export interface AuthListDataDto {
 	/**
 	 * 저장 지역
@@ -563,7 +579,21 @@ export type ProductListErrorDto = {
 	message: string
 }
 
+/**
+ * 정렬 방식
+ * - `latest`: 최신순 (기본값)
+ * - `priceAsc`: 낮은가격순
+ * - `priceDesc`: 높은가격순
+ */
+export enum ProductListParams1SortEnumDto {
+	Latest = 'latest',
+	PriceAsc = 'priceAsc',
+	PriceDesc = 'priceDesc',
+}
+
 export interface ProductListParamsDto {
+	/** 지역 아이디로 필터링 */
+	area?: string
 	/** 검색 키워드 */
 	keyword?: string
 	/**
@@ -573,12 +603,26 @@ export interface ProductListParamsDto {
 	 * @example 10
 	 */
 	limit: number
+	/** 최대 가격으로 필터링 (기본값: 100000000) */
+	maxPrice?: number
+	/**
+	 * 최소 가격으로 필터링 (기본값: 0)
+	 * @min 0
+	 */
+	minPrice?: number
 	/**
 	 * 페이지 번호 (기본값: 1)
 	 * @min 1
 	 * @example 1
 	 */
 	page: number
+	/**
+	 * 정렬 방식
+	 * - `latest`: 최신순 (기본값)
+	 * - `priceAsc`: 낮은가격순
+	 * - `priceDesc`: 높은가격순
+	 */
+	sort?: SortEnumDto
 }
 
 export interface ProductPartialUpdateDataDto {
@@ -808,6 +852,18 @@ export interface SignupCreatePayloadDto {
 	 * @example 123123
 	 */
 	password: string
+}
+
+/**
+ * 정렬 방식
+ * - `latest`: 최신순 (기본값)
+ * - `priceAsc`: 낮은가격순
+ * - `priceDesc`: 높은가격순
+ */
+export enum SortEnumDto {
+	Latest = 'latest',
+	PriceAsc = 'priceAsc',
+	PriceDesc = 'priceDesc',
 }
 
 /**

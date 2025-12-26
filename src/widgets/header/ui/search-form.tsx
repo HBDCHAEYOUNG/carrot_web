@@ -12,8 +12,8 @@ import { SearchBox } from '@ui/index'
 const keyword = ['아이폰', '애플워치', '홍대 쇼파', '잠실 냉장고', '아이폰 케이스', '애플워치 케이스']
 
 export function SearchForm() {
-	const { searchHistory, setInit } = useSearchHistoryStore()
-
+	const { searchHistory, setInit, setSearchHistory } = useSearchHistoryStore()
+	console.log(searchHistory)
 	const router = useNavigate()
 
 	return (
@@ -34,26 +34,23 @@ export function SearchForm() {
 							key={idx}
 							onClick={() => {
 								router(`/search?keyword=${item}`)
+								setSearchHistory(item)
 							}}
-							className="flex-1 cursor-pointer rounded-2xl border border-gray-01 p-1 px-2"
+							className="flex-1 flex-grow-0 cursor-pointer rounded-2xl border border-gray-01 p-1 px-2"
 						>
 							{item}
 						</SwiperSlide>
 					))}
 				</Swiper>
 
-				<div className="flex items-center justify-between">
-					<h2 className="mb-2 mt-6 inline-block font-bold">최근 검색어</h2>
+				<div className="mb-2 mt-6 flex items-center justify-between">
+					<h2 className="inline-block font-bold">최근 검색어</h2>
 					<button className="text-gray-02" onClick={setInit}>
 						전체 삭제
 					</button>
 				</div>
 
-				<ul className="flex flex-col gap-2">
-					{searchHistory.map((item, idx) => (
-						<HistoryCard key={idx} item={item} />
-					))}
-				</ul>
+				<ul className="flex flex-col gap-2">{searchHistory?.map((item, idx) => <HistoryCard key={idx} item={item} />)}</ul>
 			</section>
 		</div>
 	)
